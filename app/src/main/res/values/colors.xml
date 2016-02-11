@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="main_blue">#039be5</color>
+    <color name="main_blue_dark">#ff017ce5</color>
+    <color name="main_pink">#ec407a</color>
+    <color name="main_pink_dark">#d13268</color>
+    <color name="fab_pressed">#3eb5ef</color>
+    <color name="fab_ripple">#98d4f1</color>
+    <color name="white">#ffffff</color>
+    <color name="card_shadow">#8c666666</color>
+    <color name="grey_text">#c8262626</color>
+
+    <color name="primary">#607D8B</color>
+    <color name="primary_dark">#455A64</color>
+    <color name="accent">#536DFE</color>
+
+
+    <color name="primary2">#F44336</color>
+    <color name="primary_dark2">#D32F2F</color>
+    <color name="accent2">#FFAB00</color>
+</resources>

@@ -1,0 +1,115 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_pink"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    tools:context="com.ns3.simplify.Add_class">
+
+    <LinearLayout
+        android:id="@+id/add_class_blank1"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/add_class_layout"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:background="@drawable/card">
+
+        <LinearLayout
+            android:id="@+id/add_class_layout_1"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.3"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_batch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Batch :"
+                android:textColor="@color/grey_text"
+                android:textSize="25sp"
+                android:gravity="center"/>
+            <EditText
+                android:id="@+id/edit_batch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/grey_text"
+                android:hint="Type..."/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/add_class_layout_2"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingRight="@dimen/activity_vertical_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_subject"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Subject :"
+                android:textColor="@color/grey_text"
+                android:textSize="25sp"
+                android:gravity="center"/>
+            <EditText
+                android:id="@+id/edit_subject"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/grey_text"
+                android:hint="Type..."/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/add_class_layout_3"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_import_excel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="Import Excel Sheet"
+                android:textColor="@color/grey_text"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:paddingTop="10dp"/>
+            <ImageView
+                android:id="@+id/button_import_excel"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:src="@drawable/import_excel_sheet"
+                android:clickable="true"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/add_class_blank2"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+    </LinearLayout>
+
+</LinearLayout>
