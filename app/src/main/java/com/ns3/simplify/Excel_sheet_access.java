@@ -1,9 +1,13 @@
 package com.ns3.simplify;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.ns3.simplify.realm.Register;
+import com.ns3.simplify.realm.Student;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -24,12 +28,26 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 
+import io.realm.Realm;
+import io.realm.RealmList;
+import io.realm.exceptions.RealmMigrationNeededException;
+
 public class Excel_sheet_access
 {
-    public static void readExcelFile(Context context, Uri uri)
+    public static void readExcelFile(Context context, Uri uri,String Batch)
     {
+        ProgressDialog progress = new ProgressDialog(context);
+        Realm realm;
+        RealmList<Student> Student_list= new RealmList<Student>();
+        Register register;
+        realm = Realm.getInstance(context);
         try
         {
+
+            progress.setTitle("Setting Up");
+            progress.setMessage("Please wait while we set up this class");
+            progress.setCancelable(false);
+            progress.show();
             // Creating Input Stream
             File file = new File(uri.getPath());
             FileInputStream myInput = new FileInputStream(file);
@@ -51,17 +69,54 @@ public class Excel_sheet_access
 
             while(rowIter.hasNext())
             {
+                int count=0;
+                realm.beginTransaction();
+
+                Student student =realm.createObject(Student.class);
+
                 HSSFRow myRow = (HSSFRow) rowIter.next();
                 Iterator cellIter = myRow.cellIterator();
                 while(cellIter.hasNext())
                 {
                     HSSFCell myCell = (HSSFCell) cellIter.next();
-                    Log.d("TAG", "Cell Value: " +  myCell.toString());
-                    Toast.makeText(context, "cell Value: " + myCell.toString(), Toast.LENGTH_SHORT).show();
+                    myCell.setCellType(Cell.CELL_TYPE_STRING);
+                    //Log.d("TAG", "Cell Value: " + myCell.toString());
+                    //Toast.makeText(context, "cell Value: " + myCell.toString(), Toast.LENGTH_SHORT).show();
+                    switch(count)
+                    {
+                        case 0:
+                            student.setRoll_number(myCell.toString());
+                            //Log.d("rgf",student.getRoll_number());
+                            break;
+                        case 1:
+                            student.setStudent_name(myCell.toString());
+                            break;
+                        case 2:
+                            student.setPhone_no(myCell.toString());
+                            break;
+                        case 3:
+                            student.setMac_ID1(myCell.toString());
+                            break;
+                        case 4:
+                            student.setMac_ID2(myCell.toString());
+                            break;
+                    }
+                    count++;
                 }
+                Student_list.add(student);  //Creating a list of Student in this batch
+                realm.commitTransaction();
             }
+            realm.beginTransaction();
+            register=realm.createObject(Register.class);
+            register.setBatch(Batch);
+            register.setStudents(Student_list);
+            realm.commitTransaction();
         }
         catch (Exception e){e.printStackTrace(); }
+        finally {
+            progress.dismiss();
+            realm.close();
+        }
         return;
     }
 

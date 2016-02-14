@@ -9,19 +9,27 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dd.realmbrowser.RealmBrowser;
+import com.dd.realmbrowser.RealmBrowserActivity;
+import com.dd.realmbrowser.RealmFilesActivity;
+import com.dd.realmbrowser.RealmModelsActivity;
 import com.nononsenseapps.filepicker.FilePickerActivity;
+import com.ns3.simplify.realm.Register;
+import com.ns3.simplify.realm.Student;
 
 import java.util.ArrayList;
 
@@ -32,8 +40,9 @@ public class Add_class extends AppCompatActivity
     DisplayMetrics metrics;
     int height;
     TextView textView;
-    EditText editText;
+    EditText batch_edit,subject_edit;
     ImageView imageView;
+    String batch,subject;
 
     Excel_sheet_access excel_sheet;
 
@@ -69,10 +78,23 @@ public class Add_class extends AppCompatActivity
 
         adjust_size();
 
+        Button b=(Button)findViewById(R.id.realm);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                RealmBrowser.getInstance().addRealmModel(Student.class, Register.class);
+                RealmFilesActivity.start(Add_class.this);
+
+            }
+        });
+
         imageView=(ImageView)findViewById(R.id.button_import_excel);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
+                Add_class.this.generateBatchName();
                 Intent intent = new Intent(Add_class.this, FilePickerActivity.class);
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 intent.putExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, false);
@@ -129,7 +151,7 @@ public class Add_class extends AppCompatActivity
             else
             {
                 Uri uri = data.getData();
-                Excel_sheet_access.readExcelFile(this,uri);
+                Excel_sheet_access.readExcelFile(this,uri,batch);
             }
         }
     }
@@ -141,16 +163,26 @@ public class Add_class extends AppCompatActivity
         in_middle.setPadding(0,0,card_padding,0);
 
         textView=(TextView)findViewById(R.id.text_batch);
-        editText=(EditText)findViewById(R.id.edit_batch);
+        batch_edit=(EditText)findViewById(R.id.edit_batch);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,(3*card_padding)/4);
-        editText.setTextSize(TypedValue.COMPLEX_UNIT_PX,(3*card_padding)/4);
+        batch_edit.setTextSize(TypedValue.COMPLEX_UNIT_PX,(3*card_padding)/4);
 
         textView=(TextView)findViewById(R.id.text_subject);
-        editText=(EditText)findViewById(R.id.edit_subject);
+        subject_edit=(EditText)findViewById(R.id.edit_subject);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,(3*card_padding)/4);
-        editText.setTextSize(TypedValue.COMPLEX_UNIT_PX,(3*card_padding)/4);
+        subject_edit.setTextSize(TypedValue.COMPLEX_UNIT_PX,(3*card_padding)/4);
 
         textView=(TextView)findViewById(R.id.text_import_excel);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,(3*card_padding)/5);
+    }
+
+    private void generateBatchName()    //Concatenate Batch Name and Subject to create final batch name
+    {
+        batch=batch_edit.getText().toString();
+        subject=subject_edit.getText().toString();
+
+        batch.concat(subject);
+        batch = batch.replaceAll("\\s+","");    //remove spaces from batch name
+        batch = batch.toLowerCase();
     }
 }
