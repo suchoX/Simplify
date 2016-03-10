@@ -33,6 +33,9 @@ import com.ns3.simplify.realm.Student;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+
 public class Add_class extends AppCompatActivity
 {
     LinearLayout top,in_top,in_bottom,in_middle;
@@ -42,9 +45,12 @@ public class Add_class extends AppCompatActivity
     TextView textView;
     EditText batch_edit,subject_edit;
     ImageView imageView;
-    String batch,subject;
+    String batch,subject,batchid;
 
     Excel_sheet_access excel_sheet;
+
+    Realm realm;
+    RealmResults<Register> checkBatch;
 
     private static final int FILE_SELECT_CODE = 0;
 
@@ -65,6 +71,8 @@ public class Add_class extends AppCompatActivity
                 window.setStatusBarColor(getResources().getColor(R.color.main_blue_dark));
             }
         }
+
+        realm = Realm.getInstance(this);
 
         metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -94,16 +102,27 @@ public class Add_class extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                Add_class.this.generateBatchName();
-                Intent intent = new Intent(Add_class.this, FilePickerActivity.class);
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                intent.putExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, false);
-                intent.putExtra(FilePickerActivity.EXTRA_ALLOW_CREATE_DIR, false);
-                intent.putExtra(FilePickerActivity.EXTRA_MODE, FilePickerActivity.MODE_FILE);
+                if (batch_edit.getText().toString().trim().equalsIgnoreCase(""))
+                    batch_edit.setError("This field can not be blank");
+                else if (subject_edit.getText().toString().trim().equalsIgnoreCase(""))
+                    subject_edit.setError("This field can not be blank");
+                else {
+                    Add_class.this.generateBatchID();
+                    checkBatch = realm.where(Register.class).equalTo("BatchID",batchid).findAll();  //Checking if The same BatchID already exists
+                    if(checkBatch.size() == 0) {
+                        Intent intent = new Intent(Add_class.this, FilePickerActivity.class);
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        intent.putExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, false);
+                        intent.putExtra(FilePickerActivity.EXTRA_ALLOW_CREATE_DIR, false);
+                        intent.putExtra(FilePickerActivity.EXTRA_MODE, FilePickerActivity.MODE_FILE);
 
-                //intent.putExtra(FilePickerActivity.EXTRA_START_PATH, Environment.getExternalStorageDirectory().getPath());
+                        //intent.putExtra(FilePickerActivity.EXTRA_START_PATH, Environment.getExternalStorageDirectory().getPath());
 
-                startActivityForResult(intent, FILE_SELECT_CODE);
+                        startActivityForResult(intent, FILE_SELECT_CODE);
+                    }
+                    else
+                        Toast.makeText(Add_class.this,"Same Batch Name and Subject already exists",Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -151,7 +170,11 @@ public class Add_class extends AppCompatActivity
             else
             {
                 Uri uri = data.getData();
-                Excel_sheet_access.readExcelFile(this,uri,batch);
+                Excel_sheet_access.readExcelFile(this,uri,batchid,batch,subject);
+                Toast.makeText(Add_class.this, "Batch Added!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Add_class.this,Attendance.class);
+                startActivity(intent);
+                finish();
             }
         }
     }
@@ -176,13 +199,15 @@ public class Add_class extends AppCompatActivity
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,(3*card_padding)/5);
     }
 
-    private void generateBatchName()    //Concatenate Batch Name and Subject to create final batch name
+    private void generateBatchID()    //Concatenate Batch Name and Subject to create final batch name
     {
         batch=batch_edit.getText().toString();
         subject=subject_edit.getText().toString();
 
-        batch.concat(subject);
-        batch = batch.replaceAll("\\s+","");    //remove spaces from batch name
-        batch = batch.toLowerCase();
+        batchid = batch;
+        batchid = batchid.concat(subject);
+        batchid = batchid.replaceAll("\\s+","");    //remove spaces from batch name
+        batchid = batchid.toLowerCase();
+        Toast.makeText(this,batchid,Toast.LENGTH_SHORT).show();
     }
 }

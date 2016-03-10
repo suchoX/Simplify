@@ -30,17 +30,20 @@ import java.util.Iterator;
 
 import io.realm.Realm;
 import io.realm.RealmList;
+import io.realm.RealmResults;
 import io.realm.exceptions.RealmMigrationNeededException;
 
 public class Excel_sheet_access
 {
-    public static void readExcelFile(Context context, Uri uri,String Batch)
+    public static void readExcelFile(Context context, Uri uri,String BatchID,String Batch, String Subject)
     {
         ProgressDialog progress = new ProgressDialog(context);
         Realm realm;
         RealmList<Student> Student_list= new RealmList<Student>();
         Register register;
         realm = Realm.getInstance(context);
+
+        RealmResults<Student> temp;
         try
         {
 
@@ -70,45 +73,47 @@ public class Excel_sheet_access
             while(rowIter.hasNext())
             {
                 int count=0;
-                realm.beginTransaction();
-
-                Student student =realm.createObject(Student.class);
 
                 HSSFRow myRow = (HSSFRow) rowIter.next();
+
+                Iterator tempIt = myRow.cellIterator();
+                HSSFCell tempCell = (HSSFCell)tempIt.next();
+                tempCell.setCellType(Cell.CELL_TYPE_STRING);
+                temp = realm.where(Student.class).equalTo("Roll_number",tempCell.toString()).findAll();
+
                 Iterator cellIter = myRow.cellIterator();
-                while(cellIter.hasNext())
+                if(temp.size() == 0)
                 {
+                    realm.beginTransaction();
+                    Student student = realm.createObject(Student.class);
+
                     HSSFCell myCell = (HSSFCell) cellIter.next();
                     myCell.setCellType(Cell.CELL_TYPE_STRING);
-                    //Log.d("TAG", "Cell Value: " + myCell.toString());
-                    //Toast.makeText(context, "cell Value: " + myCell.toString(), Toast.LENGTH_SHORT).show();
-                    switch(count)
-                    {
-                        case 0:
-                            student.setRoll_number(myCell.toString());
-                            //Log.d("rgf",student.getRoll_number());
-                            break;
-                        case 1:
-                            student.setStudent_name(myCell.toString());
-                            break;
-                        case 2:
-                            student.setPhone_no(myCell.toString());
-                            break;
-                        case 3:
-                            student.setMac_ID1(myCell.toString());
-                            break;
-                        case 4:
-                            student.setMac_ID2(myCell.toString());
-                            break;
-                    }
-                    count++;
-                }
-                Student_list.add(student);  //Creating a list of Student in this batch
-                realm.commitTransaction();
+                    student.setRoll_number(myCell.toString());
+
+                    myCell = (HSSFCell)cellIter.next();
+                    myCell.setCellType(Cell.CELL_TYPE_STRING);
+                    student.setStudent_name(myCell.toString());
+
+                    myCell = (HSSFCell)cellIter.next();
+                    myCell.setCellType(Cell.CELL_TYPE_STRING);
+                    student.setPhone_no(myCell.toString());
+
+                    myCell = (HSSFCell)cellIter.next();
+                    myCell.setCellType(Cell.CELL_TYPE_STRING);
+                    student.setMac_ID2(myCell.toString());
+
+                    Student_list.add(student);
+                    realm.commitTransaction();
+
+                } else
+                    Student_list.add(realm.where(Student.class).equalTo("Roll_number", tempCell.toString()).findFirst()); //If Student Already present in database, fetching it
             }
             realm.beginTransaction();
             register=realm.createObject(Register.class);
+            register.setBatchID(BatchID);
             register.setBatch(Batch);
+            register.setSubject(Subject);
             register.setStudents(Student_list);
             realm.commitTransaction();
         }

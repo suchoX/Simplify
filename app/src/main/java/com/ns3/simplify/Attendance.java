@@ -5,6 +5,7 @@ import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -12,6 +13,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
+import com.ns3.simplify.realm.Register;
+
+import io.realm.Realm;
+import io.realm.RealmList;
+import io.realm.RealmResults;
 
 
 public class Attendance extends AppCompatActivity
@@ -20,6 +26,9 @@ public class Attendance extends AppCompatActivity
     FloatingActionButton fab;
     Intent intent;
 
+    Realm realm;
+    RealmResults<Register> allBatch;
+    int numBatch;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -42,17 +51,16 @@ public class Attendance extends AppCompatActivity
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.attachToListView(listView);
 
-        ObjectItem[] ObjectItemData = new ObjectItem[6];
-        ObjectItemData[0] = new ObjectItem("CSE-2017:A", "CS502");
-        ObjectItemData[1] = new ObjectItem("CSE-2018:B", "CS301");
-        ObjectItemData[2] = new ObjectItem("CSE-2016:B", "CS703");
-        ObjectItemData[3] = new ObjectItem("CSE-2016:B", "CS793");
-        ObjectItemData[4] = new ObjectItem("CSE-2017:A", "CS592");
-        ObjectItemData[5] = new ObjectItem("CSE-2018:A", "CS392");
+        realm = Realm.getInstance(this);
+        allBatch = realm.where(Register.class).findAll();
+        numBatch = allBatch.size();
+        ObjectItem[] ObjectItemData = new ObjectItem[numBatch];
+        int i;
+        for(i=0 ; i<numBatch ; i++)
+            ObjectItemData[i] = new ObjectItem(allBatch.get(i).getBatch(),allBatch.get(i).getSubject());
 
         ListViewAdapter listAdapter = new ListViewAdapter(this,R.layout.list_item,ObjectItemData);
         listView.setAdapter(listAdapter);
-        listView.setOnItemClickListener(new OnItemClickListenerListViewItem(this));
 
         fab.setOnClickListener(new View.OnClickListener()
         {
@@ -61,15 +69,15 @@ public class Attendance extends AppCompatActivity
             {
                 intent = new Intent(Attendance.this, Add_class.class);
                 Attendance.this.startActivity(intent);
+                finish();
             }
         });
-
-
     }
 
-    public void selected_class(String batch, String subject)
+    public void selected_class(String BatchID)
     {
         intent = new Intent(Attendance.this, Bluetooth_scan.class);
+        intent.putExtra("BatchID", BatchID);
         Attendance.this.startActivity(intent);
     }
 }

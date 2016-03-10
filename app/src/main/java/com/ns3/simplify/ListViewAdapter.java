@@ -1,6 +1,7 @@
 package com.ns3.simplify;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -11,11 +12,12 @@ import android.widget.TextView;
 import android.app.Activity;
 import android.widget.ArrayAdapter;
 
-public class ListViewAdapter extends ArrayAdapter<ObjectItem> {
+public class ListViewAdapter extends ArrayAdapter<ObjectItem>{
 
     Context mContext;
     int layoutResourceId;
     ObjectItem data[] = null;
+    String BatchID;
 
     public ListViewAdapter(Context mContext, int layoutResourceId, ObjectItem[] data) {
 
@@ -43,9 +45,36 @@ public class ListViewAdapter extends ArrayAdapter<ObjectItem> {
         textViewItem.setText(objectItem.batch + "  " + objectItem.subject);
 
         convertView.setBackgroundResource(R.drawable.card);
+        BatchID = generateBatchID(objectItem.batch, objectItem.subject);
+        convertView.setOnClickListener(new OnItemClickListener(BatchID));
 
         return convertView;
 
+    }
+
+    private String generateBatchID(String batch,String subject)    //Concatenate Batch Name and Subject to create final batch name
+    {
+
+        batch.concat(subject);
+        batch = batch.replaceAll("\\s+", "");    //remove spaces from batch name
+        batch = batch.toLowerCase();
+        return batch;
+    }
+    private class OnItemClickListener  implements View.OnClickListener {
+        private String BatchID;
+
+        OnItemClickListener(String BatchID)
+        {
+            this.BatchID = BatchID;
+        }
+
+        @Override
+        public void onClick(View arg0)
+        {
+            /****  Call  onItemClick Method inside CustomListViewAndroidExample Class ( See Below )****/
+
+            ((Attendance)mContext).selected_class(BatchID);
+        }
     }
 
 }

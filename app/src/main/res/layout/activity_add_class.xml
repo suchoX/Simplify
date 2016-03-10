@@ -54,7 +54,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/grey_text"
-                android:hint="Type..."/>
+                android:hint="Type..."
+                android:singleLine="true"
+                android:nextFocusDown="@+id/edit_subject"/>
         </LinearLayout>
 
         <LinearLayout
@@ -80,7 +82,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/grey_text"
-                android:hint="Type..."/>
+                android:hint="Type..."
+                android:singleLine="true"
+                android:nextFocusDown="@+id/button_import_excel"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/add_class_layout_3"

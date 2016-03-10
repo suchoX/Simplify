@@ -10,16 +10,25 @@ import io.realm.annotations.PrimaryKey;
 public class Register extends RealmObject
 {
     @PrimaryKey
+    private String BatchID;
+
     private String Batch;
+    private String Subject;
     private RealmList<Student> Students;
-    private RealmList<DateRegister> Record;
+    //private RealmList<DateRegister> Record;
+
+    public String getBatchID() {return BatchID;}
+    public void setBatchID(String Batch) {this.BatchID = BatchID;}
 
     public String getBatch() {return Batch;}
     public void setBatch(String Batch) {this.Batch = Batch;}
 
+    public String getSubject() {return Subject;}
+    public void setSubject(String Subject) {this.Subject = Subject;}
+
     public RealmList<Student> getStudents() {return Students;}
     public void setStudents(RealmList<Student> Students) {this.Students = Students;}
 
-    public RealmList<DateRegister> getRecord() {return Record;}
-    public void setRecord(RealmList<DateRegister> Record) {this.Record = Record;}
+    //public RealmList<DateRegister> getRecord() {return Record;}
+    //public void setRecord(RealmList<DateRegister> Record) {this.Record = Record;}
 }
