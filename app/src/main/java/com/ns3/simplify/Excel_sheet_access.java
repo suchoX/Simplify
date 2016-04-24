@@ -46,7 +46,6 @@ public class Excel_sheet_access
         RealmResults<Student> temp;
         try
         {
-
             progress.setTitle("Setting Up");
             progress.setMessage("Please wait while we set up this class");
             progress.setCancelable(false);
@@ -79,6 +78,7 @@ public class Excel_sheet_access
                 Iterator tempIt = myRow.cellIterator();
                 HSSFCell tempCell = (HSSFCell)tempIt.next();
                 tempCell.setCellType(Cell.CELL_TYPE_STRING);
+
                 temp = realm.where(Student.class).equalTo("Roll_number",tempCell.toString()).findAll();
 
                 Iterator cellIter = myRow.cellIterator();

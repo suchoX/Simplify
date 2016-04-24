@@ -29,7 +29,6 @@ public class Homescreen extends AppCompatActivity
         super.onCreate(savedInstanceState);
         View homescreen_canvas =new Homescreen_canvas(this);
         setContentView(homescreen_canvas);
-        getSupportActionBar().hide();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
             Window window = getWindow();

@@ -109,12 +109,12 @@ public class Bluetooth_scan extends AppCompatActivity {
                 }
                 else if(BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals((action)))
                 {
-                    scan_data.putStringArray("MAC",macid);
+                    /*scan_data.putStringArray("MAC",macid);
                     scan_data.putStringArray("Name",name);
                     scan_data.putInt("Number", count);
                     intent = new Intent(Bluetooth_scan.this, Temp.class);
                     intent.putExtras(scan_data);
-                    Bluetooth_scan.this.startActivity(intent);
+                    Bluetooth_scan.this.startActivity(intent);*/
 
                 }
             }

@@ -44,7 +44,6 @@ public class ListViewAdapter extends ArrayAdapter<ObjectItem>{
         textViewItem.setLayoutParams(params);
         textViewItem.setText(objectItem.batch + "  " + objectItem.subject);
 
-        convertView.setBackgroundResource(R.drawable.card);
         BatchID = generateBatchID(objectItem.batch, objectItem.subject);
         convertView.setOnClickListener(new OnItemClickListener(BatchID));
 

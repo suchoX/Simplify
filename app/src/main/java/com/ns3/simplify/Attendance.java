@@ -1,10 +1,12 @@
 package com.ns3.simplify;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -29,22 +31,16 @@ public class Attendance extends AppCompatActivity
     Realm realm;
     RealmResults<Register> allBatch;
     int numBatch;
+
+    Toolbar mToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-        {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            if(Build.VERSION.SDK_INT >=23)
-                window.setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.main_blue_dark));
-            else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.setStatusBarColor(getResources().getColor(R.color.main_blue_dark));
-            }
-        }
+
+        initToolbar();
 
         listView = (ListView) findViewById(android.R.id.list);
         listView.addHeaderView(new View(this), null, false);
@@ -69,7 +65,20 @@ public class Attendance extends AppCompatActivity
             {
                 intent = new Intent(Attendance.this, Add_class.class);
                 Attendance.this.startActivity(intent);
-                finish();
+            }
+        });
+    }
+
+    private void initToolbar() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Attendance");
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }
@@ -79,5 +88,12 @@ public class Attendance extends AppCompatActivity
         intent = new Intent(Attendance.this, Bluetooth_scan.class);
         intent.putExtra("BatchID", BatchID);
         Attendance.this.startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_CANCELED, returnIntent);
+        finish();
     }
 }

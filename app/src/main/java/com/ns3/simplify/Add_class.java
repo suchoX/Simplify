@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
@@ -38,11 +39,10 @@ import io.realm.RealmResults;
 
 public class Add_class extends AppCompatActivity
 {
-    LinearLayout top,in_top,in_bottom,in_middle;
+
     int card_padding;
     DisplayMetrics metrics;
     int height;
-    TextView textView;
     EditText batch_edit,subject_edit;
     ImageView imageView;
     String batch,subject,batchid;
@@ -54,23 +54,15 @@ public class Add_class extends AppCompatActivity
 
     private static final int FILE_SELECT_CODE = 0;
 
+    Toolbar mToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_class);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-        {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            if(Build.VERSION.SDK_INT >=23)
-                window.setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.main_blue_dark));
-            else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.setStatusBarColor(getResources().getColor(R.color.main_blue_dark));
-            }
-        }
+        initToolbar();
 
         realm = Realm.getInstance(this);
 
@@ -79,13 +71,9 @@ public class Add_class extends AppCompatActivity
 
         height= metrics.heightPixels;
         card_padding=height/20;
-        top=(LinearLayout)findViewById(R.id.add_class_layout);
-        in_top=(LinearLayout)findViewById(R.id.add_class_layout_1);
-        in_bottom=(LinearLayout)findViewById(R.id.add_class_layout_3);
-        in_middle=(LinearLayout)findViewById(R.id.add_class_layout_2);
 
-        adjust_size();
-
+        batch_edit = (EditText)findViewById(R.id.edit_batch);
+        subject_edit = (EditText)findViewById(R.id.edit_subject);
         Button b=(Button)findViewById(R.id.realm);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,6 +112,20 @@ public class Add_class extends AppCompatActivity
                         Toast.makeText(Add_class.this,"Same Batch Name and Subject already exists",Toast.LENGTH_SHORT).show();
                 }
 
+            }
+        });
+    }
+
+    private void initToolbar() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Add Class");
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }
@@ -179,26 +181,6 @@ public class Add_class extends AppCompatActivity
         }
     }
 
-    private void adjust_size()
-    {
-        in_top.setPadding(0,card_padding,card_padding,0);
-        in_bottom.setPadding(0,0,card_padding,card_padding);
-        in_middle.setPadding(0,0,card_padding,0);
-
-        textView=(TextView)findViewById(R.id.text_batch);
-        batch_edit=(EditText)findViewById(R.id.edit_batch);
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,(3*card_padding)/4);
-        batch_edit.setTextSize(TypedValue.COMPLEX_UNIT_PX,(3*card_padding)/4);
-
-        textView=(TextView)findViewById(R.id.text_subject);
-        subject_edit=(EditText)findViewById(R.id.edit_subject);
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,(3*card_padding)/4);
-        subject_edit.setTextSize(TypedValue.COMPLEX_UNIT_PX,(3*card_padding)/4);
-
-        textView=(TextView)findViewById(R.id.text_import_excel);
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,(3*card_padding)/5);
-    }
-
     private void generateBatchID()    //Concatenate Batch Name and Subject to create final batch name
     {
         batch=batch_edit.getText().toString();
@@ -209,5 +191,14 @@ public class Add_class extends AppCompatActivity
         batchid = batchid.replaceAll("\\s+","");    //remove spaces from batch name
         batchid = batchid.toLowerCase();
         Toast.makeText(this,batchid,Toast.LENGTH_SHORT).show();
+    }
+
+
+
+    @Override
+    public void onBackPressed() {
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_CANCELED, returnIntent);
+        finish();
     }
 }
