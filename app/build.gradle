@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 23
@@ -34,6 +35,5 @@ dependencies {
     compile project(':poi-3.7')
     compile 'com.nononsenseapps:filepicker:2.4.2'
     compile 'com.skyfishjy.ripplebackground:library:1.0.1'
-    compile 'io.realm:realm-android:0.82.1'
-    compile 'com.github.dmytrodanylyk.realm-browser:library:0.0.3'
+    compile 'com.scand:realm-browser:0.1.13'
 }

@@ -7,38 +7,32 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
+import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dd.realmbrowser.RealmBrowser;
-import com.dd.realmbrowser.RealmBrowserActivity;
-import com.dd.realmbrowser.RealmFilesActivity;
-import com.dd.realmbrowser.RealmModelsActivity;
 import com.nononsenseapps.filepicker.FilePickerActivity;
 import com.ns3.simplify.realm.Register;
 import com.ns3.simplify.realm.Student;
+import com.scand.realmbrowser.RealmBrowser;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmObject;
 import io.realm.RealmResults;
 
 public class Add_class extends AppCompatActivity
 {
+    private static String TAG = "Add_class";
 
     int card_padding;
     DisplayMetrics metrics;
@@ -56,6 +50,8 @@ public class Add_class extends AppCompatActivity
 
     Toolbar mToolbar;
 
+    RealmConfiguration realmConfig;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -64,7 +60,10 @@ public class Add_class extends AppCompatActivity
 
         initToolbar();
 
-        realm = Realm.getInstance(this);
+        realmConfig = new RealmConfiguration.Builder(this).build();
+        realm = Realm.getInstance(realmConfig);
+
+        Log.d(TAG,"Students-"+realm.where(Register.class).findFirst().getStudents().size());
 
         metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -74,16 +73,20 @@ public class Add_class extends AppCompatActivity
 
         batch_edit = (EditText)findViewById(R.id.edit_batch);
         subject_edit = (EditText)findViewById(R.id.edit_subject);
-        Button b=(Button)findViewById(R.id.realm);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                RealmBrowser.getInstance().addRealmModel(Student.class, Register.class);
-                RealmFilesActivity.start(Add_class.this);
 
+        Button bu = (Button)findViewById(R.id.realm_browser);
+        bu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Class<? extends RealmObject>> classes = new ArrayList<>();
+                classes.add(Register.class);
+                classes.add(Student.class);
+                new RealmBrowser.Builder(Add_class.this)
+                        .add(realm, classes)
+                        .show();
             }
         });
+
 
         imageView=(ImageView)findViewById(R.id.button_import_excel);
         imageView.setOnClickListener(new View.OnClickListener() {

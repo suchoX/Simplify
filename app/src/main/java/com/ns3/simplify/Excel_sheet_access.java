@@ -29,27 +29,32 @@ import java.io.IOException;
 import java.util.Iterator;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmList;
 import io.realm.RealmResults;
 import io.realm.exceptions.RealmMigrationNeededException;
 
 public class Excel_sheet_access
 {
+    private static String TAG = "Excel_sheet_access";
+
     public static void readExcelFile(Context context, Uri uri,String BatchID,String Batch, String Subject)
     {
         ProgressDialog progress = new ProgressDialog(context);
         Realm realm;
         RealmList<Student> Student_list= new RealmList<Student>();
         Register register;
-        realm = Realm.getInstance(context);
+        Student student;
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder(context).build();
+        realm = Realm.getInstance(realmConfig);
 
-        RealmResults<Student> temp;
         try
         {
             progress.setTitle("Setting Up");
             progress.setMessage("Please wait while we set up this class");
             progress.setCancelable(false);
             progress.show();
+
             // Creating Input Stream
             File file = new File(uri.getPath());
             FileInputStream myInput = new FileInputStream(file);
@@ -71,50 +76,59 @@ public class Excel_sheet_access
 
             while(rowIter.hasNext())
             {
-                int count=0;
-
                 HSSFRow myRow = (HSSFRow) rowIter.next();
 
                 Iterator tempIt = myRow.cellIterator();
                 HSSFCell tempCell = (HSSFCell)tempIt.next();
                 tempCell.setCellType(Cell.CELL_TYPE_STRING);
 
-                temp = realm.where(Student.class).equalTo("Roll_number",tempCell.toString()).findAll();
+                if(tempCell.toString().length()<1)
+                    break;
 
                 Iterator cellIter = myRow.cellIterator();
-                if(temp.size() == 0)
-                {
-                    realm.beginTransaction();
-                    Student student = realm.createObject(Student.class);
 
-                    HSSFCell myCell = (HSSFCell) cellIter.next();
+                realm.beginTransaction();
+                student=new Student();
+
+                HSSFCell myCell = (HSSFCell) cellIter.next();
+                myCell.setCellType(Cell.CELL_TYPE_STRING);
+                student.setRoll_number(myCell.toString());
+
+                myCell = (HSSFCell)cellIter.next();
+                myCell.setCellType(Cell.CELL_TYPE_STRING);
+                student.setStudent_name(myCell.toString());
+
+                myCell = (HSSFCell)cellIter.next();
+                myCell.setCellType(Cell.CELL_TYPE_STRING);
+                student.setPhone_no(myCell.toString());
+
+                myCell = (HSSFCell)cellIter.next();
+                myCell.setCellType(Cell.CELL_TYPE_STRING);
+                student.setMac_ID1(myCell.toString());
+
+                if(cellIter.hasNext()) {
+                    myCell = (HSSFCell) cellIter.next();
                     myCell.setCellType(Cell.CELL_TYPE_STRING);
-                    student.setRoll_number(myCell.toString());
+                    if (myCell.toString().length() > 0)
+                        student.setMac_ID2(myCell.toString());
+                }
 
-                    myCell = (HSSFCell)cellIter.next();
-                    myCell.setCellType(Cell.CELL_TYPE_STRING);
-                    student.setStudent_name(myCell.toString());
-
-                    myCell = (HSSFCell)cellIter.next();
-                    myCell.setCellType(Cell.CELL_TYPE_STRING);
-                    student.setPhone_no(myCell.toString());
-
-                    myCell = (HSSFCell)cellIter.next();
-                    myCell.setCellType(Cell.CELL_TYPE_STRING);
-                    student.setMac_ID2(myCell.toString());
-
-                    Student_list.add(student);
-                    realm.commitTransaction();
-
-                } else
-                    Student_list.add(realm.where(Student.class).equalTo("Roll_number", tempCell.toString()).findFirst()); //If Student Already present in database, fetching it
+                realm.copyToRealmOrUpdate(student);
+                realm.commitTransaction();
+                Student_list.add(student);
             }
+            Log.d(TAG,""+Student_list.size());
+            Log.d(TAG,Student_list.get(0).getRoll_number());
+            Log.d(TAG,Student_list.get(1).getRoll_number());
+            Log.d(TAG,Student_list.get(2).getRoll_number());
+            Log.d(TAG,Student_list.get(3).getRoll_number());
             realm.beginTransaction();
-            register=realm.createObject(Register.class);
+            register=new Register();
             register.setBatchID(BatchID);
             register.setBatch(Batch);
             register.setSubject(Subject);
             register.setStudents(Student_list);
+            realm.copyToRealmOrUpdate(register);
             realm.commitTransaction();
         }
         catch (Exception e){e.printStackTrace(); }
