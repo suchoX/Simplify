@@ -117,11 +117,7 @@ public class Excel_sheet_access
                 realm.commitTransaction();
                 Student_list.add(student);
             }
-            Log.d(TAG,""+Student_list.size());
-            Log.d(TAG,Student_list.get(0).getRoll_number());
-            Log.d(TAG,Student_list.get(1).getRoll_number());
-            Log.d(TAG,Student_list.get(2).getRoll_number());
-            Log.d(TAG,Student_list.get(3).getRoll_number());
+            Log.d(TAG,BatchID);
             realm.beginTransaction();
             register=new Register();
             register.setBatchID(BatchID);

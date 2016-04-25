@@ -44,21 +44,13 @@ public class ListViewAdapter extends ArrayAdapter<ObjectItem>{
         textViewItem.setLayoutParams(params);
         textViewItem.setText(objectItem.batch + "  " + objectItem.subject);
 
-        BatchID = generateBatchID(objectItem.batch, objectItem.subject);
+        BatchID = objectItem.batchID;
         convertView.setOnClickListener(new OnItemClickListener(BatchID));
 
         return convertView;
 
     }
 
-    private String generateBatchID(String batch,String subject)    //Concatenate Batch Name and Subject to create final batch name
-    {
-
-        batch.concat(subject);
-        batch = batch.replaceAll("\\s+", "");    //remove spaces from batch name
-        batch = batch.toLowerCase();
-        return batch;
-    }
     private class OnItemClickListener  implements View.OnClickListener {
         private String BatchID;
 

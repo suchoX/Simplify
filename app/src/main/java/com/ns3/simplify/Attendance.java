@@ -18,6 +18,7 @@ import com.melnykov.fab.FloatingActionButton;
 import com.ns3.simplify.realm.Register;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmList;
 import io.realm.RealmResults;
 
@@ -30,6 +31,7 @@ public class Attendance extends AppCompatActivity
 
     Realm realm;
     RealmResults<Register> allBatch;
+    RealmConfiguration realmConfig;
     int numBatch;
 
     Toolbar mToolbar;
@@ -47,13 +49,14 @@ public class Attendance extends AppCompatActivity
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.attachToListView(listView);
 
-        realm = Realm.getInstance(this);
+        realmConfig = new RealmConfiguration.Builder(this).build();
+        realm = Realm.getInstance(realmConfig);
         allBatch = realm.where(Register.class).findAll();
         numBatch = allBatch.size();
         ObjectItem[] ObjectItemData = new ObjectItem[numBatch];
         int i;
         for(i=0 ; i<numBatch ; i++)
-            ObjectItemData[i] = new ObjectItem(allBatch.get(i).getBatch(),allBatch.get(i).getSubject());
+            ObjectItemData[i] = new ObjectItem(allBatch.get(i).getBatchID(),allBatch.get(i).getBatch(),allBatch.get(i).getSubject());
 
         ListViewAdapter listAdapter = new ListViewAdapter(this,R.layout.list_item,ObjectItemData);
         listView.setAdapter(listAdapter);
@@ -85,7 +88,7 @@ public class Attendance extends AppCompatActivity
 
     public void selected_class(String BatchID)
     {
-        intent = new Intent(Attendance.this, Bluetooth_scan.class);
+        intent = new Intent(Attendance.this, ClassDetailsActivity.class);
         intent.putExtra("BatchID", BatchID);
         Attendance.this.startActivity(intent);
     }

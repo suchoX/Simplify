@@ -18,7 +18,7 @@ public class Register extends RealmObject
     //private RealmList<DateRegister> Record;
 
     public String getBatchID() {return BatchID;}
-    public void setBatchID(String Batch) {this.BatchID = BatchID;}
+    public void setBatchID(String BatchID) {this.BatchID = BatchID;}
 
     public String getBatch() {return Batch;}
     public void setBatch(String Batch) {this.Batch = Batch;}

@@ -45,12 +45,12 @@ public class Add_class extends AppCompatActivity
 
     Realm realm;
     RealmResults<Register> checkBatch;
+    RealmConfiguration realmConfig;
 
     private static final int FILE_SELECT_CODE = 0;
 
     Toolbar mToolbar;
 
-    RealmConfiguration realmConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -62,8 +62,6 @@ public class Add_class extends AppCompatActivity
 
         realmConfig = new RealmConfiguration.Builder(this).build();
         realm = Realm.getInstance(realmConfig);
-
-        Log.d(TAG,"Students-"+realm.where(Register.class).findFirst().getStudents().size());
 
         metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -108,7 +106,6 @@ public class Add_class extends AppCompatActivity
                         intent.putExtra(FilePickerActivity.EXTRA_MODE, FilePickerActivity.MODE_FILE);
 
                         //intent.putExtra(FilePickerActivity.EXTRA_START_PATH, Environment.getExternalStorageDirectory().getPath());
-
                         startActivityForResult(intent, FILE_SELECT_CODE);
                     }
                     else
@@ -193,7 +190,6 @@ public class Add_class extends AppCompatActivity
         batchid = batchid.concat(subject);
         batchid = batchid.replaceAll("\\s+","");    //remove spaces from batch name
         batchid = batchid.toLowerCase();
-        Toast.makeText(this,batchid,Toast.LENGTH_SHORT).show();
     }
 
 
