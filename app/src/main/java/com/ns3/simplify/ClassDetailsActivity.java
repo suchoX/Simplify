@@ -1,6 +1,7 @@
 package com.ns3.simplify;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ns3.simplify.fragments.ClassDetailsMainFragment;
 import com.ns3.simplify.realm.Register;
 
 import io.realm.Realm;
@@ -26,6 +28,8 @@ public class ClassDetailsActivity extends AppCompatActivity {
     RealmConfiguration realmConfig;
     Register batch;
 
+    ClassDetailsMainFragment classDetailsMainFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,10 @@ public class ClassDetailsActivity extends AppCompatActivity {
 
         initToolbar();
 
+        classDetailsMainFragment = new ClassDetailsMainFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.add(R.id.class_details_frame, classDetailsMainFragment);
+        transaction.commit();
     }
 
     private void initToolbar()
