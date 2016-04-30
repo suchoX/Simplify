@@ -27,7 +27,7 @@ public class StudentListFragment extends Fragment
 
     ListView studentListView;
     StudentListAdapter studentListAdapter;
-    RealmList<Student> studentList;
+    RealmResults<Student> studentList;
 
     String batchID;
 
@@ -44,7 +44,7 @@ public class StudentListFragment extends Fragment
         realm = Realm.getInstance(realmConfig);
 
         studentListView = (ListView)view.findViewById(R.id.student_listview);
-        studentList = realm.where(Register.class).equalTo("BatchID",batchID).findFirst().getStudents();
+        studentList = realm.where(Register.class).equalTo("BatchID",batchID).findFirst().getStudents().sort("Roll_number");
         studentListAdapter = new StudentListAdapter(context,studentList);
         studentListView.setAdapter(studentListAdapter);
 

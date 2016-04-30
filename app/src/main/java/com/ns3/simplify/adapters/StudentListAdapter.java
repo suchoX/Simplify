@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import com.ns3.simplify.R;
 import com.ns3.simplify.realm.Student;
-
-import io.realm.RealmList;
 import io.realm.RealmResults;
 
 /**
@@ -20,11 +18,11 @@ import io.realm.RealmResults;
 public class StudentListAdapter extends BaseAdapter
 {
     Context context;
-    RealmList<Student> studentList;
+    RealmResults<Student> studentList;
 
     TextView rollView,nameView,phoneView,mac1View,mac2View;
 
-    public StudentListAdapter(Context context, RealmList<Student> studentList) {
+    public StudentListAdapter(Context context, RealmResults<Student> studentList) {
        this.context = context;
         this.studentList = studentList;
     }
@@ -65,6 +63,10 @@ public class StudentListAdapter extends BaseAdapter
         nameView.setText(studentList.get(position).getStudent_name());
         phoneView.setText("M: "+studentList.get(position).getPhone_no());
         mac1View.setText("MAC :"+studentList.get(position).getMac_ID1());
+        if(studentList.get(position).getMac_ID2() == null)
+            mac2View.setText("MAC :N/A");
+        else
+            mac2View.setText("MAC :"+studentList.get(position).getMac_ID2());
 
         return convertView;
 

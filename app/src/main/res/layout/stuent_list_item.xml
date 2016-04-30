@@ -1,76 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    android:id="@+id/card_info"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
-    android:layout_marginRight="8dp"
-    android:layout_marginLeft="8dp"
-    android:layout_marginBottom="8dp"
-    card_view:cardCornerRadius="4dp">
-    <RelativeLayout
+    android:layout_height="match_parent">
+    <android.support.v7.widget.CardView
+
+        android:orientation="horizontal"
+        android:id="@+id/card_info"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="4dp"
+        card_view:cardCornerRadius="4dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/student_item_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Suchandrim Sarkar"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:padding="3dp" />
+            <TextView
+                android:id="@+id/student_item_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Suchandrim Sarkar"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:padding="3dp" />
 
-        <TextView
-            android:id="@+id/student_item_roll"
-            android:layout_toRightOf="@+id/student_item_name"
-            android:layout_alignParentRight="true"
-            android:gravity="right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="13000112160"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:paddingRight="3dp"/>
+            <TextView
+                android:id="@+id/student_item_roll"
+                android:layout_toRightOf="@+id/student_item_name"
+                android:layout_alignParentRight="true"
+                android:gravity="right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="13000112160"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:paddingRight="3dp"/>
 
-        <TextView
-            android:id="@+id/student_item_phone"
-            android:layout_below="@id/student_item_roll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="M: 9775301737"
-            android:textSize="13sp"
-            android:paddingTop="3dp"
-            android:paddingLeft="3dp"
-            android:paddingBottom="3dp"
-            android:paddingRight="3dp"/>
+            <TextView
+                android:id="@+id/student_item_phone"
+                android:layout_below="@id/student_item_roll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="M: 9775301737"
+                android:textSize="13sp"
+                android:paddingTop="3dp"
+                android:paddingLeft="3dp"
+                android:paddingBottom="3dp"
+                android:paddingRight="3dp"/>
 
-        <TextView
-            android:id="@+id/student_item_mac1"
-            android:layout_below="@id/student_item_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="MAC: "
-            android:textSize="13sp"
-            android:paddingLeft="3dp"
-            android:paddingBottom="3dp"
-            android:paddingRight="3dp"/>
+            <TextView
+                android:id="@+id/student_item_mac1"
+                android:layout_below="@id/student_item_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MAC: "
+                android:textSize="13sp"
+                android:paddingLeft="3dp"
+                android:paddingBottom="3dp"
+                android:paddingRight="3dp"/>
 
-        <TextView
-            android:id="@+id/student_item_mac2"
-            android:layout_below="@id/student_item_mac1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="MAC: "
-            android:textSize="13sp"
-            android:paddingLeft="3dp"
-            android:paddingBottom="3dp"
-            android:paddingRight="3dp"/>
+            <TextView
+                android:id="@+id/student_item_mac2"
+                android:layout_below="@id/student_item_mac1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MAC: "
+                android:textSize="13sp"
+                android:paddingLeft="3dp"
+                android:paddingBottom="3dp"
+                android:paddingRight="3dp"/>
 
-    </RelativeLayout>
-</android.support.v7.widget.CardView>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
