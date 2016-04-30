@@ -22,33 +22,25 @@ import android.widget.Toast;
 
 import com.skyfishjy.library.RippleBackground;
 
-public class Bluetooth_scan extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class BluetoothScanActivity extends AppCompatActivity {
 
     BluetoothAdapter mBluetoothAdapter;
     IntentFilter filter;
     BroadcastReceiver mReceiver;
-    String name[],macid[];
+    String name[];
+    ArrayList<String> macID;
     int count=0;
     Bundle scan_data;
-    Intent intent;
 
+    String batchID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth_scan);
-        getSupportActionBar().hide();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-        {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            if(Build.VERSION.SDK_INT >=23)
-                window.setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.main_pink_dark));
-            else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.setStatusBarColor(getResources().getColor(R.color.main_pink_dark));
-            }
-        }
+        batchID = getIntent().getStringExtra("Batch ID");
 
         final RippleBackground rippleBackground=(RippleBackground)findViewById(R.id.content);
         rippleBackground.startRippleAnimation();
@@ -69,7 +61,7 @@ public class Bluetooth_scan extends AppCompatActivity {
 
         scan_data=new Bundle();
         name=new String[100];
-        macid=new String[100];
+        macID = new ArrayList<String>();
         count=0;
         searchDevices();
     }
@@ -95,8 +87,8 @@ public class Bluetooth_scan extends AppCompatActivity {
                     BluetoothDevice device=intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                     //Add the name and address to an array adapter to show in a ListView
                     name[count]=device.getName().toString();
-                    macid[count]=device.getAddress().toString();
-                    Toast.makeText(context,name[count]+" "+macid[count],Toast.LENGTH_SHORT).show();
+                    macID.add(device.getAddress().toString());
+                    Toast.makeText(context,name[count]+" "+ macID.get(count),Toast.LENGTH_SHORT).show();
                     count++;
                 }
 
@@ -109,13 +101,11 @@ public class Bluetooth_scan extends AppCompatActivity {
                 }
                 else if(BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals((action)))
                 {
-                    /*scan_data.putStringArray("MAC",macid);
-                    scan_data.putStringArray("Name",name);
-                    scan_data.putInt("Number", count);
-                    intent = new Intent(Bluetooth_scan.this, Temp.class);
-                    intent.putExtras(scan_data);
-                    Bluetooth_scan.this.startActivity(intent);*/
-
+                    Intent in = new Intent(BluetoothScanActivity.this, MarkStudentsActivity.class);
+                    in.putExtra("Batch ID",batchID);
+                    in.putStringArrayListExtra("MAC ID's",macID);
+                    startActivity(in);
+                    finish();
                 }
             }
         };

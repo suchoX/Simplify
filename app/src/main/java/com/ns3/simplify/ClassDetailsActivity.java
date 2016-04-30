@@ -86,11 +86,16 @@ public class ClassDetailsActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    public void startBluetoothScanActivity()
+    {
+        Intent intent = new Intent(ClassDetailsActivity.this,BluetoothScanActivity.class);
+        intent.putExtra("Batch ID",batchID);
+        startActivity(intent);
+        finish();
+    }
 
     @Override
     public void onBackPressed() {
-        Intent returnIntent = new Intent();
-        setResult(Activity.RESULT_CANCELED, returnIntent);
         finish();
     }
 }

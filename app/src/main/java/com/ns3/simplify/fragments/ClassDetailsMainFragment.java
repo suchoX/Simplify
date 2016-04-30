@@ -30,7 +30,7 @@ public class ClassDetailsMainFragment extends Fragment
         scanStudentsLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ((ClassDetailsActivity)getActivity()).startBluetoothScanActivity();
             }
         });
 

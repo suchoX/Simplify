@@ -21,9 +21,10 @@
         </activity>
         <activity android:name=".Attendance" />
         <activity android:name=".Add_class" />
-        <activity android:name=".Bluetooth_scan" />
+        <activity android:name=".BluetoothScanActivity" />
         <activity android:name="com.nononsenseapps.filepicker.FilePickerActivity" />
-        <activity android:name=".ClassDetailsActivity"></activity>
+        <activity android:name=".ClassDetailsActivity" />
+        <activity android:name=".MarkStudentsActivity"/>
     </application>
 
 </manifest>

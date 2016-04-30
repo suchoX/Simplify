@@ -6,25 +6,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.ns3.simplify.R;
 import com.ns3.simplify.realm.Student;
+
+import java.util.ArrayList;
+
 import io.realm.RealmResults;
 
 /**
  * Created by ASUS on 30-Apr-16.
  */
-public class StudentListAdapter extends BaseAdapter
+public class MarkStudentListAdapter extends BaseAdapter
 {
     Context context;
     RealmResults<Student> studentList;
+    ArrayList<String> macID;
 
-    TextView rollView,nameView,phoneView,mac1View,mac2View;
+    TextView nameView;
+    CheckBox presentCheck;
 
-    public StudentListAdapter(Context context, RealmResults<Student> studentList) {
-       this.context = context;
+
+    public MarkStudentListAdapter(Context context, RealmResults<Student> studentList, ArrayList<String> macID) {
+        this.context = context;
         this.studentList = studentList;
+        this.macID = macID;
     }
 
 
@@ -51,25 +59,32 @@ public class StudentListAdapter extends BaseAdapter
         if(convertView==null)
         {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-            convertView = inflater.inflate(R.layout.student_list_item, parent, false);
+            convertView = inflater.inflate(R.layout.mark_student_list_item, parent, false);
         }
-        rollView = (TextView)convertView.findViewById(R.id.student_item_roll);
-        nameView = (TextView)convertView.findViewById(R.id.student_item_name);
-        phoneView = (TextView)convertView.findViewById(R.id.student_item_phone);
-        mac1View = (TextView)convertView.findViewById(R.id.student_item_mac1);
-        mac2View = (TextView)convertView.findViewById(R.id.student_item_mac2);
 
-        rollView.setText(studentList.get(position).getRoll_number());
+        nameView = (TextView)convertView.findViewById(R.id.mark_student_list_name);
+        presentCheck = (CheckBox)convertView.findViewById(R.id.mark_student_list_check);
+
         nameView.setText(studentList.get(position).getStudent_name());
-        phoneView.setText("M: "+studentList.get(position).getPhone_no());
-        mac1View.setText("MAC :"+studentList.get(position).getMac_ID1());
-        if(studentList.get(position).getMac_ID2() == null)
-            mac2View.setText("MAC :N/A");
-        else
-            mac2View.setText("MAC :"+studentList.get(position).getMac_ID2());
+
+        markCheck(studentList.get(position),position,presentCheck);
 
         return convertView;
 
+    }
+
+    private void markCheck(Student student,int position,CheckBox presentCheck)
+    {
+        if(macID.contains(student.getMac_ID1()))
+        {
+            presentCheck.setChecked(true);
+            macID.remove(student.getMac_ID1());
+        }
+        else if(macID.contains(student.getMac_ID2()))
+        {
+            presentCheck.setChecked(true);
+            macID.remove(student.getMac_ID2());
+        }
     }
 
 }
