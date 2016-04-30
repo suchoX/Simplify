@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ns3.simplify.fragments.ClassDetailsMainFragment;
+import com.ns3.simplify.fragments.StudentListFragment;
 import com.ns3.simplify.realm.Register;
 
 import io.realm.Realm;
@@ -29,6 +30,7 @@ public class ClassDetailsActivity extends AppCompatActivity {
     Register batch;
 
     ClassDetailsMainFragment classDetailsMainFragment;
+    StudentListFragment studentListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +47,9 @@ public class ClassDetailsActivity extends AppCompatActivity {
         initToolbar();
 
         classDetailsMainFragment = new ClassDetailsMainFragment();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.add(R.id.class_details_frame, classDetailsMainFragment);
-        transaction.commit();
+        studentListFragment = new StudentListFragment();
+
+        showClassDetailsMainFragment();
     }
 
     private void initToolbar()
@@ -67,6 +69,23 @@ public class ClassDetailsActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void showStudentListFragment()
+    {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.add(R.id.class_details_frame, studentListFragment);
+        transaction.commit();
+        studentListFragment.getActivityContext(this);
+        studentListFragment.getBatchID(batchID);
+    }
+
+    public void showClassDetailsMainFragment()
+    {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.class_details_frame, classDetailsMainFragment);
+        transaction.commit();
+    }
+
 
     @Override
     public void onBackPressed() {

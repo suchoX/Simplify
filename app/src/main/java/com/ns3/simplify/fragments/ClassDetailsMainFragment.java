@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import com.ns3.simplify.ClassDetailsActivity;
 import com.ns3.simplify.R;
 
 /**
@@ -13,12 +15,33 @@ import com.ns3.simplify.R;
  */
 public class ClassDetailsMainFragment extends Fragment
 {
-
+    View view;
+    LinearLayout scanStudentsLayout,studentListLayout,attendanceLayout,exportListLayout;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_class_details_main, container, false);
+        view = inflater.inflate(R.layout.fragment_class_details_main, container, false);
+        scanStudentsLayout = (LinearLayout)view.findViewById(R.id.scan_students_layout);
+        studentListLayout = (LinearLayout)view.findViewById(R.id.student_list_layout);
+        attendanceLayout = (LinearLayout)view.findViewById(R.id.attendance_layout);
+        exportListLayout = (LinearLayout)view.findViewById(R.id.export_list_layout);
+
+        scanStudentsLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        studentListLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ClassDetailsActivity)getActivity()).showStudentListFragment();
+            }
+        });
+
+        return view;
     }
 
 }

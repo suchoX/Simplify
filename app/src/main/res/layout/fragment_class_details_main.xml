@@ -29,7 +29,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:padding="25dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginBottom="5dp"
                     android:src="@drawable/scan_students"/>
 
                 <TextView
@@ -38,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:text="Scan Students"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:gravity="center"/>
             </LinearLayout>
 
@@ -55,7 +58,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:padding="25dp"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginRight="35dp"
+                    android:layout_marginBottom="5dp"
                     android:src="@drawable/student_list"/>
 
                 <TextView
@@ -64,10 +70,11 @@
                     android:layout_height="wrap_content"
                     android:text="Student List"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:gravity="center"/>
             </LinearLayout>
         </LinearLayout>
+
 
 
         <LinearLayout
@@ -90,7 +97,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:padding="25dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginBottom="5dp"
                     android:src="@drawable/attendance"/>
 
                 <TextView
@@ -99,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:text="Attendance History"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:gravity="center"/>
             </LinearLayout>
 
@@ -116,7 +126,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:padding="25dp"
+                    android:layout_marginLeft="36dp"
+                    android:layout_marginTop="36dp"
+                    android:layout_marginRight="36dp"
+                    android:layout_marginBottom="12dp"
                     android:src="@drawable/export_register"/>
 
                 <TextView
@@ -125,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:text="Export to Excel Sheet"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:gravity="center"/>
             </LinearLayout>
         </LinearLayout>
