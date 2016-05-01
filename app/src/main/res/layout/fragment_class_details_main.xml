@@ -85,7 +85,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/attendance_layout"
+                android:id="@+id/add_student_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -93,7 +93,7 @@
                 android:gravity="center"
                 android:layout_margin="5dp">
                 <ImageView
-                    android:id="@+id/attendance_image"
+                    android:id="@+id/add_student_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
@@ -101,13 +101,13 @@
                     android:layout_marginTop="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginBottom="5dp"
-                    android:src="@drawable/attendance"/>
+                    android:src="@drawable/add_student"/>
 
                 <TextView
-                    android:id="@+id/attendance_text"
+                    android:id="@+id/add_student_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Attendance History"
+                    android:text="Add Student"
                     android:textColor="@color/white"
                     android:textSize="15sp"
                     android:gravity="center"/>

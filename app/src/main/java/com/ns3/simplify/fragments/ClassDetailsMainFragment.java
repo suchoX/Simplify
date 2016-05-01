@@ -16,7 +16,7 @@ import com.ns3.simplify.R;
 public class ClassDetailsMainFragment extends Fragment
 {
     View view;
-    LinearLayout scanStudentsLayout,studentListLayout,attendanceLayout,exportListLayout;
+    LinearLayout scanStudentsLayout,studentListLayout,addStudentLayout,exportListLayout;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class ClassDetailsMainFragment extends Fragment
         view = inflater.inflate(R.layout.fragment_class_details_main, container, false);
         scanStudentsLayout = (LinearLayout)view.findViewById(R.id.scan_students_layout);
         studentListLayout = (LinearLayout)view.findViewById(R.id.student_list_layout);
-        attendanceLayout = (LinearLayout)view.findViewById(R.id.attendance_layout);
+        addStudentLayout = (LinearLayout)view.findViewById(R.id.add_student_layout);
         exportListLayout = (LinearLayout)view.findViewById(R.id.export_list_layout);
 
         scanStudentsLayout.setOnClickListener(new View.OnClickListener() {
