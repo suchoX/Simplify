@@ -73,7 +73,7 @@ public class ClassDetailsActivity extends AppCompatActivity {
     public void showStudentListFragment()
     {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.add(R.id.class_details_frame, studentListFragment);
+        transaction.add(R.id.class_details_frame, studentListFragment).addToBackStack("StudentList");
         transaction.commit();
         studentListFragment.getActivityContext(this);
         studentListFragment.getBatchID(batchID);
@@ -82,7 +82,7 @@ public class ClassDetailsActivity extends AppCompatActivity {
     public void showClassDetailsMainFragment()
     {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.class_details_frame, classDetailsMainFragment);
+        transaction.replace(R.id.class_details_frame, classDetailsMainFragment).addToBackStack("ClassDetailsMain");
         transaction.commit();
     }
 
@@ -92,10 +92,29 @@ public class ClassDetailsActivity extends AppCompatActivity {
         intent.putExtra("Batch ID",batchID);
         startActivity(intent);
         finish();
+
+    }
+
+    private String getCurrentFragmentName()
+    {
+
+        int backStackEntryCount = getFragmentManager().getBackStackEntryCount();
+
+        String fragmentName;
+
+        if (backStackEntryCount > 0)
+            fragmentName = getFragmentManager().getBackStackEntryAt(backStackEntryCount - 1).getName();
+        else
+            fragmentName = "";
+        return fragmentName;
     }
 
     @Override
-    public void onBackPressed() {
-        finish();
+    public void onBackPressed()
+    {
+        if(getCurrentFragmentName().equals("StudentList"))
+            showClassDetailsMainFragment();
+        else if(getCurrentFragmentName().equals("ClassDetailsMain"))
+            finish();
     }
 }
