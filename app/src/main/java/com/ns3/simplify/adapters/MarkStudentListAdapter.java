@@ -2,6 +2,7 @@ package com.ns3.simplify.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,17 +68,18 @@ public class MarkStudentListAdapter extends BaseAdapter
 
         nameView.setText(studentList.get(position).getStudent_name());
 
-        markCheck(studentList.get(position),position,presentCheck);
+        markCheck(studentList.get(position),presentCheck);
 
         return convertView;
 
     }
 
-    private void markCheck(Student student,int position,CheckBox presentCheck)
+    private void markCheck(Student student,CheckBox presentCheck)
     {
         if(macID.contains(student.getMac_ID1()))
         {
             presentCheck.setChecked(true);
+            Log.d("Adapter Mark",student.getStudent_name());
             macID.remove(student.getMac_ID1());
         }
         else if(macID.contains(student.getMac_ID2()))

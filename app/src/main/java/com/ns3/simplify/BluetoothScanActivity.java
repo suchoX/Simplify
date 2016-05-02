@@ -1,23 +1,14 @@
 package com.ns3.simplify;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Typeface;
-import android.os.Build;
-import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.skyfishjy.library.RippleBackground;
@@ -25,6 +16,9 @@ import com.skyfishjy.library.RippleBackground;
 import java.util.ArrayList;
 
 public class BluetoothScanActivity extends AppCompatActivity {
+
+
+    public static final String TAG = BluetoothScanActivity.class.getSimpleName();
 
     BluetoothAdapter mBluetoothAdapter;
     IntentFilter filter;
@@ -53,8 +47,7 @@ public class BluetoothScanActivity extends AppCompatActivity {
         }
         else
         {
-            if (!mBluetoothAdapter.isEnabled())
-            {
+            if (!mBluetoothAdapter.isEnabled()) {
                 turnOnBT();
             }
         }
@@ -64,6 +57,7 @@ public class BluetoothScanActivity extends AppCompatActivity {
         macID = new ArrayList<String>();
         count=0;
         searchDevices();
+        Log.d(TAG, "onCreate: ");
     }
     private void turnOnBT() {
         Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -86,16 +80,15 @@ public class BluetoothScanActivity extends AppCompatActivity {
                     //Get the BluetoothDevice object from the Intent
                     BluetoothDevice device=intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                     //Add the name and address to an array adapter to show in a ListView
-                    name[count]=device.getName().toString();
-                    macID.add(device.getAddress().toString());
+                    name[count]=device.getName();
+                    macID.add(device.getAddress().toUpperCase());
                     Toast.makeText(context,name[count]+" "+ macID.get(count),Toast.LENGTH_SHORT).show();
                     count++;
                 }
 
                 else if(BluetoothAdapter.ACTION_STATE_CHANGED.equals((action)))
                 {
-                    if(mBluetoothAdapter.getState()==mBluetoothAdapter.STATE_OFF)
-                    {
+                    if(mBluetoothAdapter.getState()== BluetoothAdapter.STATE_OFF) {
                         turnOnBT();
                     }
                 }
@@ -139,5 +132,12 @@ public class BluetoothScanActivity extends AppCompatActivity {
         count=0;
         mBluetoothAdapter.cancelDiscovery();
         mBluetoothAdapter.startDiscovery();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop: ");
+
     }
 }

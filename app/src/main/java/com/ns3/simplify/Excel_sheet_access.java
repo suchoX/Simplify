@@ -104,13 +104,13 @@ public class Excel_sheet_access
 
                 myCell = (HSSFCell)cellIter.next();
                 myCell.setCellType(Cell.CELL_TYPE_STRING);
-                student.setMac_ID1(myCell.toString());
+                student.setMac_ID1(myCell.toString().toUpperCase());
 
                 if(cellIter.hasNext()) {
                     myCell = (HSSFCell) cellIter.next();
                     myCell.setCellType(Cell.CELL_TYPE_STRING);
                     if (myCell.toString().length() > 0)
-                        student.setMac_ID2(myCell.toString());
+                        student.setMac_ID2(myCell.toString().toUpperCase());
                 }
 
                 realm.copyToRealmOrUpdate(student);

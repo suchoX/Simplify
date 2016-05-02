@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,6 +52,7 @@ public class MarkStudentsActivity extends AppCompatActivity
 
         batchID = getIntent().getStringExtra("Batch ID");
         macID = getIntent().getStringArrayListExtra("MAC ID's");
+        Log.d("Mark",""+macID.size()+" "+batchID);
         studentList = realm.where(Register.class).equalTo("BatchID",batchID).findFirst().getStudents().sort("Roll_number");
         markStudentListAdapter = new MarkStudentListAdapter(this,studentList,macID);
         markStudentListView.setAdapter(markStudentListAdapter);
