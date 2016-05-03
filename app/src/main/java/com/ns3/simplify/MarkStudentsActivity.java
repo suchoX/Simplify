@@ -17,7 +17,9 @@ import com.ns3.simplify.realm.DateRegister;
 import com.ns3.simplify.realm.Register;
 import com.ns3.simplify.realm.Student;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import io.realm.Realm;
@@ -103,10 +105,15 @@ public class MarkStudentsActivity extends AppCompatActivity
 
     private void markInDatabase()
     {
+        Calendar c = Calendar.getInstance();
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String formattedDate = df.format(c.getTime());
+
         record = new DateRegister();
         realm.beginTransaction();
         record.setDateID(realm.where(DateRegister.class).findAll().size() + 1);
-        record.setDate_today(new Date());
+        record.setDate_today(formattedDate);
         record.setStudentPresent(presentStudentList);
         realm.copyToRealmOrUpdate(record);
         realm.commitTransaction();
