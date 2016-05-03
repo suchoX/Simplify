@@ -1,5 +1,6 @@
 package com.ns3.simplify;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -7,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -25,8 +27,8 @@ public class BluetoothScanActivity extends AppCompatActivity {
     BroadcastReceiver mReceiver;
     String name[];
     ArrayList<String> macID;
-    int count=0;
     Bundle scan_data;
+    int countScans=0;
 
     String batchID;
     @Override
@@ -38,6 +40,9 @@ public class BluetoothScanActivity extends AppCompatActivity {
 
         final RippleBackground rippleBackground=(RippleBackground)findViewById(R.id.content);
         rippleBackground.startRippleAnimation();
+
+        int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1;
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
 
         init();
         if(mBluetoothAdapter==null)
@@ -55,7 +60,6 @@ public class BluetoothScanActivity extends AppCompatActivity {
         scan_data=new Bundle();
         name=new String[100];
         macID = new ArrayList<String>();
-        count=0;
         searchDevices();
         Log.d(TAG, "onCreate: ");
     }
@@ -66,7 +70,6 @@ public class BluetoothScanActivity extends AppCompatActivity {
     public void init()
     {
         mBluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
-        filter=new IntentFilter(BluetoothDevice.ACTION_FOUND);
 
         //Create a BroadCastReceiver for ACTION_FOUND
         mReceiver=new BroadcastReceiver()
@@ -80,10 +83,9 @@ public class BluetoothScanActivity extends AppCompatActivity {
                     //Get the BluetoothDevice object from the Intent
                     BluetoothDevice device=intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                     //Add the name and address to an array adapter to show in a ListView
-                    name[count]=device.getName();
-                    macID.add(device.getAddress().toUpperCase());
-                    Toast.makeText(context,name[count]+" "+ macID.get(count),Toast.LENGTH_SHORT).show();
-                    count++;
+                    if(!macID.contains(device.getAddress().toUpperCase()))
+                        macID.add(device.getAddress().toUpperCase());
+                    Toast.makeText(context,device.getName(),Toast.LENGTH_SHORT).show();
                 }
 
                 else if(BluetoothAdapter.ACTION_STATE_CHANGED.equals((action)))
@@ -94,26 +96,35 @@ public class BluetoothScanActivity extends AppCompatActivity {
                 }
                 else if(BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals((action)))
                 {
-                    Intent in = new Intent(BluetoothScanActivity.this, MarkStudentsActivity.class);
-                    in.putExtra("Batch ID",batchID);
-                    in.putStringArrayListExtra("MAC ID's",macID);
-                    startActivity(in);
-                    finish();
+                    if(countScans == 3) {
+                        Intent in = new Intent(BluetoothScanActivity.this, MarkStudentsActivity.class);
+                        in.putExtra("Batch ID", batchID);
+                        in.putStringArrayListExtra("MAC ID's", macID);
+                        startActivity(in);
+                        finish();
+                    }
+                    else
+                    {
+                        countScans++;
+                        Log.d("MArk",""+countScans);
+                        mBluetoothAdapter.startDiscovery();
+                    }
                 }
             }
         };
-        registerReceiver(mReceiver, filter);
-        filter=new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
-        registerReceiver(mReceiver, filter);
-        filter=new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
-        registerReceiver(mReceiver, filter);
-        filter=new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+        filter=new IntentFilter();
+        filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
+        filter.addAction(BluetoothDevice.ACTION_FOUND);
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
         registerReceiver(mReceiver, filter);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if(mBluetoothAdapter!=null)
+            mBluetoothAdapter.cancelDiscovery();
         unregisterReceiver(mReceiver);
     }
 
@@ -129,8 +140,8 @@ public class BluetoothScanActivity extends AppCompatActivity {
 
     public void searchDevices()
     {
-        count=0;
-        mBluetoothAdapter.cancelDiscovery();
+        if(mBluetoothAdapter.isDiscovering())
+            mBluetoothAdapter.cancelDiscovery();
         mBluetoothAdapter.startDiscovery();
     }
 
