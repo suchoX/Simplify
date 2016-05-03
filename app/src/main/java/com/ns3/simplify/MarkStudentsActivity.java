@@ -13,17 +13,21 @@ import android.widget.ListView;
 
 
 import com.ns3.simplify.adapters.MarkStudentListAdapter;
+import com.ns3.simplify.realm.DateRegister;
 import com.ns3.simplify.realm.Register;
 import com.ns3.simplify.realm.Student;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 
 public class MarkStudentsActivity extends AppCompatActivity
 {
+    private static final String TAG = "MArkStudentsActivity";
     Toolbar mToolbar;
 
     String batchID;
@@ -33,6 +37,10 @@ public class MarkStudentsActivity extends AppCompatActivity
     Realm realm;
     RealmConfiguration realmConfig;
     RealmResults<Student> studentList;
+    RealmList<Student> presentStudentList;
+    Register register;
+    RealmList<DateRegister> recordList;
+    DateRegister record;
 
     ListView markStudentListView;
 
@@ -85,9 +93,28 @@ public class MarkStudentsActivity extends AppCompatActivity
         switch (item.getItemId())
         {
             case R.id.marked_menu:
-
+                presentStudentList = markStudentListAdapter.getPresentStudents();
+                markInDatabase();
+                finish();
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void markInDatabase()
+    {
+        record = new DateRegister();
+        realm.beginTransaction();
+        record.setDateID(realm.where(DateRegister.class).findAll().size() + 1);
+        record.setDate_today(new Date());
+        record.setStudentPresent(presentStudentList);
+        realm.copyToRealmOrUpdate(record);
+        realm.commitTransaction();
+
+        register = realm.where(Register.class).equalTo("BatchID",batchID).findFirst();
+        realm.beginTransaction();
+        register.getRecord().add(record);
+        realm.commitTransaction();
     }
 
     @Override

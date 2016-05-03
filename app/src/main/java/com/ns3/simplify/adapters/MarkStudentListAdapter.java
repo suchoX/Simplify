@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.ns3.simplify.R;
@@ -15,6 +16,7 @@ import com.ns3.simplify.realm.Student;
 
 import java.util.ArrayList;
 
+import io.realm.RealmList;
 import io.realm.RealmResults;
 
 /**
@@ -24,6 +26,7 @@ public class MarkStudentListAdapter extends BaseAdapter
 {
     Context context;
     RealmResults<Student> studentList;
+    RealmList<Student> presentStudents;
     ArrayList<String> macID;
 
     TextView nameView;
@@ -34,6 +37,7 @@ public class MarkStudentListAdapter extends BaseAdapter
         this.context = context;
         this.studentList = studentList;
         this.macID = macID;
+        presentStudents = new RealmList<Student>();
     }
 
 
@@ -56,7 +60,7 @@ public class MarkStudentListAdapter extends BaseAdapter
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         if(convertView==null)
         {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
@@ -65,6 +69,20 @@ public class MarkStudentListAdapter extends BaseAdapter
 
         nameView = (TextView)convertView.findViewById(R.id.mark_student_list_name);
         presentCheck = (CheckBox)convertView.findViewById(R.id.mark_student_list_check);
+
+        presentCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                if(isChecked)
+                    presentStudents.add(studentList.get(position));
+                else
+                {
+                    if(presentStudents.contains(studentList.get(position)))
+                        presentStudents.remove(studentList.get(position));
+                }
+            }
+        });
 
         nameView.setText(studentList.get(position).getStudent_name());
 
@@ -79,14 +97,20 @@ public class MarkStudentListAdapter extends BaseAdapter
         if(macID.contains(student.getMac_ID1()))
         {
             presentCheck.setChecked(true);
-            Log.d("Adapter Mark",student.getStudent_name());
+            presentStudents.add(student);
             macID.remove(student.getMac_ID1());
         }
         else if(macID.contains(student.getMac_ID2()))
         {
             presentCheck.setChecked(true);
+            presentStudents.add(student);
             macID.remove(student.getMac_ID2());
         }
+    }
+
+    public RealmList<Student> getPresentStudents()
+    {
+        return presentStudents;
     }
 
 }

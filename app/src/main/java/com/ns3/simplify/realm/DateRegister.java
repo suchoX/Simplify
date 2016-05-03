@@ -1,19 +1,30 @@
 package com.ns3.simplify.realm;
 
+
+import java.util.Date;
+
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by sucho on 14/2/16.
  */
 public class DateRegister extends RealmObject
 {
-    private DateRegister Date_today;
-    private RealmList<Marking> Markings;
 
-    public DateRegister getDate_today() {return Date_today;}
-    public void setDate_today(DateRegister Date_today) {this.Date_today = Date_today;}
+    @PrimaryKey
+    private int dateID;
+    private Date Date_today;
+    private RealmList<Student> studentPresent;
 
-    public RealmList<Marking> getMarkings() {return Markings;}
-    public void setMarkings(RealmList<Marking> Markings) {this.Markings = Markings;}
+    public Date getDate_today() {return Date_today;}
+    public void setDate_today(Date Date_today) {this.Date_today = Date_today;}
+
+    public RealmList<Student> getStudentPresent() {return studentPresent;}
+    public void setStudentPresent(RealmList<Student> studentPresent) {this.studentPresent = studentPresent;}
+
+    public int getDateID() {return dateID;}
+    public void setDateID(int dateID) {this.dateID = dateID;}
+
 }

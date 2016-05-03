@@ -15,7 +15,7 @@ public class Register extends RealmObject
     private String Batch;
     private String Subject;
     private RealmList<Student> Students;
-    //private RealmList<DateRegister> Record;
+    private RealmList<DateRegister> Record;
 
     public String getBatchID() {return BatchID;}
     public void setBatchID(String BatchID) {this.BatchID = BatchID;}
@@ -29,6 +29,6 @@ public class Register extends RealmObject
     public RealmList<Student> getStudents() {return Students;}
     public void setStudents(RealmList<Student> Students) {this.Students = Students;}
 
-    //public RealmList<DateRegister> getRecord() {return Record;}
-    //public void setRecord(RealmList<DateRegister> Record) {this.Record = Record;}
+    public RealmList<DateRegister> getRecord() {return Record;}
+    public void setRecord(RealmList<DateRegister> Record) {this.Record = Record;}
 }

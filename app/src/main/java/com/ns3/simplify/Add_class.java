@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.nononsenseapps.filepicker.FilePickerActivity;
+import com.ns3.simplify.realm.DateRegister;
 import com.ns3.simplify.realm.Register;
 import com.ns3.simplify.realm.Student;
 import com.scand.realmbrowser.RealmBrowser;
@@ -79,6 +80,7 @@ public class Add_class extends AppCompatActivity
                 List<Class<? extends RealmObject>> classes = new ArrayList<>();
                 classes.add(Register.class);
                 classes.add(Student.class);
+                classes.add(DateRegister.class);
                 new RealmBrowser.Builder(Add_class.this)
                         .add(realm, classes)
                         .show();

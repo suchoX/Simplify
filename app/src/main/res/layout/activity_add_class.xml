@@ -58,7 +58,8 @@
                     android:hint="Type..."
                     android:textSize="22sp"
                     android:singleLine="true"
-                    android:nextFocusDown="@+id/edit_subject"/>
+                    android:nextFocusDown="@+id/edit_subject"
+                    android:inputType="textCapSentences"/>
             </LinearLayout>
 
             <LinearLayout
@@ -88,7 +89,8 @@
                     android:hint="Type..."
                     android:textSize="22sp"
                     android:singleLine="true"
-                    android:nextFocusDown="@+id/button_import_excel"/>
+                    android:nextFocusDown="@+id/button_import_excel"
+                    android:inputType="textCapSentences"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/add_class_layout_3"

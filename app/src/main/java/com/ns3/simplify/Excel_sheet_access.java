@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.ns3.simplify.realm.DateRegister;
 import com.ns3.simplify.realm.Register;
 import com.ns3.simplify.realm.Student;
 
@@ -43,6 +44,7 @@ public class Excel_sheet_access
         ProgressDialog progress = new ProgressDialog(context);
         Realm realm;
         RealmList<Student> Student_list= new RealmList<Student>();
+        RealmList<DateRegister> Record = new RealmList<DateRegister>();
         Register register;
         Student student;
         RealmConfiguration realmConfig = new RealmConfiguration.Builder(context).build();
@@ -124,6 +126,7 @@ public class Excel_sheet_access
             register.setBatch(Batch);
             register.setSubject(Subject);
             register.setStudents(Student_list);
+            register.setRecord(Record);
             realm.copyToRealmOrUpdate(register);
             realm.commitTransaction();
         }
