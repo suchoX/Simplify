@@ -13,19 +13,33 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Homescreen">
+        <activity
+            android:name=".Homescreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Attendance" />
-        <activity android:name=".Add_class" />
-        <activity android:name=".BluetoothScanActivity" />
-        <activity android:name="com.nononsenseapps.filepicker.FilePickerActivity" />
-        <activity android:name=".ClassDetailsActivity" />
-        <activity android:name=".MarkStudentsActivity"/>
+        <activity
+            android:name=".Attendance"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Add_class"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".BluetoothScanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.nononsenseapps.filepicker.FilePickerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ClassDetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MarkStudentsActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
