@@ -96,7 +96,7 @@ public class BluetoothScanActivity extends AppCompatActivity {
                 }
                 else if(BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals((action)))
                 {
-                    if(countScans == 1) {
+                    if(countScans == 3) {
                         Intent in = new Intent(BluetoothScanActivity.this, MarkStudentsActivity.class);
                         in.putExtra("Batch ID", batchID);
                         in.putStringArrayListExtra("MAC ID's", macID);

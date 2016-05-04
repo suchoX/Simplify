@@ -63,11 +63,11 @@ public class StudentAttendanceListAdapter extends BaseAdapter
     public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-            convertView = inflater.inflate(R.layout.mark_student_list_item, parent, false);
+            convertView = inflater.inflate(R.layout.record_list_item, parent, false);
         }
 
         dateView = (TextView)convertView.findViewById(R.id.record_date);
-        presentCheck = (CheckBox)convertView.findViewById(R.id.mark_student_list_check);
+        presentCheck = (CheckBox)convertView.findViewById(R.id.student_present_check);
 
         dateView.setText(registerRecords.get(position).getDate_today());
 

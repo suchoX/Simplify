@@ -76,7 +76,7 @@ public class ClassDetailsActivity extends AppCompatActivity {
     public void showStudentListFragment()
     {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.add(R.id.class_details_frame, studentListFragment).addToBackStack("StudentList");
+        transaction.replace(R.id.class_details_frame, studentListFragment).addToBackStack("StudentList");
         transaction.commit();
         studentListFragment.getActivityContext(this);
         studentListFragment.getBatchID(batchID);
