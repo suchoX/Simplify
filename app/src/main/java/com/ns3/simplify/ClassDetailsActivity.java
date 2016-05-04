@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ns3.simplify.fragments.ClassDetailsMainFragment;
+import com.ns3.simplify.fragments.StudentAttendanceFragment;
 import com.ns3.simplify.fragments.StudentListFragment;
 import com.ns3.simplify.realm.Register;
 
@@ -31,6 +32,7 @@ public class ClassDetailsActivity extends AppCompatActivity {
 
     ClassDetailsMainFragment classDetailsMainFragment;
     StudentListFragment studentListFragment;
+    StudentAttendanceFragment studentAttendanceFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class ClassDetailsActivity extends AppCompatActivity {
 
         classDetailsMainFragment = new ClassDetailsMainFragment();
         studentListFragment = new StudentListFragment();
+        studentAttendanceFragment = new StudentAttendanceFragment();
 
         showClassDetailsMainFragment();
     }
@@ -85,6 +88,15 @@ public class ClassDetailsActivity extends AppCompatActivity {
         transaction.replace(R.id.class_details_frame, classDetailsMainFragment).addToBackStack("ClassDetailsMain");
         transaction.commit();
     }
+    public void showStudentAttendanceFragment(String rollNum)
+    {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.class_details_frame, studentAttendanceFragment).addToBackStack("StudentAttendance");
+        transaction.commit();
+        studentAttendanceFragment.getActivityContext(this);
+        studentAttendanceFragment.getBatchID(batchID);
+        studentAttendanceFragment.getStudentRoll(rollNum);
+    }
 
     public void startBluetoothScanActivity()
     {
@@ -92,7 +104,6 @@ public class ClassDetailsActivity extends AppCompatActivity {
         intent.putExtra("Batch ID",batchID);
         startActivity(intent);
         finish();
-
     }
 
     private String getCurrentFragmentName()
@@ -116,5 +127,7 @@ public class ClassDetailsActivity extends AppCompatActivity {
             showClassDetailsMainFragment();
         else if(getCurrentFragmentName().equals("ClassDetailsMain"))
             finish();
+        else if(getCurrentFragmentName().equals("StudentAttendance"))
+            showStudentListFragment();
     }
 }

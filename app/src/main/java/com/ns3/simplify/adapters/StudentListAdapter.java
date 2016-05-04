@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.ns3.simplify.ClassDetailsActivity;
 import com.ns3.simplify.R;
 import com.ns3.simplify.realm.Student;
 import io.realm.RealmResults;
@@ -47,7 +48,7 @@ public class StudentListAdapter extends BaseAdapter
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         if(convertView==null)
         {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
@@ -67,6 +68,13 @@ public class StudentListAdapter extends BaseAdapter
             mac2View.setText("MAC :N/A");
         else
             mac2View.setText("MAC :"+studentList.get(position).getMac_ID2());
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ClassDetailsActivity)context).showStudentAttendanceFragment(studentList.get(position).getRoll_number());
+            }
+        });
 
         return convertView;
 
