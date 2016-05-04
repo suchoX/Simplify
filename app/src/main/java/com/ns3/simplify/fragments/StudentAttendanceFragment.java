@@ -66,6 +66,7 @@ public class StudentAttendanceFragment extends Fragment
 
         studentAttendanceListAdapter = new StudentAttendanceListAdapter(context,registerRecords,presentDatesID,totalNumRecords,totalDaysPresent);
         recordListView.setAdapter(studentAttendanceListAdapter);
+        totalDaysPresent = 0;
         return view;
     }
 
