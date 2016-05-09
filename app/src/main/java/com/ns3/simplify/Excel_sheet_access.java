@@ -139,63 +139,159 @@ public class Excel_sheet_access
         return;
     }
 
-    private static boolean saveExcelFile(Context context, String fileName)
+    public static boolean saveExcelFile(Context context, String fileName, String batchID)
     {
+        Realm realm;
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder(context).build();
+        realm = Realm.getInstance(realmConfig);
+        ProgressDialog progress = new ProgressDialog(context);
         boolean success = false;
 
-        //New Workbook
-        Workbook wb = new HSSFWorkbook();
+        RealmList<DateRegister> record = new RealmList<DateRegister>();
+        RealmResults<Student> studentList;
+        Register register;
 
-        Cell c = null;
+        try
+        {
+            progress.setTitle("Exporting");
+            progress.setMessage("Please wait while we are creating then excel Sheet");
+            progress.setCancelable(false);
+            progress.show();
 
-        //Cell style for header row
-        CellStyle cs = wb.createCellStyle();
-        cs.setFillForegroundColor(HSSFColor.LIME.index);
-        cs.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+            register = realm.where(Register.class).equalTo("BatchID",batchID).findFirst();
+            record = register.getRecord();
+            studentList = register.getStudents().sort("Roll_number");
 
-        //New Sheet
-        Sheet sheet1 = null;
-        sheet1 = wb.createSheet("myOrder");
+            //New Workbook
+            Workbook wb = new HSSFWorkbook();
 
-        // Generate column headings
+            Cell c = null;
+
+            //New Sheet
+            Sheet sheet1 = null;
+            sheet1 = wb.createSheet("Attendance");
+
+            addFirstRow(sheet1,c,record);
+            addSecondRow(sheet1,c,record);
+            addStudentData(sheet1,c,record,studentList);
+            // Create a path where we will place our List of objects on external storage
+            File file = new File(context.getExternalFilesDir(null), fileName);
+            FileOutputStream os = null;
+
+            try {
+                os = new FileOutputStream(file);
+                wb.write(os);
+                Log.w("FileUtils", "Writing file" + file);
+                success = true;
+            } catch (IOException e) {
+                Log.w("FileUtils", "Error writing " + file, e);
+            } catch (Exception e) {
+                Log.w("FileUtils", "Failed to save file", e);
+            } finally {
+                try {
+                    if (null != os)
+                        os.close();
+                } catch (Exception ex) {
+                }
+            }
+        }
+        catch (Exception e){e.printStackTrace(); }
+        finally {
+            progress.dismiss();
+            realm.close();
+        }
+        return success;
+    }
+
+    static void addFirstRow(Sheet sheet1,Cell c,RealmList<DateRegister> record)
+    {
+        int j;
         Row row = sheet1.createRow(0);
 
         c = row.createCell(0);
-        c.setCellValue("Item Number");
-        c.setCellStyle(cs);
+        c.setCellValue("Sl.No");
 
         c = row.createCell(1);
-        c.setCellValue("Quantity");
-        c.setCellStyle(cs);
+        c.setCellValue("Roll No");
 
         c = row.createCell(2);
-        c.setCellValue("Price");
-        c.setCellStyle(cs);
+        c.setCellValue("Name");
 
-        sheet1.setColumnWidth(0, (15 * 500));
-        sheet1.setColumnWidth(1, (15 * 500));
-        sheet1.setColumnWidth(2, (15 * 500));
-
-        // Create a path where we will place our List of objects on external storage
-        File file = new File(context.getExternalFilesDir(null), fileName);
-        FileOutputStream os = null;
-
-        try {
-            os = new FileOutputStream(file);
-            wb.write(os);
-            Log.w("FileUtils", "Writing file" + file);
-            success = true;
-        } catch (IOException e) {
-            Log.w("FileUtils", "Error writing " + file, e);
-        } catch (Exception e) {
-            Log.w("FileUtils", "Failed to save file", e);
-        } finally {
-            try {
-                if (null != os)
-                    os.close();
-            } catch (Exception ex) {
-            }
+        // Adding Dates
+        for(j=3 ; j<record.size()+3 ; j++)
+        {
+            c = row.createCell(j);
+            c.setCellValue(""+record.get(j-3).getDate()+"/"+record.get(j-3).getMonth()+"/"+record.get(j-3).getYear());
         }
-        return success;
+
+        c = row.createCell(record.size()+3);
+        c.setCellValue("Total");
+
+        c = row.createCell(record.size()+4);
+        c.setCellValue("%");
+    }
+
+    static void addSecondRow(Sheet sheet1,Cell c,RealmList<DateRegister> record)
+    {
+        int j,value=0;
+        Row row = sheet1.createRow(1);
+        c = row.createCell(0);
+        c.setCellValue("");
+
+        c = row.createCell(1);
+        c.setCellValue("No. of Classes");
+
+        c = row.createCell(2);
+        c.setCellValue("");
+
+        for(j=3 ; j<record.size()+3 ; j++)
+        {
+            c = row.createCell(j);
+            c.setCellValue(record.get(j-3).getValue());
+            value+=record.get(j-3).getValue();
+        }
+        c = row.createCell(record.size()+3);
+        c.setCellValue(value);
+
+        c = row.createCell(record.size()+4);
+        c.setCellValue("");
+    }
+
+    static void addStudentData(Sheet sheet1,Cell c,RealmList<DateRegister> record,RealmResults<Student> studentList)
+    {
+        int i,j;
+        int value=0,present=0;
+        for(i=0 ; i<studentList.size() ; i++)
+        {
+            value=0;
+            present=0;
+            Row row = sheet1.createRow(i+2);
+
+            c = row.createCell(0);
+            c.setCellValue(i+1);
+
+            c = row.createCell(1);
+            c.setCellValue(studentList.get(i).getRoll_number());
+
+            c = row.createCell(2);
+            c.setCellValue(studentList.get(i).getStudent_name());
+
+            for(j=3 ; j<record.size()+3 ; j++)
+            {
+                value+=record.get(j-3).getValue();
+                c = row.createCell(j);
+                if(record.get(j-3).getStudentPresent().contains(studentList.get(i))) {
+                    c.setCellValue(record.get(j - 3).getValue());
+                    present+=record.get(j - 3).getValue();
+                }
+                else
+                    c.setCellValue("");
+            }
+            c = row.createCell(record.size()+3);
+            c.setCellValue(present);
+
+            c = row.createCell(record.size()+4);
+            c.setCellValue((present*100)/value);
+        }
     }
 }

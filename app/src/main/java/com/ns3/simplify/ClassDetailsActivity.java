@@ -2,6 +2,7 @@ package com.ns3.simplify;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import com.ns3.simplify.fragments.StudentAttendanceFragment;
 import com.ns3.simplify.fragments.StudentListFragment;
 import com.ns3.simplify.realm.Register;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -178,19 +180,39 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
 
     public void exportExcelSheet()
     {
-        Calendar now = Calendar.getInstance();
-        DatePickerDialog dpd = DatePickerDialog.newInstance(
-                ClassDetailsActivity.this,
-                now.get(Calendar.YEAR),
-                now.get(Calendar.MONTH),
-                now.get(Calendar.DAY_OF_MONTH)
-        );
-        dpd.show(getFragmentManager(), "Datepickerdialog");
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Choose Date Range?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        Calendar now = Calendar.getInstance();
+                        DatePickerDialog dpd = DatePickerDialog.newInstance(
+                                ClassDetailsActivity.this,
+                                now.get(Calendar.YEAR),
+                                now.get(Calendar.MONTH),
+                                now.get(Calendar.DAY_OF_MONTH)
+                        );
+                        dpd.show(getFragmentManager(), "Datepickerdialog");
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        Calendar c = Calendar.getInstance();
+                        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                        String formattedDate = df.format(c.getTime());
+                        Excel_sheet_access.saveExcelFile(ClassDetailsActivity.this,"Full Attendance data till "+formattedDate+".xls",batchID);
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
-
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd)
+    {
+        Toast.makeText(this,""+dayOfMonth+"/"+(monthOfYear+1)+"/"+year+" "+dayOfMonthEnd+"/"+(monthOfYearEnd+1)+"/"+yearEnd,Toast.LENGTH_LONG).show();
     }
 
     private String getCurrentFragmentName()
