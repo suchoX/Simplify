@@ -15,12 +15,21 @@ public class DateRegister extends RealmObject
 
     @PrimaryKey
     private int dateID;
-    private String Date_today;
+
+    int date;
+    int month;
+    int year;
     private int value;
     private RealmList<Student> studentPresent;
 
-    public String getDate_today() {return Date_today;}
-    public void setDate_today(String Date_today) {this.Date_today = Date_today;}
+    public int getDate() { return date; }
+    public void setDate(int date) { this.date = date; }
+
+    public int getMonth() { return month; }
+    public void setMonth(int month) { this.month = month; }
+
+    public int getYear() { return year; }
+    public void setYear(int year) { this.year = year; }
 
     public int getValue() { return value; }
     public void setValue(int value) { this.value = value; }

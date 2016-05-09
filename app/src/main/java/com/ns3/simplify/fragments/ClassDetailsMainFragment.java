@@ -41,6 +41,13 @@ public class ClassDetailsMainFragment extends Fragment
             }
         });
 
+        exportListLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ClassDetailsActivity)getActivity()).exportExcelSheet();
+            }
+        });
+
         return view;
     }
 

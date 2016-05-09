@@ -108,13 +108,12 @@ public class MarkStudentsActivity extends AppCompatActivity
     {
         Calendar c = Calendar.getInstance();
 
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-        String formattedDate = df.format(c.getTime());
-
         record = new DateRegister();
         realm.beginTransaction();
         record.setDateID(realm.where(DateRegister.class).findAll().size() + 1);
-        record.setDate_today(formattedDate);
+        record.setDate(c.get(Calendar.DAY_OF_MONTH));
+        record.setMonth(c.get(Calendar.MONTH)+1);
+        record.setYear(c.get(Calendar.YEAR));
         record.setValue(value);
         record.setStudentPresent(presentStudentList);
         realm.copyToRealmOrUpdate(record);

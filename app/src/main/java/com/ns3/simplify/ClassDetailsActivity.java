@@ -14,18 +14,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.borax12.materialdaterangepicker.date.DatePickerDialog;
 import com.ns3.simplify.fragments.ClassDetailsMainFragment;
 import com.ns3.simplify.fragments.StudentAttendanceFragment;
 import com.ns3.simplify.fragments.StudentListFragment;
 import com.ns3.simplify.realm.Register;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
-public class ClassDetailsActivity extends AppCompatActivity {
+public class ClassDetailsActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     Toolbar mToolbar;
     TextView batchNameToolbar,batchSubjectToolbar;
@@ -174,6 +176,23 @@ public class ClassDetailsActivity extends AppCompatActivity {
 
     }
 
+    public void exportExcelSheet()
+    {
+        Calendar now = Calendar.getInstance();
+        DatePickerDialog dpd = DatePickerDialog.newInstance(
+                ClassDetailsActivity.this,
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH)
+        );
+        dpd.show(getFragmentManager(), "Datepickerdialog");
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
+
+    }
+
     private String getCurrentFragmentName()
     {
         int backStackEntryCount = getFragmentManager().getBackStackEntryCount();
@@ -197,4 +216,6 @@ public class ClassDetailsActivity extends AppCompatActivity {
         else if(getCurrentFragmentName().equals("StudentAttendance"))
             showStudentListFragment();
     }
+
+
 }
