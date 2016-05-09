@@ -69,7 +69,10 @@ public class StudentAttendanceListAdapter extends BaseAdapter
         dateView = (TextView)convertView.findViewById(R.id.record_date);
         presentCheck = (CheckBox)convertView.findViewById(R.id.student_present_check);
 
-        dateView.setText(registerRecords.get(position).getDate_today());
+        if(registerRecords.get(position).getValue()==1)
+            dateView.setText(registerRecords.get(position).getDate_today());
+        else
+            dateView.setText(registerRecords.get(position).getDate_today()+" ("+registerRecords.get(position).getValue()+")");
 
         if(presentDatesID.contains(registerRecords.get(position).getDateID()))
             presentCheck.setChecked(true);

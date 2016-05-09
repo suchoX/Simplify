@@ -41,8 +41,8 @@ public class MarkStudentsActivity extends AppCompatActivity
     RealmResults<Student> studentList;
     RealmList<Student> presentStudentList;
     Register register;
-    RealmList<DateRegister> recordList;
     DateRegister record;
+    int value;
 
     ListView markStudentListView;
 
@@ -52,6 +52,7 @@ public class MarkStudentsActivity extends AppCompatActivity
         setContentView(R.layout.activity_mark_students);
 
         initToolbar();
+        value = getIntent().getIntExtra("Value",1);
 
         realmConfig = new RealmConfiguration.Builder(this).build();
         realm = Realm.getInstance(realmConfig);
@@ -114,6 +115,7 @@ public class MarkStudentsActivity extends AppCompatActivity
         realm.beginTransaction();
         record.setDateID(realm.where(DateRegister.class).findAll().size() + 1);
         record.setDate_today(formattedDate);
+        record.setValue(value);
         record.setStudentPresent(presentStudentList);
         realm.copyToRealmOrUpdate(record);
         realm.commitTransaction();

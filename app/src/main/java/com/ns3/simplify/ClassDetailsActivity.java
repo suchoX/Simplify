@@ -3,10 +3,14 @@ package com.ns3.simplify;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +18,8 @@ import com.ns3.simplify.fragments.ClassDetailsMainFragment;
 import com.ns3.simplify.fragments.StudentAttendanceFragment;
 import com.ns3.simplify.fragments.StudentListFragment;
 import com.ns3.simplify.realm.Register;
+
+import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -33,6 +39,14 @@ public class ClassDetailsActivity extends AppCompatActivity {
     ClassDetailsMainFragment classDetailsMainFragment;
     StudentListFragment studentListFragment;
     StudentAttendanceFragment studentAttendanceFragment;
+
+    AlertDialog beforeScanDialog;
+    AlertDialog.Builder tempBuilder;
+    LayoutInflater factory;
+    View beforeScanView;
+
+
+    ArrayList<String> macID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,15 +114,68 @@ public class ClassDetailsActivity extends AppCompatActivity {
 
     public void startBluetoothScanActivity()
     {
-        Intent intent = new Intent(ClassDetailsActivity.this,BluetoothScanActivity.class);
-        intent.putExtra("Batch ID",batchID);
-        startActivity(intent);
-        finish();
+
+        final EditText numberScansView,valueView;
+        Button scanNow,directMark;
+        tempBuilder = new AlertDialog.Builder(this);
+        beforeScanDialog = tempBuilder.create();
+        factory = getLayoutInflater();
+        beforeScanView = factory.inflate(R.layout.dialog_before_scan,null);
+        beforeScanDialog.setView(beforeScanView);
+
+        numberScansView = (EditText)beforeScanView.findViewById(R.id.number_scans_edit);
+        valueView = (EditText)beforeScanView.findViewById(R.id.value_edit);
+        scanNow = (Button)beforeScanView.findViewById(R.id.scan_now);
+        scanNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int numberScans,value;
+                if(numberScansView.getText().toString().trim().equalsIgnoreCase(""))
+                    numberScansView.setError("This cannot be empty");
+                else if(valueView.getText().toString().trim().equalsIgnoreCase(""))
+                    valueView.setError("This cannot be empty");
+                else {
+                    numberScans = Integer.parseInt(numberScansView.getText().toString().trim());
+                    value = Integer.parseInt(valueView.getText().toString().trim());
+                    Intent intent = new Intent(ClassDetailsActivity.this, BluetoothScanActivity.class);
+                    intent.putExtra("Batch ID", batchID);
+                    intent.putExtra("Value",value);
+                    intent.putExtra("Number Scans",numberScans);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
+
+        directMark = (Button)beforeScanView.findViewById(R.id.direct_mark);
+        directMark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                macID = new ArrayList<String>();
+                int value;
+                if(valueView.getText().toString().trim().equalsIgnoreCase(""))
+                    valueView.setError("This cannot be empty");
+                else {
+                    value = Integer.parseInt(valueView.getText().toString().trim());
+                    Intent in = new Intent(ClassDetailsActivity.this, MarkStudentsActivity.class);
+                    in.putExtra("Batch ID", batchID);
+                    in.putExtra("Value",value);
+                    in.putStringArrayListExtra("MAC ID's", macID);
+                    startActivity(in);
+                    finish();
+                }
+
+
+            }
+        });
+
+        beforeScanDialog.setCancelable(true);
+        beforeScanDialog.show();
+
     }
 
     private String getCurrentFragmentName()
     {
-
         int backStackEntryCount = getFragmentManager().getBackStackEntryCount();
 
         String fragmentName;

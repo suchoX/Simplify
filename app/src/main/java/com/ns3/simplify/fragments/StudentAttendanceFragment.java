@@ -37,7 +37,7 @@ public class StudentAttendanceFragment extends Fragment
     RealmList<DateRegister> registerRecords;
     RealmList<Student> studentsPresentList;
     Student selectedStudent;
-    int totalNumRecords,totalDaysPresent=0;
+    int totalNumRecords=0,totalDaysPresent=0;
     float attendancePercentage;
     ArrayList<Integer> presentDatesID;
 
@@ -59,7 +59,8 @@ public class StudentAttendanceFragment extends Fragment
 
         presentDatesID = new ArrayList<Integer>();
         registerRecords = realm.where(Register.class).equalTo("BatchID",batchID).findFirst().getRecord();
-        totalNumRecords = registerRecords.size();
+        for(int i=0 ; i<registerRecords.size() ; i++)
+            totalNumRecords+=registerRecords.get(i).getValue();
         selectedStudent = realm.where(Student.class).equalTo("Roll_number",rollNum).findFirst();
 
         calculateAttendance();
@@ -72,15 +73,17 @@ public class StudentAttendanceFragment extends Fragment
 
     private void calculateAttendance() {
         int i;
-        for (i = 0; i < totalNumRecords; i++) {
+        for (i = 0; i < registerRecords.size(); i++)
+        {
             studentsPresentList = registerRecords.get(i).getStudentPresent();
             if (studentsPresentList.contains(selectedStudent)) {
                 presentDatesID.add(registerRecords.get(i).getDateID());
-                totalDaysPresent++;
+                totalDaysPresent+=registerRecords.get(i).getValue();
             }
         }
         attendancePercentage = ((float)totalDaysPresent*100)/(float)totalNumRecords;
         percentageView.setText(""+attendancePercentage + " %");
+        totalNumRecords=totalDaysPresent=0;
     }
 
     public void getBatchID(String batchID)

@@ -29,6 +29,8 @@ public class BluetoothScanActivity extends AppCompatActivity {
     ArrayList<String> macID;
     Bundle scan_data;
     int countScans=0;
+    int numCountScans;
+    int value;
 
     String batchID;
     @Override
@@ -37,6 +39,9 @@ public class BluetoothScanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bluetooth_scan);
 
         batchID = getIntent().getStringExtra("Batch ID");
+        numCountScans = getIntent().getIntExtra("Number Scans",3);
+        value = getIntent().getIntExtra("Value",1);
+        Toast.makeText(this,""+numCountScans+" "+value,Toast.LENGTH_LONG).show();
 
         final RippleBackground rippleBackground=(RippleBackground)findViewById(R.id.content);
         rippleBackground.startRippleAnimation();
@@ -96,9 +101,11 @@ public class BluetoothScanActivity extends AppCompatActivity {
                 }
                 else if(BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals((action)))
                 {
-                    if(countScans == 3) {
+                    if(countScans == numCountScans-1)
+                    {
                         Intent in = new Intent(BluetoothScanActivity.this, MarkStudentsActivity.class);
                         in.putExtra("Batch ID", batchID);
+                        in.putExtra("Value",value);
                         in.putStringArrayListExtra("MAC ID's", macID);
                         startActivity(in);
                         finish();
