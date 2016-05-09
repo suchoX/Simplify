@@ -14,6 +14,7 @@ public class Register extends RealmObject
 
     private String Batch;
     private String Subject;
+    private int year;
     private RealmList<Student> Students;
     private RealmList<DateRegister> Record;
 
@@ -25,6 +26,9 @@ public class Register extends RealmObject
 
     public String getSubject() {return Subject;}
     public void setSubject(String Subject) {this.Subject = Subject;}
+
+    public int getYear() { return year; }
+    public void setYear(int year) { this.year = year; }
 
     public RealmList<Student> getStudents() {return Students;}
     public void setStudents(RealmList<Student> Students) {this.Students = Students;}

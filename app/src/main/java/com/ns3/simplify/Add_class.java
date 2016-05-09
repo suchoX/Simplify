@@ -38,9 +38,10 @@ public class Add_class extends AppCompatActivity
     int card_padding;
     DisplayMetrics metrics;
     int height;
-    EditText batch_edit,subject_edit;
+    EditText batch_edit,subject_edit,year_edit;
     ImageView imageView;
     String batch,subject,batchid;
+    int year;
 
     Excel_sheet_access excel_sheet;
 
@@ -72,6 +73,7 @@ public class Add_class extends AppCompatActivity
 
         batch_edit = (EditText)findViewById(R.id.edit_batch);
         subject_edit = (EditText)findViewById(R.id.edit_subject);
+        year_edit = (EditText)findViewById(R.id.edit_year);
 
         Button bu = (Button)findViewById(R.id.realm_browser);
         bu.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +99,10 @@ public class Add_class extends AppCompatActivity
                     batch_edit.setError("This field can not be blank");
                 else if (subject_edit.getText().toString().trim().equalsIgnoreCase(""))
                     subject_edit.setError("This field can not be blank");
+                else if (year_edit.getText().toString().trim().equalsIgnoreCase(""))
+                    year_edit.setError("This field can not be blank");
                 else {
+                    year = Integer.parseInt(year_edit.getText().toString().trim());
                     Add_class.this.generateBatchID();
                     checkBatch = realm.where(Register.class).equalTo("BatchID",batchid).findAll();  //Checking if The same BatchID already exists
                     if(checkBatch.size() == 0) {
@@ -174,7 +179,7 @@ public class Add_class extends AppCompatActivity
             else
             {
                 Uri uri = data.getData();
-                Excel_sheet_access.readExcelFile(this,uri,batchid,batch,subject);
+                Excel_sheet_access.readExcelFile(this,uri,batchid,batch,subject,year);
                 Toast.makeText(Add_class.this, "Batch Added!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Add_class.this,Attendance.class);
                 startActivity(intent);
@@ -185,10 +190,12 @@ public class Add_class extends AppCompatActivity
 
     private void generateBatchID()    //Concatenate Batch Name and Subject to create final batch name
     {
-        batch=batch_edit.getText().toString();
-        subject=subject_edit.getText().toString();
+        String temp = year_edit.getText().toString().trim();
+        batch=batch_edit.getText().toString().trim();
+        subject=subject_edit.getText().toString().trim();
 
         batchid = batch;
+        batchid = batchid.concat(temp);
         batchid = batchid.concat(subject);
         batchid = batchid.replaceAll("\\s+","");    //remove spaces from batch name
         batchid = batchid.toLowerCase();

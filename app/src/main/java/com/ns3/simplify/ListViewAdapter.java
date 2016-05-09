@@ -42,7 +42,7 @@ public class ListViewAdapter extends ArrayAdapter<ObjectItem>{
         ViewGroup.LayoutParams params = textViewItem.getLayoutParams();
         params.height = (int)textViewItem.getTextSize()*4;
         textViewItem.setLayoutParams(params);
-        textViewItem.setText(objectItem.batch + "  " + objectItem.subject);
+        textViewItem.setText(objectItem.batch + "  " + objectItem.year + " " + objectItem.subject);
 
         BatchID = objectItem.batchID;
         convertView.setOnClickListener(new OnItemClickListener(BatchID));

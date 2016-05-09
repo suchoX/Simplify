@@ -97,6 +97,36 @@
                 android:layout_below="@+id/add_class_layout_2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:paddingRight="@dimen/activity_vertical_margin"
+                android:orientation="horizontal"
+                android:layout_margin="10dp">
+
+                <TextView
+                    android:id="@+id/text_year"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Year :"
+                    android:textColor="@color/grey_text"
+                    android:textSize="25sp"
+                    android:gravity="center"/>
+                <EditText
+                    android:id="@+id/edit_year"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/grey_text"
+                    android:hint="Type..."
+                    android:textSize="22sp"
+                    android:singleLine="true"
+                    android:nextFocusDown="@+id/button_import_excel"
+                    android:inputType="number"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/add_class_layout_4"
+                android:layout_below="@+id/add_class_layout_3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_margin="10dp">
 
