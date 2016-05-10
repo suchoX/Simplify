@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/add_roll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Roll Number"
+        android:gravity="center"
+        android:layout_margin="10dp"/>
+
+    <EditText
+        android:id="@+id/add_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:gravity="center"
+        android:layout_margin="10dp"/>
+
+    <EditText
+        android:id="@+id/add_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Mobile Number"
+        android:gravity="center"
+        android:inputType="phone"
+        android:maxLength="10"
+        android:layout_margin="10dp"/>
+    <EditText
+        android:id="@+id/add_mac1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="MAC 1"
+        android:gravity="center"
+        android:layout_margin="10dp"/>
+    <EditText
+        android:id="@+id/add_mac2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="MAC 2"
+        android:gravity="center"
+        android:layout_margin="10dp"/>
+
+    <Button
+        android:id="@+id/add_student"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_blue"
+        android:text="Add Student"
+        android:textColor="@color/white"/>
+</LinearLayout>
+</ScrollView>

@@ -21,6 +21,7 @@ import com.ns3.simplify.fragments.GraphFragment;
 import com.ns3.simplify.fragments.StudentAttendanceFragment;
 import com.ns3.simplify.fragments.StudentListFragment;
 import com.ns3.simplify.realm.Register;
+import com.ns3.simplify.realm.Student;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -189,6 +190,69 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
         beforeScanDialog.setCancelable(true);
         beforeScanDialog.show();
 
+    }
+
+    public void addStudent()
+    {
+        tempBuilder = new AlertDialog.Builder(this);
+        beforeScanDialog = tempBuilder.create();
+        factory = getLayoutInflater();
+        beforeScanView = factory.inflate(R.layout.dialog_add_student,null);
+        beforeScanDialog.setView(beforeScanView);
+        beforeScanDialog.show();
+
+        final EditText rollView,nameView,phoneView,mac1View,mac2View;
+        rollView = (EditText)beforeScanView.findViewById(R.id.add_roll);
+        nameView = (EditText)beforeScanView.findViewById(R.id.add_name);
+        phoneView = (EditText)beforeScanView.findViewById(R.id.add_phone);
+        mac1View = (EditText)beforeScanView.findViewById(R.id.add_mac1);
+        mac2View = (EditText)beforeScanView.findViewById(R.id.add_mac2);
+        final Button addStudent = (Button)beforeScanView.findViewById(R.id.add_student);
+        addStudent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String roll,name,phone,mac1,mac2;
+                roll = rollView.getText().toString().trim();
+                name = nameView.getText().toString().trim();
+                phone = phoneView.getText().toString().trim();
+                mac1 = mac1View.getText().toString().trim();
+                mac2 = mac2View.getText().toString().trim();
+                if(roll.equals(""))
+                    rollView.setError("Cant be Empty");
+                else if(name.equals(""))
+                    nameView.setError("Cant be Empty");
+                else if(phone.equals(""))
+                    phoneView.setError("Cant be Empty");
+                else if(mac1.equals(""))
+                    mac1View.setError("Cant be Empty");
+                else
+                {
+                    addStudenttoDatabase(roll,name,phone,mac1,mac2);
+                    beforeScanDialog.dismiss();
+                }
+            }
+        });
+    }
+
+    private void addStudenttoDatabase(String roll,String name,String phone,String mac1,String mac2)
+    {
+        realm.beginTransaction();
+        Student student=new Student();
+        student.setRoll_number(roll);
+        student.setStudent_name(name);
+        student.setPhone_no(phone);
+        student.setMac_ID1(mac1.toUpperCase());
+        if(mac2.length()>0)
+            student.setMac_ID2(mac2.toUpperCase());
+        realm.copyToRealmOrUpdate(student);
+        realm.commitTransaction();
+
+        Register register;
+        register = realm.where(Register.class).equalTo("BatchID",batchID).findFirst();
+        realm.beginTransaction();
+        register.getStudents().add(student);
+        realm.commitTransaction();
+        Toast.makeText(this,name+" added to this Register",Toast.LENGTH_LONG).show();
     }
 
     public void exportExcelSheet()

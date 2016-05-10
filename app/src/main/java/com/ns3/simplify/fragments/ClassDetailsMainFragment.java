@@ -56,6 +56,13 @@ public class ClassDetailsMainFragment extends Fragment
             }
         });
 
+        addStudentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ClassDetailsActivity)getActivity()).addStudent();
+            }
+        });
+
         return view;
     }
 
