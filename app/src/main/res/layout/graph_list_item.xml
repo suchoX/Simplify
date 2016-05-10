@@ -1,0 +1,28 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.CardView
+
+        android:orientation="horizontal"
+        android:id="@+id/card_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="4dp"
+        card_view:cardCornerRadius="4dp">
+
+        <org.eazegraph.lib.charts.BarChart
+            android:id="@+id/barchart"
+            android:layout_width="match_parent"
+            android:layout_height="256dp"
+            android:padding="5dp"
+            app:egFixedBarWidth="true"
+            app:egBarWidth="15dp"
+            app:egLegendHeight="40dp"/>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.borax12.materialdaterangepicker.date.DatePickerDialog;
 import com.ns3.simplify.fragments.ClassDetailsMainFragment;
+import com.ns3.simplify.fragments.GraphFragment;
 import com.ns3.simplify.fragments.StudentAttendanceFragment;
 import com.ns3.simplify.fragments.StudentListFragment;
 import com.ns3.simplify.realm.Register;
@@ -43,6 +44,7 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
     ClassDetailsMainFragment classDetailsMainFragment;
     StudentListFragment studentListFragment;
     StudentAttendanceFragment studentAttendanceFragment;
+    GraphFragment graphFragment;
 
     AlertDialog beforeScanDialog;
     AlertDialog.Builder tempBuilder;
@@ -69,6 +71,7 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
         classDetailsMainFragment = new ClassDetailsMainFragment();
         studentListFragment = new StudentListFragment();
         studentAttendanceFragment = new StudentAttendanceFragment();
+        graphFragment = new GraphFragment();
 
         showClassDetailsMainFragment();
     }
@@ -106,6 +109,7 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
         transaction.replace(R.id.class_details_frame, classDetailsMainFragment).addToBackStack("ClassDetailsMain");
         transaction.commit();
     }
+
     public void showStudentAttendanceFragment(String rollNum)
     {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -114,6 +118,15 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
         studentAttendanceFragment.getActivityContext(this);
         studentAttendanceFragment.getBatchID(batchID);
         studentAttendanceFragment.getStudentRoll(rollNum);
+    }
+
+    public void showGraphFragment()
+    {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.class_details_frame, graphFragment).addToBackStack("Graph");
+        transaction.commit();
+        graphFragment.getActivityContext(this);
+        graphFragment.getBatchID(batchID);
     }
 
     public void startBluetoothScanActivity()
@@ -233,10 +246,13 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
     {
         if(getCurrentFragmentName().equals("StudentList"))
             showClassDetailsMainFragment();
+        else if(getCurrentFragmentName().equals("Graph"))
+            showClassDetailsMainFragment();
         else if(getCurrentFragmentName().equals("ClassDetailsMain"))
             finish();
         else if(getCurrentFragmentName().equals("StudentAttendance"))
             showStudentListFragment();
+
     }
 
 

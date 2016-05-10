@@ -37,4 +37,6 @@ dependencies {
     compile 'com.skyfishjy.ripplebackground:library:1.0.1'
     compile 'com.scand:realm-browser:0.1.13'
     compile 'com.borax12.materialdaterangepicker:library:1.6'
+    compile 'com.github.blackfizz:eazegraph:1.2.5l@aar'
+    compile 'com.nineoldandroids:library:2.4.0'
 }
