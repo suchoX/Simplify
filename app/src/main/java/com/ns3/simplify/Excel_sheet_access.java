@@ -2,10 +2,15 @@ package com.ns3.simplify;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
+import com.borax12.materialdaterangepicker.date.DatePickerDialog;
 import com.ns3.simplify.realm.DateRegister;
 import com.ns3.simplify.realm.Register;
 import com.ns3.simplify.realm.Student;
@@ -27,6 +32,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Iterator;
 
 import io.realm.Realm;
@@ -183,6 +190,31 @@ public class Excel_sheet_access
                 wb.write(os);
                 Log.w("FileUtils", "Writing file" + file);
                 success = true;
+
+                final File f = file;
+                final Context cx = context;
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("File Exported in direcory-\n\n"+file+"\n\nView it?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id)
+                            {
+                                Intent intent = new Intent();
+                                intent.setAction(android.content.Intent.ACTION_VIEW);
+                                intent.setDataAndType(Uri.fromFile(f),"application/vnd.ms-excel");
+                                cx.startActivity(intent);
+
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id)
+                            {
+
+                            }
+                        }).create();
+                AlertDialog alert = builder.create();
+                alert.show();
+
             } catch (IOException e) {
                 Log.w("FileUtils", "Error writing " + file, e);
             } catch (Exception e) {
