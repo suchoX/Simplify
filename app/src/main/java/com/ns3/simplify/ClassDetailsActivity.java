@@ -26,6 +26,7 @@ import com.ns3.simplify.realm.Student;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -290,6 +291,10 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd)
     {
         Toast.makeText(this,""+dayOfMonth+"/"+(monthOfYear+1)+"/"+year+" "+dayOfMonthEnd+"/"+(monthOfYearEnd+1)+"/"+yearEnd,Toast.LENGTH_LONG).show();
+        Date fromDate = new Date(year,monthOfYear,dayOfMonth);
+        Date toDate = new Date(yearEnd,monthOfYearEnd,dayOfMonthEnd);
+
+        Excel_sheet_access.saveExcelFile(this,"Attendance Details from-"+dayOfMonth+"/"+(monthOfYear+1)+"/"+year+" to-"+dayOfMonthEnd+"/"+(monthOfYearEnd+1)+"/"+yearEnd,batchID,fromDate,toDate);
     }
 
     private String getCurrentFragmentName()

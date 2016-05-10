@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <android.support.v7.widget.CardView
-
         android:orientation="horizontal"
         android:id="@+id/card_info"
         android:layout_width="match_parent"
@@ -23,6 +22,7 @@
             android:padding="5dp"
             app:egFixedBarWidth="true"
             app:egBarWidth="15dp"
-            app:egLegendHeight="40dp"/>
+            app:egLegendHeight="30dp"
+            card_view:egLegendTextSize="10dp"/>
     </android.support.v7.widget.CardView>
 </LinearLayout>

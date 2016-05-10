@@ -34,6 +34,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 
 import io.realm.Realm;
@@ -253,7 +254,7 @@ public class Excel_sheet_access
         for(j=3 ; j<record.size()+3 ; j++)
         {
             c = row.createCell(j);
-            c.setCellValue(""+record.get(j-3).getDate()+"/"+record.get(j-3).getMonth()+"/"+record.get(j-3).getYear());
+            c.setCellValue(""+record.get(j-3).getDateToday().getDate()+"/"+(record.get(j-3).getDateToday().getMonth()+1)+"/"+(record.get(j-3).getDateToday().getYear()+1900));
         }
 
         c = row.createCell(record.size()+3);
@@ -325,5 +326,99 @@ public class Excel_sheet_access
             c = row.createCell(record.size()+4);
             c.setCellValue((present*100)/value);
         }
+    }
+
+    public static boolean saveExcelFile(Context context, String fileName, String batchID,Date fromDate, Date toDate)
+    {
+        Realm realm;
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder(context).build();
+        realm = Realm.getInstance(realmConfig);
+        ProgressDialog progress = new ProgressDialog(context);
+        boolean success = false;
+
+        RealmList<DateRegister> temp = new RealmList<DateRegister>();
+        RealmList<DateRegister> record = new RealmList<DateRegister>();
+        RealmResults<Student> studentList;
+        Register register;
+
+        try
+        {
+            progress.setTitle("Exporting");
+            progress.setMessage("Please wait while we are creating then excel Sheet");
+            progress.setCancelable(false);
+            progress.show();
+
+            register = realm.where(Register.class).equalTo("BatchID",batchID).findFirst();
+            temp = register.getRecord();
+            studentList = register.getStudents().sort("Roll_number");
+
+            for(int i=0 ; i<temp.size() ; i++)
+                if(temp.get(i).getDateToday().after(fromDate) && temp.get(i).getDateToday().before(toDate))
+                    record.add(temp.get(i));
+
+            //New Workbook
+            Workbook wb = new HSSFWorkbook();
+
+            Cell c = null;
+
+            //New Sheet
+            Sheet sheet1 = null;
+            sheet1 = wb.createSheet("Attendance");
+
+            addFirstRow(sheet1,c,record);
+            //addSecondRow(sheet1,c,record);
+            //addStudentData(sheet1,c,record,studentList);
+            // Create a path where we will place our List of objects on external storage
+            File file = new File(context.getExternalFilesDir(null), fileName);
+            FileOutputStream os = null;
+
+            try {
+                os = new FileOutputStream(file);
+                wb.write(os);
+                Log.w("FileUtils", "Writing file" + file);
+                success = true;
+
+                final File f = file;
+                final Context cx = context;
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("File Exported in direcory-\n\n"+file+"\n\nView it?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id)
+                            {
+                                Intent intent = new Intent();
+                                intent.setAction(android.content.Intent.ACTION_VIEW);
+                                intent.setDataAndType(Uri.fromFile(f),"application/vnd.ms-excel");
+                                cx.startActivity(intent);
+
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id)
+                            {
+
+                            }
+                        }).create();
+                AlertDialog alert = builder.create();
+                alert.show();
+
+            } catch (IOException e) {
+                Log.w("FileUtils", "Error writing " + file, e);
+            } catch (Exception e) {
+                Log.w("FileUtils", "Failed to save file", e);
+            } finally {
+                try {
+                    if (null != os)
+                        os.close();
+                } catch (Exception ex) {
+                }
+            }
+        }
+        catch (Exception e){e.printStackTrace(); }
+        finally {
+            progress.dismiss();
+            realm.close();
+        }
+        return success;
     }
 }
