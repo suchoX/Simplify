@@ -29,7 +29,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Add_class"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"  />
         <activity
             android:name=".BluetoothScanActivity"
             android:screenOrientation="portrait" />

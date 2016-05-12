@@ -51,7 +51,7 @@ public class Attendance extends AppCompatActivity
         ObjectItem[] ObjectItemData = new ObjectItem[numBatch];
         int i;
         for(i=0 ; i<numBatch ; i++)
-            ObjectItemData[i] = new ObjectItem(allBatch.get(i).getBatchID(),allBatch.get(i).getBatch(),allBatch.get(i).getSubject(),allBatch.get(i).getYear());
+            ObjectItemData[i] = new ObjectItem(allBatch.get(i).getBatchID(),allBatch.get(i).getSubject(),allBatch.get(i).getSubjectCode(),allBatch.get(i).getBatch(),allBatch.get(i).getSemester(),allBatch.get(i).getStream(),allBatch.get(i).getSection(),allBatch.get(i).getGroup());
 
         ListViewAdapter listAdapter = new ListViewAdapter(this,R.layout.list_item,ObjectItemData);
         listView.setAdapter(listAdapter);

@@ -36,7 +36,8 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
     Toolbar mToolbar;
     TextView batchNameToolbar,batchSubjectToolbar;
 
-    String batchID,batchName,batchSub;
+    String batchID,subName,subCode,stream,section;
+    int batchD;
 
     Realm realm;
     RealmConfiguration realmConfig;
@@ -64,8 +65,11 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
 
         batchID = getIntent().getStringExtra("BatchID");
         batch = realm.where(Register.class).equalTo("BatchID",batchID).findFirst();
-        batchName = batch.getBatch();
-        batchSub = batch.getSubject();
+        subName = batch.getSubject();
+        subCode = batch.getSubjectCode();
+        stream = batch.getStream();
+        section = batch.getSection();
+        batchD = batch.getBatch();
 
         initToolbar();
 
@@ -82,8 +86,8 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         batchNameToolbar = (TextView)findViewById(R.id.batch_name_toolbar);
         batchSubjectToolbar = (TextView)findViewById(R.id.batch_subject_toolbar);
-        batchNameToolbar.setText(batchName);
-        batchSubjectToolbar.setText(batchSub);
+        batchNameToolbar.setText(subName+" - "+ subCode);
+        batchSubjectToolbar.setText(stream+" "+section+" - "+batchD);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -279,6 +283,7 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
                         Calendar c = Calendar.getInstance();
                         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
                         String formattedDate = df.format(c.getTime());
+                        Register register = realm.where(Register.class).equalTo("BatchID",batchID).findFirst();
                         Excel_sheet_access.saveExcelFile(ClassDetailsActivity.this,"Full Attendance data till "+formattedDate+".xls",batchID);
                     }
                 });

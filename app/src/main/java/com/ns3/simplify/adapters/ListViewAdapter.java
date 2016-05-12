@@ -38,12 +38,13 @@ public class ListViewAdapter extends ArrayAdapter<ObjectItem>{
         }
 
         ObjectItem objectItem = data[position];
-        TextView textViewItem = (TextView) convertView.findViewById(R.id.text_class);
+        TextView subinfoText = (TextView) convertView.findViewById(R.id.sub_info);
+        TextView classinfoText = (TextView) convertView.findViewById(R.id.class_info);
+        TextView sectioninfoText = (TextView) convertView.findViewById(R.id.section_info);
 
-        ViewGroup.LayoutParams params = textViewItem.getLayoutParams();
-        params.height = (int)textViewItem.getTextSize()*4;
-        textViewItem.setLayoutParams(params);
-        textViewItem.setText(objectItem.batch + "  " + objectItem.year + " " + objectItem.subject);
+        subinfoText.setText(objectItem.Subject+" - "+objectItem.SubjectCode);
+        classinfoText.setText(objectItem.Stream+" "+objectItem.Batch+" ("+objectItem.Semester+" Semester)");
+        sectioninfoText.setText("Sec :"+objectItem.Section+"  Gr :"+objectItem.Group);
 
         BatchID = objectItem.batchID;
         convertView.setOnClickListener(new OnItemClickListener(BatchID));

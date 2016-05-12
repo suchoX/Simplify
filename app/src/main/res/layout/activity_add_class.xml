@@ -9,146 +9,298 @@
 
     <include layout="@layout/layout_toolbar" />
 
-    <Button
-        android:id="@+id/realm_browser"
-        android:layout_below="@+id/toolbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Realm Browser"/>
 
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_info"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginBottom="8dp"
-        card_view:cardCornerRadius="4dp"
-        android:layout_centerVertical="true">
-
-        <RelativeLayout
-            android:orientation="vertical"
+        android:layout_below="@+id/toolbar">
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_info"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="8dp"
+            card_view:cardCornerRadius="4dp">
 
-            <LinearLayout
-                android:id="@+id/add_class_layout_1"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="10dp">
+            <RelativeLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/text_batch"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:id="@+id/add_class_layout_2"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Batch :"
-                    android:textColor="@color/grey_text"
-                    android:textSize="25sp"
-                    android:gravity="center"/>
-                <EditText
-                    android:id="@+id/edit_batch"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/grey_text"
-                    android:hint="Type..."
-                    android:textSize="22sp"
-                    android:singleLine="true"
-                    android:nextFocusDown="@+id/edit_subject"
-                    android:inputType="textCapSentences"/>
-            </LinearLayout>
+                    android:paddingRight="@dimen/activity_vertical_margin"
+                    android:orientation="horizontal"
+                    android:layout_margin="1dp">
 
-            <LinearLayout
-                android:id="@+id/add_class_layout_2"
-                android:layout_below="@+id/add_class_layout_1"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:paddingRight="@dimen/activity_vertical_margin"
-                android:orientation="horizontal"
-                android:layout_margin="10dp">
+                    <TextView
+                        android:id="@+id/text_subject"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sub. Name :"
+                        android:textColor="@color/grey_text"
+                        android:textSize="15sp"
+                        android:gravity="right"
+                        android:layout_marginRight="8dp"/>
+                    <EditText
+                        android:id="@+id/edit_subject"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/grey_text"
+                        android:hint="Type..."
+                        android:textSize="13sp"
+                        android:singleLine="true"
+                        android:nextFocusDown="@+id/edit_subjectcode"
+                        android:inputType="textCapWords"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/add_class_layout_5"
+                    android:layout_below="@+id/add_class_layout_2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/activity_vertical_margin"
+                    android:orientation="horizontal"
+                    android:layout_margin="1dp">
 
-                <TextView
-                    android:id="@+id/text_subject"
-                    android:layout_width="0dp"
+                    <TextView
+                        android:id="@+id/text_subjectcode"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sub. Code :"
+                        android:textColor="@color/grey_text"
+                        android:textSize="15sp"
+                        android:gravity="right"
+                        android:layout_marginRight="8dp"/>
+                    <EditText
+                        android:id="@+id/edit_subjectcode"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/grey_text"
+                        android:hint="Type..."
+                        android:textSize="13sp"
+                        android:singleLine="true"
+                        android:nextFocusDown="@+id/edit_batch"
+                        android:inputType="textCapCharacters"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/add_class_layout_1"
+                    android:layout_below="@+id/add_class_layout_5"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Subject :"
-                    android:textColor="@color/grey_text"
-                    android:textSize="25sp"
-                    android:gravity="center"/>
-                <EditText
-                    android:id="@+id/edit_subject"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/grey_text"
-                    android:hint="Type..."
-                    android:textSize="22sp"
-                    android:singleLine="true"
-                    android:nextFocusDown="@+id/button_import_excel"
-                    android:inputType="textCapSentences"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/add_class_layout_3"
-                android:layout_below="@+id/add_class_layout_2"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:paddingRight="@dimen/activity_vertical_margin"
-                android:orientation="horizontal"
-                android:layout_margin="10dp">
+                    android:orientation="horizontal"
+                    android:layout_margin="1dp">
 
-                <TextView
-                    android:id="@+id/text_year"
-                    android:layout_width="0dp"
+                    <TextView
+                        android:id="@+id/text_batch"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Batch :"
+                        android:textColor="@color/grey_text"
+                        android:textSize="15sp"
+                        android:gravity="right"
+                        android:layout_marginRight="8dp"/>
+                    <EditText
+                        android:id="@+id/edit_batch"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/grey_text"
+                        android:hint="Type..."
+                        android:textSize="13sp"
+                        android:singleLine="true"
+                        android:nextFocusDown="@+id/edit_semester"
+                        android:inputType="number"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/add_class_layout_3"
+                    android:layout_below="@+id/add_class_layout_1"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Year :"
-                    android:textColor="@color/grey_text"
-                    android:textSize="25sp"
-                    android:gravity="center"/>
-                <EditText
-                    android:id="@+id/edit_year"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/grey_text"
-                    android:hint="Type..."
-                    android:textSize="22sp"
-                    android:singleLine="true"
-                    android:nextFocusDown="@+id/button_import_excel"
-                    android:inputType="number"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/add_class_layout_4"
-                android:layout_below="@+id/add_class_layout_3"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="10dp">
+                    android:paddingRight="@dimen/activity_vertical_margin"
+                    android:orientation="horizontal"
+                    android:layout_margin="1dp">
 
-                <TextView
-                    android:id="@+id/text_import_excel"
-                    android:layout_width="0dp"
+                    <TextView
+                        android:id="@+id/text_semester"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Semester :"
+                        android:textColor="@color/grey_text"
+                        android:textSize="15sp"
+                        android:gravity="right"
+                        android:layout_marginRight="8dp"/>
+                    <EditText
+                        android:id="@+id/edit_semester"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/grey_text"
+                        android:hint="Type..."
+                        android:textSize="13sp"
+                        android:singleLine="true"
+                        android:nextFocusDown="@+id/edit_stream"
+                        android:inputType="number"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/add_class_layout_6"
+                    android:layout_below="@+id/add_class_layout_3"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="Import Excel Sheet"
-                    android:textColor="@color/grey_text"
-                    android:textSize="20sp"
+                    android:paddingRight="@dimen/activity_vertical_margin"
+                    android:orientation="horizontal"
+                    android:layout_margin="1dp">
+
+                    <TextView
+                        android:id="@+id/text_stream"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Stream :"
+                        android:textColor="@color/grey_text"
+                        android:textSize="15sp"
+                        android:gravity="right"
+                        android:layout_marginRight="8dp"/>
+                    <EditText
+                        android:id="@+id/edit_stream"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/grey_text"
+                        android:hint="Type..."
+                        android:textSize="13sp"
+                        android:singleLine="true"
+                        android:nextFocusDown="@+id/edit_section"
+                        android:inputType="textCapWords"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/add_class_layout_7"
+                    android:layout_below="@+id/add_class_layout_6"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/activity_vertical_margin"
+                    android:orientation="horizontal"
+                    android:layout_margin="1dp">
+
+                    <TextView
+                        android:id="@+id/text_section"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Section :"
+                        android:textColor="@color/grey_text"
+                        android:textSize="15sp"
+                        android:gravity="right"
+                        android:layout_marginRight="8dp"/>
+                    <EditText
+                        android:id="@+id/edit_section"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/grey_text"
+                        android:hint="Type..."
+                        android:textSize="13sp"
+                        android:singleLine="true"
+                        android:nextFocusDown="@+id/button_import_excel"
+                        android:inputType="textCapCharacters"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/add_class_layout_8"
+                    android:layout_below="@+id/add_class_layout_7"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/activity_vertical_margin"
+                    android:orientation="horizontal"
                     android:gravity="center"
-                    android:paddingTop="10dp"/>
-                <ImageView
-                    android:id="@+id/button_import_excel"
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:src="@drawable/import_excel_sheet"
-                    android:clickable="true"/>
-            </LinearLayout>
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
+                    android:layout_margin="1dp">
+
+                    <TextView
+                        android:id="@+id/text_groupcheck"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Is there a Group? :"
+                        android:textColor="@color/grey_text"
+                        android:textSize="12sp"
+                        android:gravity="right"
+                        android:layout_marginRight="8dp"/>
+                    <CheckBox
+                        android:id="@+id/check_groupcheck"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/add_class_layout_9"
+                    android:layout_below="@+id/add_class_layout_8"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/activity_vertical_margin"
+                    android:orientation="horizontal"
+                    android:layout_margin="1dp">
+
+                    <TextView
+                        android:id="@+id/text_group"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Group :"
+                        android:textColor="@color/grey_text"
+                        android:textSize="15sp"
+                        android:gravity="right"
+                        android:layout_marginRight="8dp"/>
+                    <EditText
+                        android:id="@+id/edit_group"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/grey_text"
+                        android:hint="Type..."
+                        android:textSize="13sp"
+                        android:singleLine="true"
+                        android:nextFocusDown="@+id/button_import_excel"
+                        android:inputType="number"
+                        android:enabled="false"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/add_class_layout_4"
+                    android:layout_below="@+id/add_class_layout_9"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="1dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/text_import_excel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Import Excel Sheet"
+                        android:textColor="@color/grey_text"
+                        android:textSize="13sp"
+                        android:gravity="right"
+                        android:layout_marginRight="8dp"/>
+                    <ImageView
+                        android:id="@+id/button_import_excel"
+                        android:layout_width="0dp"
+                        android:layout_height="25dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/import_excel_sheet"
+                        android:clickable="true"/>
+                </LinearLayout>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+    </ScrollView>
 
 </RelativeLayout>

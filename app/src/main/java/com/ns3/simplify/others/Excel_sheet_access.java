@@ -47,7 +47,7 @@ public class Excel_sheet_access
 {
     private static String TAG = "Excel_sheet_access";
 
-    public static void readExcelFile(Context context, Uri uri,String BatchID,String Batch, String Subject, int year)
+    public static void readExcelFile(Context context, Uri uri,String BatchID,String Subject,String SubjectCode,int Batch, int Semester,String Stream,String Section,String Group)
     {
         ProgressDialog progress = new ProgressDialog(context);
         Realm realm;
@@ -131,9 +131,13 @@ public class Excel_sheet_access
             realm.beginTransaction();
             register=new Register();
             register.setBatchID(BatchID);
-            register.setBatch(Batch);
             register.setSubject(Subject);
-            register.setYear(year);
+            register.setSubjectCode(SubjectCode);
+            register.setBatch(Batch);
+            register.setSemester(Semester);
+            register.setStream(Stream);
+            register.setSection(Section);
+            register.setGroup(Group);
             register.setStudents(Student_list);
             register.setRecord(Record);
             realm.copyToRealmOrUpdate(register);

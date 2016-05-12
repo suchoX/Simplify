@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -38,9 +39,12 @@ public class Add_class extends AppCompatActivity
     int card_padding;
     DisplayMetrics metrics;
     int height;
-    EditText batch_edit,subject_edit,year_edit;
+    EditText batch_edit,subject_edit,subjectcode_edit,semester_edit,stream_edit,section_edit,group_edit;
     ImageView imageView;
-    String batch,subject,batchid;
+    String batch,subject,batchid,subjectcode,semester,stream,section,group;
+    int semesterI,batchI;
+    CheckBox groupCheck;
+    boolean groupB = false;
     int year;
 
     Excel_sheet_access excel_sheet;
@@ -73,9 +77,30 @@ public class Add_class extends AppCompatActivity
 
         batch_edit = (EditText)findViewById(R.id.edit_batch);
         subject_edit = (EditText)findViewById(R.id.edit_subject);
-        year_edit = (EditText)findViewById(R.id.edit_year);
+        semester_edit = (EditText)findViewById(R.id.edit_semester);
+        subjectcode_edit = (EditText)findViewById(R.id.edit_subjectcode);
+        stream_edit = (EditText)findViewById(R.id.edit_stream);
+        section_edit = (EditText)findViewById(R.id.edit_section);
+        group_edit = (EditText)findViewById(R.id.edit_group);
 
-        Button bu = (Button)findViewById(R.id.realm_browser);
+        groupCheck = (CheckBox)findViewById(R.id.check_groupcheck);
+        groupCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(groupCheck.isChecked())
+                {
+                    groupB = true;
+                    group_edit.setEnabled(true);
+                }
+                else
+                {
+                    groupB = false;
+                    group_edit.setEnabled(false);
+                }
+            }
+        });
+
+        /*Button bu = (Button)findViewById(R.id.realm_browser);
         bu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,7 +112,7 @@ public class Add_class extends AppCompatActivity
                         .add(realm, classes)
                         .show();
             }
-        });
+        });*/
 
 
         imageView=(ImageView)findViewById(R.id.button_import_excel);
@@ -99,10 +124,18 @@ public class Add_class extends AppCompatActivity
                     batch_edit.setError("This field can not be blank");
                 else if (subject_edit.getText().toString().trim().equalsIgnoreCase(""))
                     subject_edit.setError("This field can not be blank");
-                else if (year_edit.getText().toString().trim().equalsIgnoreCase(""))
-                    year_edit.setError("This field can not be blank");
+                else if (semester_edit.getText().toString().trim().equalsIgnoreCase(""))
+                    semester_edit.setError("This field can not be blank");
+                else if (subjectcode_edit.getText().toString().trim().equalsIgnoreCase(""))
+                    subjectcode_edit.setError("This field can not be blank");
+                else if (stream_edit.getText().toString().trim().equalsIgnoreCase(""))
+                    stream_edit.setError("This field can not be blank");
+                else if (section_edit.getText().toString().trim().equalsIgnoreCase(""))
+                    section_edit.setError("This field can not be blank");
+                else if (groupB && group_edit.getText().toString().trim().equalsIgnoreCase(""))
+                    group_edit.setError("This field can not be blank");
                 else {
-                    year = Integer.parseInt(year_edit.getText().toString().trim());
+                    year = Integer.parseInt(semester_edit.getText().toString().trim());
                     Add_class.this.generateBatchID();
                     checkBatch = realm.where(Register.class).equalTo("BatchID",batchid).findAll();  //Checking if The same BatchID already exists
                     if(checkBatch.size() == 0) {
@@ -179,7 +212,7 @@ public class Add_class extends AppCompatActivity
             else
             {
                 Uri uri = data.getData();
-                Excel_sheet_access.readExcelFile(this,uri,batchid,batch,subject,year);
+                Excel_sheet_access.readExcelFile(this,uri,batchid,subject,subjectcode,batchI,semesterI,stream,section,group);
                 Toast.makeText(Add_class.this, "Batch Added!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Add_class.this,Attendance.class);
                 startActivity(intent);
@@ -190,13 +223,27 @@ public class Add_class extends AppCompatActivity
 
     private void generateBatchID()    //Concatenate Batch Name and Subject to create final batch name
     {
-        String temp = year_edit.getText().toString().trim();
         batch=batch_edit.getText().toString().trim();
+        batchI = Integer.parseInt(batch);
         subject=subject_edit.getText().toString().trim();
+        subjectcode = subjectcode_edit.getText().toString().trim();
+        semester = semester_edit.getText().toString().trim();
+        semesterI = Integer.parseInt(semester);
+        stream = stream_edit.getText().toString().trim();
+        section = section_edit.getText().toString().trim();
+        if(groupB)
+            group = group_edit.getText().toString().trim();
+        else
+            group = "N/A";
 
-        batchid = batch;
-        batchid = batchid.concat(temp);
-        batchid = batchid.concat(subject);
+        batchid = subject;
+        batchid = batchid.concat(subjectcode);
+        batchid = batchid.concat(batch);
+        batchid = batchid.concat(semester);
+        batchid = batchid.concat(stream);
+        batchid = batchid.concat(section);
+        if (groupB)
+            batchid.concat(group);
         batchid = batchid.replaceAll("\\s+","");    //remove spaces from batch name
         batchid = batchid.toLowerCase();
     }
