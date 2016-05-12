@@ -8,29 +8,32 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
-public class WifiLandingPage extends Activity {
+public class WifiLandingPage extends AppCompatActivity {
 
     Intent intent;
-    Button viewHistory;
+    LinearLayout viewHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wifi_landing_page);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        viewHistory = (Button)findViewById(R.id.viewHistory);
+        initToolbar();
+        viewHistory = (LinearLayout) findViewById(R.id.view_history_layout);
 
         requestPermissions();
 
         viewHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(WifiLandingPage.this, ViewHistoryOptions.class);
                 startActivity(intent);
             }
@@ -95,5 +98,25 @@ public class WifiLandingPage extends Activity {
         intent = new Intent(this,NsdChatActivity.class);
         intent.putExtra("flag","client");
         startActivity(intent);
+    }
+
+    private void initToolbar() {
+        Toolbar mToolbar;
+        mToolbar = (Toolbar) findViewById(R.id.include);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("WiFi Quiz");
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

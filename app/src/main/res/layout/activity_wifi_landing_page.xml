@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.project.layoutmulticlient.WifiLandingPage">
+    android:background="@color/main_pink">
 
     <include layout="@layout/toolbar"
         android:id="@+id/include" />
@@ -12,35 +12,88 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_below="@+id/include">
-
-        <Button
+        android:layout_below="@+id/include"
+        android:gravity="center">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="Create Contest"
-            android:id="@+id/button"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:onClick="sv_btn_click"/>
+            android:orientation="vertical"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:onClick="sv_btn_click"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:src="@drawable/create_contest"
+                android:paddingTop="25dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:paddingBottom="7dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Create Contest"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_marginBottom="30dp"/>
+        </LinearLayout>
 
-        <Button
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="Join Contest"
-            android:id="@+id/button2"
-            android:layout_below="@+id/button"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:onClick="cl_btn_click"/>
-
-        <Button
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:onClick="cl_btn_click"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:src="@drawable/join_contest"
+                android:paddingTop="25dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:paddingBottom="7dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Join Contest"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_marginBottom="30dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/view_history_layout"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="View History"
-            android:id="@+id/viewHistory"
-            android:layout_below="@+id/button2"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:src="@drawable/view_history"
+                android:paddingTop="25dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:paddingBottom="7dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="View History"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_marginBottom="30dp"/>
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
