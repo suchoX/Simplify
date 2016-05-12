@@ -3,6 +3,7 @@ package com.ns3.simplify;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -20,11 +21,14 @@ public class ContestRules extends AppCompatActivity {
     TextView con_details_tv;
     protected String con_details;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contest_rules);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        initToolbar();
 
         startContestBtn = (Button) findViewById(R.id.startContestBtn);
         con_details_tv = (TextView) findViewById(R.id.contestRules);
@@ -51,5 +55,25 @@ public class ContestRules extends AppCompatActivity {
         else {
             startContestBtn.setEnabled(false);
         }
+    }
+
+    private void initToolbar() {
+        Toolbar mToolbar;
+        mToolbar = (Toolbar) findViewById(R.id.include);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Set Timer");
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }
