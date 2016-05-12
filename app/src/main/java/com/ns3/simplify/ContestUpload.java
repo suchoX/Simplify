@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -22,7 +23,7 @@ import com.ns3.simplify.service.TimerBroadcastService;
 
 import java.util.ArrayList;
 
-public class ContestUpload extends Activity {
+public class ContestUpload extends AppCompatActivity {
 
     public final String TAG = ContestUpload.class.getSimpleName();
     private ArrayList<Question> questionArrayList = new ArrayList<Question>();
@@ -41,6 +42,8 @@ public class ContestUpload extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contest_upload);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        initToolbar();
 
         sendBtn = (Button) findViewById(R.id.sendQuesTimerButton);
         addQuesBtn = (Button) findViewById(R.id.add_ques_btn);
@@ -184,5 +187,24 @@ public class ContestUpload extends Activity {
         super.onDestroy();
     }
 
+    private void initToolbar() {
+        Toolbar mToolbar;
+        mToolbar = (Toolbar) findViewById(R.id.include);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Set Timer");
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }
 
