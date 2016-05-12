@@ -1,4 +1,4 @@
-package com.ns3.simplify;
+package com.ns3.simplify.others;
 
 import android.app.ProgressDialog;
 import android.content.Context;

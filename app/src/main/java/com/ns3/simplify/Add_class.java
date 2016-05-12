@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.nononsenseapps.filepicker.FilePickerActivity;
+import com.ns3.simplify.others.Excel_sheet_access;
 import com.ns3.simplify.realm.DateRegister;
 import com.ns3.simplify.realm.Register;
 import com.ns3.simplify.realm.Student;

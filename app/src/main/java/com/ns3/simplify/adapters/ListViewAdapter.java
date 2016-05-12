@@ -1,9 +1,6 @@
-package com.ns3.simplify;
+package com.ns3.simplify.adapters;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +8,10 @@ import android.widget.TextView;
 
 import android.app.Activity;
 import android.widget.ArrayAdapter;
+
+import com.ns3.simplify.Attendance;
+import com.ns3.simplify.R;
+import com.ns3.simplify.others.ObjectItem;
 
 public class ListViewAdapter extends ArrayAdapter<ObjectItem>{
 

@@ -7,9 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.ns3.simplify.ListViewAdapter;
 import com.ns3.simplify.R;
 import com.ns3.simplify.adapters.GraphListAdapter;
 import com.ns3.simplify.realm.DateRegister;
@@ -17,7 +15,6 @@ import com.ns3.simplify.realm.Register;
 import com.ns3.simplify.realm.Student;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;

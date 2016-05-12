@@ -1,6 +1,5 @@
 package com.ns3.simplify;
 
-import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +19,7 @@ import com.ns3.simplify.fragments.ClassDetailsMainFragment;
 import com.ns3.simplify.fragments.GraphFragment;
 import com.ns3.simplify.fragments.StudentAttendanceFragment;
 import com.ns3.simplify.fragments.StudentListFragment;
+import com.ns3.simplify.others.Excel_sheet_access;
 import com.ns3.simplify.realm.Register;
 import com.ns3.simplify.realm.Student;
 
@@ -30,7 +30,6 @@ import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import io.realm.RealmResults;
 
 public class ClassDetailsActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
