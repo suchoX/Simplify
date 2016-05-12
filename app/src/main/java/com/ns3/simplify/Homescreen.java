@@ -29,6 +29,13 @@ public class Homescreen extends AppCompatActivity
         super.onCreate(savedInstanceState);
         View homescreen_canvas =new Homescreen_canvas(this);
         setContentView(homescreen_canvas);
+        if(getIntent().getBooleanExtra("Open Bluetooth",false))
+        {
+            Intent intent = new Intent(Homescreen.this, Attendance.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.putExtra("Open Bluetooth",true);
+            startActivity(intent);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
             Window window = getWindow();

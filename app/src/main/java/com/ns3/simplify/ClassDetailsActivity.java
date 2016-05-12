@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -381,6 +383,49 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.class_details_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.delete_menu:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Delete Class?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id)
+                            {
+                                realm.beginTransaction();
+                                Register register = realm.where(Register.class).equalTo("BatchID",batchID).findFirst();
+                                register.deleteFromRealm();
+                                realm.commitTransaction();
+                                Intent intent = new Intent(ClassDetailsActivity.this, Homescreen.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.putExtra("Open Bluetooth",true);
+                                startActivity(intent);
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id)
+                            {
+
+                            }
+                        }).create();
+                AlertDialog alert = builder.create();
+                alert.show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onBackPressed()
     {
         if(getCurrentFragmentName().equals("StudentList"))
@@ -393,6 +438,4 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
             showStudentListFragment();
 
     }
-
-
 }
