@@ -1,36 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_pink">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Your score is:"
-            android:textSize="50sp"
-            android:textStyle="bold"
-            android:id="@+id/textView5"
-            android:layout_gravity="center_horizontal"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp" />
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        card_view:cardCornerRadius="4dp"
+        android:layout_centerInParent="true">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="25dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Your score is:"
+                        android:textSize="50sp"
+                        android:textStyle="bold"
+                        android:id="@+id/textView5"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="50sp"
-            android:id="@+id/scoreTextView"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView5"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textSize="50sp"
+                        android:id="@+id/scoreTextView"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+    </android.support.v7.widget.CardView>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Review"
-            android:id="@+id/reviewButton"
-            android:layout_below="@+id/scoreTextView"
-            android:layout_marginTop="75dp"
-            android:layout_centerHorizontal="true" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Review"
+        android:id="@+id/reviewButton"
+        android:background="@color/colorPrimary"
+        android:textSize="17sp"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>
