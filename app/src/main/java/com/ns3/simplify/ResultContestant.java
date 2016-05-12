@@ -3,6 +3,8 @@ package com.ns3.simplify;
 import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.view.WindowManager;
 
 import com.ns3.simplify.fragments.ReviewListFragment;
@@ -22,6 +24,8 @@ public class ResultContestant extends AppCompatActivity {
 
         scoreDisplayFragment = new ScoreDisplayFragment();
         reviewListFragment = new ReviewListFragment();
+
+        initToolbar();
 
         quesOrder = getIntent().getIntArrayExtra("quesorder");
         answerMarked = getIntent().getIntArrayExtra("answermarked");
@@ -46,5 +50,25 @@ public class ResultContestant extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frameResult, reviewListFragment);
         fragmentTransaction.commit();
 
+    }
+
+    private void initToolbar() {
+        Toolbar mToolbar;
+        mToolbar = (Toolbar) findViewById(R.id.include);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Results");
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

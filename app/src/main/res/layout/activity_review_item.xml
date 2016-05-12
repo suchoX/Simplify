@@ -1,52 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_info"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
-    <TextView
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginBottom="8dp"
+    card_view:cardCornerRadius="4dp">
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Question Statement"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:id="@+id/quesStatement"
-        android:layout_gravity="center_horizontal" />
-
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/radioGroupOptions"
-        android:orientation="vertical">
-
-        <RadioButton
-            android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="New RadioButton"
-            android:textSize="10sp"
-            android:id="@+id/option1" />
+            android:text="Question Statement"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:id="@+id/quesStatement"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"/>
 
-        <RadioButton
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="New RadioButton"
-            android:textSize="10sp"
-            android:id="@+id/option2" />
+            android:id="@+id/radioGroupOptions"
+            android:orientation="vertical">
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New RadioButton"
-            android:textSize="10sp"
-            android:id="@+id/option3" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New RadioButton"
+                android:textSize="10sp"
+                android:id="@+id/option1" />
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New RadioButton"
-            android:textSize="10sp"
-            android:id="@+id/option4" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New RadioButton"
+                android:textSize="10sp"
+                android:id="@+id/option2" />
 
-    </RadioGroup>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New RadioButton"
+                android:textSize="10sp"
+                android:id="@+id/option3" />
 
-</LinearLayout>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New RadioButton"
+                android:textSize="10sp"
+                android:id="@+id/option4" />
+
+        </RadioGroup>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>
