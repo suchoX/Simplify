@@ -1,8 +1,13 @@
 package com.ns3.simplify;
 
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.borax12.materialdaterangepicker.date.DatePickerDialog;
+import com.nononsenseapps.filepicker.FilePickerActivity;
 import com.ns3.simplify.fragments.ClassDetailsMainFragment;
 import com.ns3.simplify.fragments.GraphFragment;
 import com.ns3.simplify.fragments.StudentAttendanceFragment;
@@ -32,6 +38,8 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
 public class ClassDetailsActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+
+    private static final int FILE_SELECT_CODE = 100;
 
     Toolbar mToolbar;
     TextView batchNameToolbar,batchSubjectToolbar;
@@ -236,6 +244,64 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
                 }
             }
         });
+    }
+
+    public void importData()
+    {
+        Intent intent = new Intent(ClassDetailsActivity.this, FilePickerActivity.class);
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.putExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, false);
+        intent.putExtra(FilePickerActivity.EXTRA_ALLOW_CREATE_DIR, false);
+        intent.putExtra(FilePickerActivity.EXTRA_MODE, FilePickerActivity.MODE_FILE);
+        startActivityForResult(intent, FILE_SELECT_CODE);
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+
+        if (requestCode == FILE_SELECT_CODE && resultCode == Activity.RESULT_OK)
+        {
+            if (data.getBooleanExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, false))
+            {
+                // For JellyBean and above
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+                {
+                    ClipData clip = data.getClipData();
+                    if (clip != null)
+                    {
+                        for (int i = 0; i < clip.getItemCount(); i++)
+                        {
+                            Uri uri = clip.getItemAt(i).getUri();
+                            Toast.makeText(this,""+uri.toString(),Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    // For Ice Cream Sandwich
+                }
+                else
+                {
+                    ArrayList<String> paths = data.getStringArrayListExtra
+                            (FilePickerActivity.EXTRA_PATHS);
+
+                    if (paths != null)
+                    {
+                        for (String path: paths)
+                        {
+                            Uri uri = Uri.parse(path);
+                            Toast.makeText(this,""+uri.toString(),Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+            }
+            else
+            {
+                Uri uri = data.getData();
+                Excel_sheet_access.readExcelFile(this,uri,batchID);
+                Toast.makeText(ClassDetailsActivity.this, "Students Added!", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void addStudenttoDatabase(String roll,String name,String phone,String mac1,String mac2)

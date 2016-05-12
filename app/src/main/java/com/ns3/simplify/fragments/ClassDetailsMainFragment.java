@@ -16,7 +16,7 @@ import com.ns3.simplify.R;
 public class ClassDetailsMainFragment extends Fragment
 {
     View view;
-    LinearLayout scanStudentsLayout,studentListLayout,addStudentLayout,exportListLayout,graphLayout;
+    LinearLayout scanStudentsLayout,studentListLayout,addStudentLayout,exportListLayout,graphLayout,importLayout;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -27,6 +27,7 @@ public class ClassDetailsMainFragment extends Fragment
         addStudentLayout = (LinearLayout)view.findViewById(R.id.add_student_layout);
         exportListLayout = (LinearLayout)view.findViewById(R.id.export_list_layout);
         graphLayout = (LinearLayout)view.findViewById(R.id.graph_layout);
+        importLayout = (LinearLayout)view.findViewById(R.id.import_layout);
 
         scanStudentsLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +61,13 @@ public class ClassDetailsMainFragment extends Fragment
             @Override
             public void onClick(View v) {
                 ((ClassDetailsActivity)getActivity()).addStudent();
+            }
+        });
+
+        importLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ClassDetailsActivity)getActivity()).importData();
             }
         });
 

@@ -7,7 +7,8 @@
     android:background="@color/main_pink">
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -180,13 +181,13 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/import_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:layout_margin="5dp"
-                android:visibility="invisible">
+                android:layout_margin="5dp">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -200,7 +201,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Export to Excel Sheet"
+                    android:text="Import Student Data from Excel Sheet"
                     android:textColor="@color/white"
                     android:textSize="15sp"
                     android:gravity="center"/>

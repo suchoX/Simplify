@@ -46,7 +46,6 @@ import io.realm.exceptions.RealmMigrationNeededException;
 public class Excel_sheet_access
 {
     private static String TAG = "Excel_sheet_access";
-
     public static void readExcelFile(Context context, Uri uri,String BatchID,String Subject,String SubjectCode,int Batch, int Semester,String Stream,String Section,String Group)
     {
         ProgressDialog progress = new ProgressDialog(context);
@@ -142,6 +141,103 @@ public class Excel_sheet_access
             register.setRecord(Record);
             realm.copyToRealmOrUpdate(register);
             realm.commitTransaction();
+        }
+        catch (Exception e){e.printStackTrace(); }
+        finally {
+            progress.dismiss();
+            realm.close();
+        }
+        return;
+    }
+
+    public static void readExcelFile(Context context, Uri uri,String batchID)
+    {
+        ProgressDialog progress = new ProgressDialog(context);
+        Realm realm;
+        Student student;
+        RealmList<Student> Student_list= new RealmList<Student>();
+        Register register;
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder(context).build();
+        realm = Realm.getInstance(realmConfig);
+
+        try
+        {
+            progress.setTitle("Setting Up");
+            progress.setMessage("Please wait while we set up this class");
+            progress.setCancelable(false);
+            progress.show();
+
+            // Creating Input Stream
+            File file = new File(uri.getPath());
+            FileInputStream myInput = new FileInputStream(file);
+
+            // Create a POIFSFileSystem object
+            POIFSFileSystem myFileSystem = new POIFSFileSystem(myInput);
+
+            // Create a workbook using the File System
+            HSSFWorkbook myWorkBook = new HSSFWorkbook(myFileSystem);
+
+            // Get the first sheet from workbook
+            HSSFSheet mySheet = myWorkBook.getSheetAt(0);
+
+            /** We now need something to iterate through the cells.**/
+            Iterator rowIter = mySheet.rowIterator();
+
+            if(rowIter==null)
+                Toast.makeText(context,"Empty File",Toast.LENGTH_SHORT).show();
+
+            while(rowIter.hasNext())
+            {
+                HSSFRow myRow = (HSSFRow) rowIter.next();
+
+                Iterator tempIt = myRow.cellIterator();
+                HSSFCell tempCell = (HSSFCell)tempIt.next();
+                tempCell.setCellType(Cell.CELL_TYPE_STRING);
+
+                if(tempCell.toString().length()<1)
+                    break;
+
+                Iterator cellIter = myRow.cellIterator();
+
+                realm.beginTransaction();
+                student=new Student();
+
+                HSSFCell myCell = (HSSFCell) cellIter.next();
+                myCell.setCellType(Cell.CELL_TYPE_STRING);
+                student.setRoll_number(myCell.toString());
+
+                myCell = (HSSFCell)cellIter.next();
+                myCell.setCellType(Cell.CELL_TYPE_STRING);
+                student.setStudent_name(myCell.toString());
+
+                myCell = (HSSFCell)cellIter.next();
+                myCell.setCellType(Cell.CELL_TYPE_STRING);
+                student.setPhone_no(myCell.toString());
+
+                myCell = (HSSFCell)cellIter.next();
+                myCell.setCellType(Cell.CELL_TYPE_STRING);
+                student.setMac_ID1(myCell.toString().toUpperCase());
+
+                if(cellIter.hasNext()) {
+                    myCell = (HSSFCell) cellIter.next();
+                    myCell.setCellType(Cell.CELL_TYPE_STRING);
+                    if (myCell.toString().length() > 0)
+                        student.setMac_ID2(myCell.toString().toUpperCase());
+                }
+                realm.copyToRealmOrUpdate(student);
+                realm.commitTransaction();
+
+                register = realm.where(Register.class).equalTo("BatchID",batchID).findFirst();
+                Student_list = register.getStudents();
+                Log.d("hdfb",""+Student_list.size());
+
+                if(!Student_list.contains(student))
+                {
+                    realm.beginTransaction();
+                    register.getStudents().add(student);
+                    realm.commitTransaction();
+                }
+            }
         }
         catch (Exception e){e.printStackTrace(); }
         finally {

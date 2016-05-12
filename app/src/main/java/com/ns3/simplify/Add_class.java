@@ -100,7 +100,7 @@ public class Add_class extends AppCompatActivity
             }
         });
 
-        /*Button bu = (Button)findViewById(R.id.realm_browser);
+        Button bu = (Button)findViewById(R.id.realm_browser);
         bu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,7 +112,7 @@ public class Add_class extends AppCompatActivity
                         .add(realm, classes)
                         .show();
             }
-        });*/
+        });
 
 
         imageView=(ImageView)findViewById(R.id.button_import_excel);
