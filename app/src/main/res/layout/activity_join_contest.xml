@@ -1,92 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="com.project.layoutmulticlient.NsdChatActivity">
+    android:background="@color/main_pink">
 
-    <include layout="@layout/toolbar"/>
+    <include layout="@layout/toolbar"
+        android:id="@+id/include"/>
+
+    <ScrollView
+        android:layout_below="@id/include"
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="8dp"
+            card_view:cardCornerRadius="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="CONTEST DETAILS:"
+                    android:textStyle="bold"
+                    android:id="@+id/textView2" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/con_join_name"
+                    android:focusableInTouchMode="true"
+                    android:hint="Enter the contest name" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:ems="10"
+                    android:id="@+id/con_join_pass"
+                    android:focusableInTouchMode="true"
+                    android:hint="Enter contest password"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="CONTESTANT DETAILS:"
+                    android:layout_marginTop="25dp"
+                    android:textStyle="bold"
+                    android:id="@+id/textView" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:hint="Contestant Name"
+                    android:ems="10"
+                    android:id="@+id/part_name"
+                    android:focusableInTouchMode="true"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:ems="10"
+                    android:id="@+id/part_email"
+                    android:hint="Contestant Email id"
+                    android:focusableInTouchMode="true"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:ems="10"
+                    android:id="@+id/part_ph"
+                    android:hint="Contestant Phone No."
+                    android:focusableInTouchMode="true"/>
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="CONTEST DETAILS:"
-            android:textStyle="bold"
-            android:id="@+id/textView2" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/con_join_name"
-            android:focusableInTouchMode="true"
-            android:hint="Enter the contest name" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:id="@+id/con_join_pass"
-            android:focusableInTouchMode="true"
-            android:hint="Enter contest password"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="CONTESTANT DETAILS:"
-            android:layout_marginTop="25dp"
-            android:textStyle="bold"
-            android:id="@+id/textView" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:hint="Contestant Name"
-            android:ems="10"
-            android:id="@+id/part_name"
-            android:focusableInTouchMode="true"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:ems="10"
-            android:id="@+id/part_email"
-            android:hint="Contestant Email id"
-            android:focusableInTouchMode="true"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="phone"
-            android:ems="10"
-            android:id="@+id/part_ph"
-            android:hint="Contestant Phone No."
-            android:focusableInTouchMode="true"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:text="Search Contest"
             android:id="@+id/btn_search"
             android:onClick="search_contest"
-            android:layout_marginTop="25dp"/>
+            android:background="@color/colorPrimary"
+            android:textSize="17sp"
+            android:textColor="@color/white"/>
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:text="Join"
             android:id="@+id/btn_join"
-            android:onClick="join_contest" />
-
+            android:onClick="join_contest"
+            android:background="@color/colorPrimary"
+            android:textSize="17sp"
+            android:textColor="@color/white"/>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

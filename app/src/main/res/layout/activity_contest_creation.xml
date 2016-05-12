@@ -1,55 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.project.layoutmulticlient.NsdChatActivity">
+    android:background="@color/main_pink">
 
-    <include layout="@layout/toolbar"/>
-
-    <LinearLayout
+    <include layout="@layout/toolbar"
+        android:id="@+id/include"/>
+    <ScrollView
+        android:layout_below="@id/include"
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:orientation="vertical">
-        <EditText
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            android:id="@+id/con_name"
-            android:hint="Contest name"
-            android:focusableInTouchMode="true"
-            android:layout_marginTop="25dp"/>
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="8dp"
+            card_view:cardCornerRadius="4dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="10dp">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/con_name"
+                    android:hint="Contest name"
+                    android:focusableInTouchMode="true"
+                    android:textSize="20sp"/>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:id="@+id/con_password"
-            android:layout_marginTop="25dp"
-            android:focusableInTouchMode="true"
-            android:hint="Contest password"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:ems="10"
+                    android:id="@+id/con_password"
+                    android:focusableInTouchMode="true"
+                    android:hint="Contest password"
+                    android:textSize="20sp"/>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:id="@+id/con_details"
-            android:layout_marginTop="25dp"
-            android:focusableInTouchMode="true"
-            android:hint="Enter contest rules to be shown to contestants..."/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="Create"
-            android:id="@+id/con_create"
-            android:onClick="con_create_click"
-            android:layout_marginTop="25dp" />
-
-    </LinearLayout>
-</LinearLayout>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:id="@+id/con_details"
+                    android:layout_marginTop="25dp"
+                    android:focusableInTouchMode="true"
+                    android:hint="Enter contest rules to be shown to contestants..."
+                    android:textSize="20sp"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </ScrollView>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create"
+        android:background="@color/colorPrimary"
+        android:textSize="17sp"
+        android:textColor="@color/white"
+        android:id="@+id/con_create"
+        android:onClick="con_create_click"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

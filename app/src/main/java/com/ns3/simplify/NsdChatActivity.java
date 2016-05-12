@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.nsd.NsdServiceInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -15,7 +16,7 @@ import android.widget.Toast;
 import com.ns3.simplify.others.ChatConnection;
 import com.ns3.simplify.others.NsdHelper;
 
-public class NsdChatActivity extends Activity {
+public class NsdChatActivity extends AppCompatActivity {
 
     Intent intent;
     NsdHelper mNsdHelper;
@@ -32,6 +33,8 @@ public class NsdChatActivity extends Activity {
 
     public static ChatConnection mConnection;
 
+    String header;
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,8 @@ public class NsdChatActivity extends Activity {
             //show contest creation activity
             setContentView(R.layout.activity_contest_creation);
 
+            header = "Create Contest";
+
             con_name= (EditText)findViewById(R.id.con_name);
             con_password= (EditText)findViewById(R.id.con_password);
             con_details= (EditText)findViewById(R.id.con_details);
@@ -53,6 +58,7 @@ public class NsdChatActivity extends Activity {
         else if(mUserChoice.equals("client")) {
             //show join contest activity
             setContentView(R.layout.activity_join_contest);
+            header = "Join Contest";
             con_join_name = (EditText)findViewById(R.id.con_join_name);
             con_join_pass = (EditText)findViewById(R.id.con_join_pass);
             part_name = (EditText)findViewById(R.id.part_name);
@@ -61,6 +67,7 @@ public class NsdChatActivity extends Activity {
             btn_join = (Button)findViewById(R.id.btn_join);
             setVisibilityButton(false);
         }
+        initToolbar();
     }
 
     public void con_create_click(View v){
@@ -213,5 +220,25 @@ public class NsdChatActivity extends Activity {
         mNsdHelper = null;
         mConnection = null;
         super.onDestroy();
+    }
+
+    private void initToolbar() {
+        Toolbar mToolbar;
+        mToolbar = (Toolbar) findViewById(R.id.include);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(header);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

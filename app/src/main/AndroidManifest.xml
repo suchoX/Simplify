@@ -48,7 +48,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".NsdChatActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"  />
         <activity
             android:name=".ContestUpload"
             android:screenOrientation="portrait" />
