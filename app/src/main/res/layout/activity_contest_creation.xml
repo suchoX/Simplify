@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.project.layoutmulticlient.NsdChatActivity">
+
+    <include layout="@layout/toolbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="vertical">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/con_name"
+            android:hint="Contest name"
+            android:focusableInTouchMode="true"
+            android:layout_marginTop="25dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/con_password"
+            android:layout_marginTop="25dp"
+            android:focusableInTouchMode="true"
+            android:hint="Contest password"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/con_details"
+            android:layout_marginTop="25dp"
+            android:focusableInTouchMode="true"
+            android:hint="Enter contest rules to be shown to contestants..."/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Create"
+            android:id="@+id/con_create"
+            android:onClick="con_create_click"
+            android:layout_marginTop="25dp" />
+
+    </LinearLayout>
+</LinearLayout>

@@ -5,7 +5,9 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
 
     <application
         android:allowBackup="true"
@@ -24,10 +26,10 @@
         </activity>
         <activity
             android:name=".Attendance"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Add_class"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".BluetoothScanActivity"
             android:screenOrientation="portrait" />
@@ -36,10 +38,37 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ClassDetailsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MarkStudentsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WifiLandingPage"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NsdChatActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ContestUpload"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ViewHistoryOptions"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ContestRules"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DisplayQuestions"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ResultContestant"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ContestantResultList"
+            android:screenOrientation="portrait" />
+        <service
+            android:name="service.TimerBroadcastService"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

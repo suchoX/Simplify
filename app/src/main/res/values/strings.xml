@@ -3,4 +3,8 @@
     <string name="title_activity_attendance">Attendance</string>
     <string name="title_activity_add_class">Add Class</string>
     <string name="title_activity_temp">Temp</string>
+    <string name="connect">Connect</string>
+    <string name="discover">Discover</string>
+    <string name="register">Register</string>
+    <string name="send">Send</string>
 </resources>

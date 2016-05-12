@@ -137,7 +137,7 @@ public class Homescreen extends AppCompatActivity
                         dist=Math.sqrt((x-screen_width/2)*(x-screen_width/2)+(y-(3*screen_height)/4)*(y-(3*screen_height)/4));
                         if(dist<=button_wifi.getWidth()/2)
                         {
-                            intent = new Intent(Homescreen.this, Attendance.class);
+                            intent = new Intent(Homescreen.this, WifiLandingPage.class);
                             Homescreen.this.startActivity(intent);
                         }
                     }

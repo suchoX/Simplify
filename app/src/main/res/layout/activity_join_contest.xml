@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.project.layoutmulticlient.NsdChatActivity">
+
+    <include layout="@layout/toolbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="CONTEST DETAILS:"
+            android:textStyle="bold"
+            android:id="@+id/textView2" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/con_join_name"
+            android:focusableInTouchMode="true"
+            android:hint="Enter the contest name" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/con_join_pass"
+            android:focusableInTouchMode="true"
+            android:hint="Enter contest password"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="CONTESTANT DETAILS:"
+            android:layout_marginTop="25dp"
+            android:textStyle="bold"
+            android:id="@+id/textView" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="Contestant Name"
+            android:ems="10"
+            android:id="@+id/part_name"
+            android:focusableInTouchMode="true"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:id="@+id/part_email"
+            android:hint="Contestant Email id"
+            android:focusableInTouchMode="true"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:ems="10"
+            android:id="@+id/part_ph"
+            android:hint="Contestant Phone No."
+            android:focusableInTouchMode="true"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Search Contest"
+            android:id="@+id/btn_search"
+            android:onClick="search_contest"
+            android:layout_marginTop="25dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Join"
+            android:id="@+id/btn_join"
+            android:onClick="join_contest" />
+
+    </LinearLayout>
+</LinearLayout>
