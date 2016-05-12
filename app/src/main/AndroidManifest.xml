@@ -69,7 +69,7 @@
             android:name=".ContestantResultList"
             android:screenOrientation="portrait" />
         <service
-            android:name="service.TimerBroadcastService"
+            android:name=".service.TimerBroadcastService"
             android:screenOrientation="portrait" />
     </application>
 

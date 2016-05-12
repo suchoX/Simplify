@@ -63,7 +63,7 @@ public class ContestRules extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Set Timer");
+        getSupportActionBar().setTitle("Rules");
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
