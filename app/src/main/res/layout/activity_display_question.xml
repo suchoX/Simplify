@@ -1,89 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".DisplayQuestions">
+    tools:context=".DisplayQuestions"
+    android:background="@color/main_pink">
 
-    <include layout="@layout/toolbar"/>
-    <RelativeLayout
+    <include layout="@layout/toolbar"
+        android:id="@+id/include"/>
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_info"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="0:00"
-            android:id="@+id/timerTextView"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-
-        <TextView
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        card_view:cardCornerRadius="4dp"
+        android:layout_centerInParent="true">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Question Statement"
-            android:id="@+id/quesStatement"
-            android:layout_gravity="center_horizontal"
-            android:layout_below="@+id/timerTextView" />
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin">
 
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/radioGroupOptions"
-            android:orientation="vertical"
-            android:layout_below="@+id/quesStatement">
-
-            <RadioButton
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New RadioButton"
-                android:id="@+id/option1" />
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="0:00"
+                android:id="@+id/timerTextView"
+                android:layout_centerHorizontal="true"/>
 
-            <RadioButton
-                android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New RadioButton"
-                android:id="@+id/option2" />
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Question Statement"
+                android:id="@+id/quesStatement"
+                android:layout_below="@+id/timerTextView"
+                android:layout_margin="10dp"/>
 
-            <RadioButton
-                android:layout_width="wrap_content"
+            <RadioGroup
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New RadioButton"
-                android:id="@+id/option3" />
+                android:id="@+id/radioGroupOptions"
+                android:orientation="vertical"
+                android:layout_below="@+id/quesStatement"
+                android:layout_margin="20dp">
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New RadioButton"
-                android:id="@+id/option4" />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New RadioButton"
+                    android:id="@+id/option1" />
 
-        </RadioGroup>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New RadioButton"
+                    android:id="@+id/option2" />
 
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New RadioButton"
+                    android:id="@+id/option3" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New RadioButton"
+                    android:id="@+id/option4" />
+            </RadioGroup>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="Next"
             android:id="@+id/nextButton"
             android:onClick="nextClicked"
-            android:layout_below="@+id/radioGroupOptions"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"/>
+            android:background="@color/colorPrimary"
+            android:textSize="17sp"
+            android:textColor="@color/white"/>
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="Submit"
             android:id="@+id/submitButton"
             android:onClick="submitClicked"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/nextButton"/>
-
-    </RelativeLayout>
-</LinearLayout>
+            android:background="@color/colorPrimary"
+            android:textSize="17sp"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+</RelativeLayout>
