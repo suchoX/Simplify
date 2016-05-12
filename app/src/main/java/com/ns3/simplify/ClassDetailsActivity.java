@@ -289,11 +289,11 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd)
     {
-        Toast.makeText(this,""+dayOfMonth+"/"+(monthOfYear+1)+"/"+year+" "+dayOfMonthEnd+"/"+(monthOfYearEnd+1)+"/"+yearEnd,Toast.LENGTH_LONG).show();
         Date fromDate = new Date(year,monthOfYear,dayOfMonth);
         Date toDate = new Date(yearEnd,monthOfYearEnd,dayOfMonthEnd);
+        //Toast.makeText(this,""+fromDate.getDate()+"/"+(fromDate.getMonth()+1)+"/"+fromDate.getYear()+" "+toDate.getDate()+"/"+(toDate.getMonth()+1)+"/"+toDate.getYear(),Toast.LENGTH_LONG).show();
 
-        Excel_sheet_access.saveExcelFile(this,"Attendance Details from-"+dayOfMonth+"/"+(monthOfYear+1)+"/"+year+" to-"+dayOfMonthEnd+"/"+(monthOfYearEnd+1)+"/"+yearEnd,batchID,fromDate,toDate);
+        Excel_sheet_access.saveExcelFile(ClassDetailsActivity.this,"Attendance Details from-"+dayOfMonth+"-"+(monthOfYear+1)+"-"+year+" to-"+dayOfMonthEnd+"-"+(monthOfYearEnd+1)+"-"+yearEnd+".xls",batchID,fromDate,toDate);
     }
 
     private String getCurrentFragmentName()
