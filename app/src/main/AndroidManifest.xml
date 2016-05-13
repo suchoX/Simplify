@@ -49,19 +49,22 @@
         <activity
             android:name=".NsdChatActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"  />
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".ContestUpload"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".ViewHistoryOptions"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ContestRules"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".DisplayQuestions"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".ResultContestant"
             android:screenOrientation="portrait" />
