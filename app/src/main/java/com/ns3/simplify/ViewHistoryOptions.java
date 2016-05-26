@@ -1,5 +1,6 @@
 package com.ns3.simplify;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -48,12 +49,15 @@ public class ViewHistoryOptions extends AppCompatActivity {
         hostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                /*
                 new RealmBrowser.Builder(ViewHistoryOptions.this)
                         .add(realm, ContestHost.class)
                         .add(realm, Participant.class)
                         .add(realm, Marks.class)
                         .show();
+                */
+                Intent intent = new Intent(ViewHistoryOptions.this, ContestHistoryList.class);
+                startActivity(intent);
             }
         });
     }

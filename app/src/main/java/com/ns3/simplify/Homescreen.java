@@ -1,6 +1,5 @@
 package com.ns3.simplify;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,14 +10,63 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+
+public class Homescreen extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_homescreen);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.translucent_black));
+        }
+    }
+
+    public void bluetoothClicked(View v){
+        Intent intent = new Intent(this, Attendance.class);
+        startActivity(intent);
+    }
+
+    public void wifiClicked(View v){
+        Intent intent = new Intent(this, WifiLandingPage.class);
+        startActivity(intent);
+    }
+}
+/*
+package com.ns3.simplify;
+
+        import android.app.Activity;
+        import android.content.Context;
+        import android.content.Intent;
+        import android.graphics.Bitmap;
+        import android.graphics.BitmapFactory;
+        import android.graphics.Canvas;
+        import android.graphics.Paint;
+        import android.graphics.Rect;
+        import android.graphics.RectF;
+        import android.graphics.Typeface;
+        import android.os.Build;
+        import android.os.Bundle;
+        import android.support.v4.content.ContextCompat;
+        import android.support.v7.app.AppCompatActivity;
+        import android.view.MotionEvent;
+        import android.view.SurfaceView;
+        import android.view.View;
+        import android.view.Window;
+        import android.view.WindowManager;
 
 
 public class Homescreen extends AppCompatActivity
@@ -36,21 +84,19 @@ public class Homescreen extends AppCompatActivity
             intent.putExtra("Open Bluetooth",true);
             startActivity(intent);
         }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            if(Build.VERSION.SDK_INT >=23) {
-                window.setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.main_blue_dark));
-                window.setNavigationBarColor(ContextCompat.getColor(getBaseContext(), R.color.main_pink));
+            if(Build.VERSION.SDK_INT >=Build.VERSION_CODES.M) {
+                window.setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.white));
+                homescreen_canvas.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             }
-            else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
-                window.setStatusBarColor(getResources().getColor(R.color.main_blue_dark));
-                window.setNavigationBarColor(getResources().getColor(R.color.main_pink));
+            else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                window.setStatusBarColor(getResources().getColor(R.color.card_shadow));
             }
-
         }
     }
 
@@ -72,9 +118,9 @@ public class Homescreen extends AppCompatActivity
         {
             super(context);
             if(Build.VERSION.SDK_INT >=23)
-                setBackgroundColor(ContextCompat.getColor(context, R.color.main_blue));
+                setBackgroundColor(ContextCompat.getColor(context, R.color.main_white));
             else
-                setBackgroundColor(getResources().getColor(R.color.main_blue));
+                setBackgroundColor(getResources().getColor(R.color.main_white));
             options=new BitmapFactory.Options();
             paint =new Paint();
             text=new Paint();
@@ -89,7 +135,7 @@ public class Homescreen extends AppCompatActivity
 
             text.setTypeface(type);
             text.setAntiAlias(true);
-            text.setColor(getResources().getColor(R.color.white));
+            text.setColor(getResources().getColor(R.color.grey_text));
         }
 
         @Override
@@ -97,9 +143,9 @@ public class Homescreen extends AppCompatActivity
         {
             super.onDraw(canvas);
             if(Build.VERSION.SDK_INT >=23)
-                paint.setColor(ContextCompat.getColor(getContext(), R.color.main_pink));
+                paint.setColor(ContextCompat.getColor(getContext(), R.color.main_white));
             else
-                paint.setColor(getResources().getColor(R.color.main_pink));
+                paint.setColor(getResources().getColor(R.color.main_white));
             canvas.drawRect(0, screen_height / 2, screen_width, screen_height, paint);    //Drawing the Bottom Pink window
             rectF.set(screen_width/2-button_bluetooth.getWidth()/2,screen_height/4-button_bluetooth.getHeight()/2,screen_width/2+button_bluetooth.getWidth()/2,screen_height/4+button_bluetooth.getHeight()/2);
             canvas.drawBitmap(button_bluetooth,null,rectF,paint);   //Drawing the Top Bluetooth Button
@@ -164,3 +210,4 @@ public class Homescreen extends AppCompatActivity
         }
     }
 }
+*/

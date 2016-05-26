@@ -9,6 +9,7 @@ import io.realm.annotations.Required;
  * Created by ASUS on 12-May-16.
  */
 public class Participant extends RealmObject {
+
     @PrimaryKey
     String email;
     @Required

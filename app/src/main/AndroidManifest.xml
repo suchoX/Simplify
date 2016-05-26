@@ -6,8 +6,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -15,8 +14,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".Homescreen"
+        <activity android:name=".Homescreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,7 +28,7 @@
         <activity
             android:name=".Add_class"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"  />
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".BluetoothScanActivity"
             android:screenOrientation="portrait" />
@@ -49,31 +47,35 @@
         <activity
             android:name=".NsdChatActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ContestUpload"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ViewHistoryOptions"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ContestRules"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".DisplayQuestions"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ResultContestant"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ContestantResultList"
             android:screenOrientation="portrait" />
+
         <service
             android:name=".service.TimerBroadcastService"
             android:screenOrientation="portrait" />
+
+        <activity android:name=".ContestHistoryList" />
+        <activity android:name=".ParticipantHistoryList" />
     </application>
 
 </manifest>

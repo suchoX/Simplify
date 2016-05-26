@@ -8,6 +8,7 @@ import io.realm.annotations.Required;
  * Created by ASUS on 12-May-16.
  */
 public class Marks extends RealmObject {
+
     @PrimaryKey
     int id;
     int cid;
