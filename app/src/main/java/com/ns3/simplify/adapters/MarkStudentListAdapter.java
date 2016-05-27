@@ -97,15 +97,19 @@ public class MarkStudentListAdapter extends BaseAdapter
         if(macID.contains(student.getMac_ID1()))
         {
             presentCheck.setChecked(true);
-            presentStudents.add(student);
+            if(!presentStudents.contains(student))
+                presentStudents.add(student);
             macID.remove(student.getMac_ID1());
         }
         else if(macID.contains(student.getMac_ID2()))
         {
             presentCheck.setChecked(true);
-            presentStudents.add(student);
+            if(!presentStudents.contains(student))
+                presentStudents.add(student);
             macID.remove(student.getMac_ID2());
         }
+        else
+            presentCheck.setChecked(false);
     }
 
     public RealmList<Student> getPresentStudents()

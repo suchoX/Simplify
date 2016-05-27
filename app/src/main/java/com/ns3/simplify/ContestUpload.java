@@ -6,11 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,6 +46,13 @@ public class ContestUpload extends AppCompatActivity {
         setContentView(R.layout.activity_contest_upload);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.main_red));
+        }
         initToolbar();
 
         sendBtn = (Button) findViewById(R.id.sendQuesTimerButton);
@@ -106,7 +116,7 @@ public class ContestUpload extends AppCompatActivity {
                 Toast.makeText(this, "Minutes must be within 0 to 59!", Toast.LENGTH_SHORT).show();
             }
             else if(tHrs == 0 && tMins == 0 && tSecs == 0) {
-                Toast.makeText(this, "ContestParticipant duration should be greater than 0 mins", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Contest duration should be greater than 0 mins", Toast.LENGTH_SHORT).show();
             }
             else {
                 if(!timerStarted) {
@@ -189,7 +199,7 @@ public class ContestUpload extends AppCompatActivity {
 
     private void initToolbar() {
         Toolbar mToolbar;
-        mToolbar = (Toolbar) findViewById(R.id.include);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

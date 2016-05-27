@@ -5,11 +5,10 @@
     android:layout_height="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".ContestUpload"
-    android:background="@color/main_pink">
+    tools:context="com.ns3.simplify.ContestUpload"
+    android:background="@color/main_back_red">
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/include"/>
+    <include layout="@layout/layout_toolbar_wifi"/>
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_info"
@@ -101,8 +100,10 @@
                     android:text="Add Questions"
                     android:id="@+id/add_ques_btn"
                     android:onClick="addQues"
-                    android:background="@color/white"
-                    android:textColor="@color/colorPrimary"/>
+                    android:background="@color/main_red_dark"
+                    android:textColor="@color/white"
+                    android:layout_margin="2dp"
+                    android:textSize="12sp"/>
 
                 <Button
                     android:layout_width="0dp"
@@ -111,8 +112,10 @@
                     android:text="Send"
                     android:onClick="sendQues"
                     android:id="@+id/sendQuesTimerButton"
-                    android:background="@color/white"
-                    android:textColor="@color/colorPrimary"/>
+                    android:background="@color/main_red_dark"
+                    android:textColor="@color/white"
+                    android:layout_margin="2dp"
+                    android:textSize="12sp"/>
 
                 <Button
                     android:layout_width="0dp"
@@ -121,8 +124,10 @@
                     android:text="LeaderBoard"
                     android:id="@+id/leaderboardButton"
                     android:onClick="showLeaderBoard"
-                    android:background="@color/white"
-                    android:textColor="@color/colorPrimary"/>
+                    android:background="@color/main_red_dark"
+                    android:textColor="@color/white"
+                    android:layout_margin="2dp"
+                    android:textSize="12sp"/>
             </LinearLayout>
 
         </LinearLayout>

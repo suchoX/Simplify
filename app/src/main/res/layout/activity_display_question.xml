@@ -6,10 +6,10 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".DisplayQuestions"
-    android:background="@color/main_pink">
+    android:background="@color/main_back_red">
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/include"/>
+    <include layout="@layout/layout_toolbar_wifi"/>
+
     <android.support.v7.widget.CardView
         android:id="@+id/card_info"
         android:layout_width="match_parent"
@@ -89,7 +89,7 @@
             android:text="Next"
             android:id="@+id/nextButton"
             android:onClick="nextClicked"
-            android:background="@color/colorPrimary"
+            android:background="@color/main_red_dark"
             android:textSize="17sp"
             android:textColor="@color/white"/>
 
@@ -100,7 +100,7 @@
             android:text="Submit"
             android:id="@+id/submitButton"
             android:onClick="submitClicked"
-            android:background="@color/colorPrimary"
+            android:background="@color/main_red_dark"
             android:textSize="17sp"
             android:textColor="@color/white"/>
     </LinearLayout>

@@ -81,6 +81,7 @@ public class ReadExcelFile {
                 }
                 questionArrayList.add(new Question(quesSt,op1,op2,op3,op4,ca));
             }
+            myInput.close();
         }catch (Exception e){e.printStackTrace(); }
         return questionArrayList;
     }

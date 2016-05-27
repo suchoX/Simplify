@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_pink">
+    android:background="@color/main_back_red">
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/include" />
+    <include layout="@layout/layout_toolbar_wifi"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_below="@+id/include"
+        android:layout_below="@+id/toolbar"
         android:gravity="center">
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,7 +35,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Create Contest"
-                android:textColor="@color/white"
+                android:textColor="@color/main_red"
                 android:textSize="20sp"
                 android:layout_marginBottom="30dp"/>
         </LinearLayout>
@@ -65,7 +63,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Join Contest"
-                android:textColor="@color/white"
+                android:textColor="@color/main_red"
                 android:textSize="20sp"
                 android:layout_marginBottom="30dp"/>
         </LinearLayout>
@@ -91,7 +89,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="View History"
-                android:textColor="@color/white"
+                android:textColor="@color/main_red"
                 android:textSize="20sp"
                 android:layout_marginBottom="30dp"/>
         </LinearLayout>

@@ -6,13 +6,12 @@
     android:layout_height="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/main_pink">
+    android:background="@color/main_back_red">
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/include"/>
+    <include layout="@layout/layout_toolbar_wifi"/>
 
     <ScrollView
-        android:layout_below="@id/include"
+        android:layout_below="@id/toolbar"
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -110,9 +109,10 @@
             android:text="Search Contest"
             android:id="@+id/btn_search"
             android:onClick="search_contest"
-            android:background="@color/colorPrimary"
+            android:background="@color/main_red_dark"
             android:textSize="17sp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:layout_margin="2dp"/>
 
         <Button
             android:layout_width="0dp"
@@ -121,8 +121,9 @@
             android:text="Join"
             android:id="@+id/btn_join"
             android:onClick="join_contest"
-            android:background="@color/colorPrimary"
+            android:background="@color/main_red_dark"
             android:textSize="17sp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:layout_margin="2dp"/>
     </LinearLayout>
 </RelativeLayout>

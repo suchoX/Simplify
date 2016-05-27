@@ -3,16 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.project.layoutmulticlient.ViewHistoryOptions">
+    tools:context=".ViewHistoryOptions"
+    android:background="@color/main_back_red">
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/toolbar"/>
+    <include layout="@layout/layout_toolbar_wifi"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar">
-
 
         <Button
             android:layout_width="match_parent"
@@ -22,7 +21,11 @@
             android:layout_marginTop="100dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:background="@color/main_red_dark"
+            android:textColor="@color/white"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"/>
 
         <Button
             android:layout_width="match_parent"
@@ -31,7 +34,11 @@
             android:id="@+id/viewParticipantHistory"
             android:layout_below="@+id/viewContestHostHistory"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp" />
+            android:layout_marginTop="100dp"
+            android:background="@color/main_red_dark"
+            android:textColor="@color/white"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"/>
     </RelativeLayout>
 
 </RelativeLayout>

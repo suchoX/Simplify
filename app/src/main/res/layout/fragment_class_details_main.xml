@@ -4,7 +4,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_pink">
+    android:background="@color/main_back_blue">
+
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
@@ -41,7 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Scan Students"
-                    android:textColor="@color/white"
+                    android:textColor="@color/main_blue_dark"
                     android:textSize="15sp"
                     android:gravity="center"/>
             </LinearLayout>
@@ -70,7 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Student List"
-                    android:textColor="@color/white"
+                    android:textColor="@color/main_blue_dark"
                     android:textSize="15sp"
                     android:gravity="center"/>
             </LinearLayout>
@@ -109,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Add Student"
-                    android:textColor="@color/white"
+                    android:textColor="@color/main_blue_dark"
                     android:textSize="15sp"
                     android:gravity="center"/>
             </LinearLayout>
@@ -138,7 +139,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Export to Excel Sheet"
-                    android:textColor="@color/white"
+                    android:textColor="@color/main_blue_dark"
                     android:textSize="15sp"
                     android:gravity="center"/>
             </LinearLayout>
@@ -175,7 +176,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Graph"
-                    android:textColor="@color/white"
+                    android:textColor="@color/main_blue_dark"
                     android:textSize="15sp"
                     android:gravity="center"/>
             </LinearLayout>
@@ -202,7 +203,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Import Student Data from Excel Sheet"
-                    android:textColor="@color/white"
+                    android:textColor="@color/main_blue_dark"
                     android:textSize="15sp"
                     android:gravity="center"/>
             </LinearLayout>

@@ -1,10 +1,13 @@
 package com.ns3.simplify;
 
 import android.content.Intent;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
@@ -28,6 +31,13 @@ public class ContestRules extends AppCompatActivity {
         setContentView(R.layout.activity_contest_rules);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.main_red));
+        }
         initToolbar();
 
         startContestBtn = (Button) findViewById(R.id.startContestBtn);
@@ -59,7 +69,7 @@ public class ContestRules extends AppCompatActivity {
 
     private void initToolbar() {
         Toolbar mToolbar;
-        mToolbar = (Toolbar) findViewById(R.id.include);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

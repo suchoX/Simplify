@@ -4,12 +4,12 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_pink">
+    android:background="@color/main_back_red">
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/include"/>
+    <include layout="@layout/layout_toolbar_wifi"/>
+
     <ScrollView
-        android:layout_below="@id/include"
+        android:layout_below="@id/toolbar"
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,7 +36,8 @@
                     android:id="@+id/con_name"
                     android:hint="Contest name"
                     android:focusableInTouchMode="true"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp"
+                    android:lines="1"/>
 
                 <EditText
                     android:layout_width="match_parent"
@@ -64,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Create"
-        android:background="@color/colorPrimary"
+        android:background="@color/main_red_dark"
         android:textSize="17sp"
         android:textColor="@color/white"
         android:id="@+id/con_create"

@@ -3,10 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.project.layoutmulticlient.ContestantResultList">
+    tools:context="com.ns3.simplify.ContestantResultList">
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/toolbar"/>
+    <include layout="@layout/layout_toolbar_wifi"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/contestantResultListView"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:background="@color/main_back_red"/>
     </LinearLayout>
 
 </RelativeLayout>

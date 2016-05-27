@@ -7,10 +7,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.skyfishjy.library.RippleBackground;
@@ -31,6 +35,7 @@ public class BluetoothScanActivity extends AppCompatActivity {
     int countScans=0;
     int numCountScans;
     int value;
+    RippleBackground rippleBackground;
 
     String batchID;
     @Override
@@ -38,13 +43,20 @@ public class BluetoothScanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth_scan);
 
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.main_blue));
+        }
         batchID = getIntent().getStringExtra("Batch ID");
         numCountScans = getIntent().getIntExtra("Number Scans",3);
         value = getIntent().getIntExtra("Value",1);
-        Toast.makeText(this,""+numCountScans+" "+value,Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, numCountScans + " " + value, Toast.LENGTH_LONG).show();
 
-        final RippleBackground rippleBackground=(RippleBackground)findViewById(R.id.content);
-        rippleBackground.startRippleAnimation();
+        rippleBackground = (RippleBackground)findViewById(R.id.content);
 
         int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1;
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
@@ -65,8 +77,8 @@ public class BluetoothScanActivity extends AppCompatActivity {
         scan_data=new Bundle();
         name=new String[100];
         macID = new ArrayList<String>();
-        searchDevices();
         Log.d(TAG, "onCreate: ");
+        searchDevices();
     }
     private void turnOnBT() {
         Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -103,6 +115,7 @@ public class BluetoothScanActivity extends AppCompatActivity {
                 {
                     if(countScans == numCountScans-1)
                     {
+                        rippleBackground.stopRippleAnimation();
                         Intent in = new Intent(BluetoothScanActivity.this, MarkStudentsActivity.class);
                         in.putExtra("Batch ID", batchID);
                         in.putExtra("Value",value);
@@ -113,7 +126,7 @@ public class BluetoothScanActivity extends AppCompatActivity {
                     else
                     {
                         countScans++;
-                        Log.d("MArk",""+countScans);
+                        Log.d("Mark","" + countScans);
                         mBluetoothAdapter.startDiscovery();
                     }
                 }
@@ -130,6 +143,7 @@ public class BluetoothScanActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.d(TAG, "onDestroy: ");
         if(mBluetoothAdapter!=null)
             mBluetoothAdapter.cancelDiscovery();
         unregisterReceiver(mReceiver);
@@ -147,6 +161,7 @@ public class BluetoothScanActivity extends AppCompatActivity {
 
     public void searchDevices()
     {
+        rippleBackground.startRippleAnimation();
         if(mBluetoothAdapter.isDiscovering())
             mBluetoothAdapter.cancelDiscovery();
         mBluetoothAdapter.startDiscovery();

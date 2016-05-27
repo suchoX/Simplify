@@ -5,13 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".ResultContestant">
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/include"/>
+    <include layout="@layout/layout_toolbar_wifi"/>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/frameResult"
-        android:layout_below="@+id/include">
+        android:layout_below="@+id/toolbar">
     </FrameLayout>
 </RelativeLayout>

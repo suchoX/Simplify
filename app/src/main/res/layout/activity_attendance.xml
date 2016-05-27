@@ -4,10 +4,10 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_pink"
+    android:background="@color/main_back_blue"
     tools:context="com.ns3.simplify.Attendance">
 
-    <include layout="@layout/layout_toolbar" />
+    <include layout="@layout/layout_toolbar_bluetooth" />
 
     <ListView
         android:id="@android:id/list"

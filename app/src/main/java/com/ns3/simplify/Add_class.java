@@ -7,10 +7,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -64,6 +67,14 @@ public class Add_class extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_class);
 
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.main_blue));
+        }
         initToolbar();
 
         realmConfig = new RealmConfiguration.Builder(this).build();
@@ -90,12 +101,12 @@ public class Add_class extends AppCompatActivity
                 if(groupCheck.isChecked())
                 {
                     groupB = true;
-                    group_edit.setEnabled(true);
+                    findViewById(R.id.add_class_layout_9).setVisibility(View.VISIBLE);
                 }
                 else
                 {
                     groupB = false;
-                    group_edit.setEnabled(false);
+                    findViewById(R.id.add_class_layout_9).setVisibility(View.GONE);
                 }
             }
         });
@@ -120,14 +131,14 @@ public class Add_class extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                if (batch_edit.getText().toString().trim().equalsIgnoreCase(""))
-                    batch_edit.setError("This field can not be blank");
-                else if (subject_edit.getText().toString().trim().equalsIgnoreCase(""))
+                if (subject_edit.getText().toString().trim().equalsIgnoreCase(""))
                     subject_edit.setError("This field can not be blank");
-                else if (semester_edit.getText().toString().trim().equalsIgnoreCase(""))
-                    semester_edit.setError("This field can not be blank");
                 else if (subjectcode_edit.getText().toString().trim().equalsIgnoreCase(""))
                     subjectcode_edit.setError("This field can not be blank");
+                else if (batch_edit.getText().toString().trim().equalsIgnoreCase(""))
+                    batch_edit.setError("This field can not be blank");
+                else if (semester_edit.getText().toString().trim().equalsIgnoreCase(""))
+                    semester_edit.setError("This field can not be blank");
                 else if (stream_edit.getText().toString().trim().equalsIgnoreCase(""))
                     stream_edit.setError("This field can not be blank");
                 else if (section_edit.getText().toString().trim().equalsIgnoreCase(""))

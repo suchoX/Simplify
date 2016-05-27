@@ -4,34 +4,40 @@
     android:layout_height="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/main_pink">
+    android:background="@color/main_back_red">
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/include" />
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_info"
-        android:layout_below="@+id/include"
+    <include layout="@layout/layout_toolbar_wifi"/>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginBottom="8dp"
-        card_view:cardCornerRadius="4dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_margin="15dp">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/startContestBtn">
 
-            <TextView
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="8dp"
+            card_view:cardCornerRadius="4dp">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Contest Rules"
-                android:textSize="20sp"
-                android:id="@+id/contestRules"/>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="15dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Contest Rules"
+                    android:textSize="20sp"
+                    android:id="@+id/contestRules"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </ScrollView>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,7 +46,7 @@
         android:id="@+id/startContestBtn"
         android:layout_gravity="center_horizontal"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
+        android:background="@color/main_red_dark"
         android:textColor="@color/white"
         android:textSize="17sp"/>
 </RelativeLayout>
