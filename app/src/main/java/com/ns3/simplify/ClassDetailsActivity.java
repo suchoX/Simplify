@@ -184,7 +184,7 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
                     intent.putExtra("Value",value);
                     intent.putExtra("Number Scans",numberScans);
                     startActivity(intent);
-                    finish();
+                    beforeScanDialog.dismiss();
                 }
             }
         });
@@ -204,16 +204,14 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
                     in.putExtra("Value",value);
                     in.putStringArrayListExtra("MAC ID's", macID);
                     startActivity(in);
-                    finish();
+                    beforeScanDialog.dismiss();
                 }
 
 
             }
         });
-
         beforeScanDialog.setCancelable(true);
         beforeScanDialog.show();
-
     }
 
     public void addStudent()
@@ -361,8 +359,9 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
                         Calendar c = Calendar.getInstance();
                         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
                         String formattedDate = df.format(c.getTime());
-                        Register register = realm.where(Register.class).equalTo("BatchID",batchID).findFirst();
-                        Excel_sheet_access.saveExcelFile(ClassDetailsActivity.this,"Full Attendance data till "+formattedDate+".xls",batchID);
+                        // TODO: 28-May-16
+                        //Register register = realm.where(Register.class).equalTo("BatchID",batchID).findFirst();
+                        Excel_sheet_access.saveExcelFile(ClassDetailsActivity.this,"Full_attendance_data_till_"+formattedDate+".xls",batchID);
                     }
                 });
         AlertDialog alert = builder.create();
@@ -376,7 +375,7 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
         Date toDate = new Date(yearEnd,monthOfYearEnd,dayOfMonthEnd);
         //Toast.makeText(this,""+fromDate.getDate()+"/"+(fromDate.getMonth()+1)+"/"+fromDate.getYear()+" "+toDate.getDate()+"/"+(toDate.getMonth()+1)+"/"+toDate.getYear(),Toast.LENGTH_LONG).show();
 
-        Excel_sheet_access.saveExcelFile(ClassDetailsActivity.this,"Attendance Details from-"+dayOfMonth+"-"+(monthOfYear+1)+"-"+year+" to-"+dayOfMonthEnd+"-"+(monthOfYearEnd+1)+"-"+yearEnd+".xls",batchID,fromDate,toDate);
+        Excel_sheet_access.saveExcelFile(ClassDetailsActivity.this,"Attendance_data_from_"+dayOfMonth+"-"+(monthOfYear+1)+"-"+year+"_to_"+dayOfMonthEnd+"-"+(monthOfYearEnd+1)+"-"+yearEnd+".xls",batchID,fromDate,toDate);
     }
 
     private String getCurrentFragmentName()

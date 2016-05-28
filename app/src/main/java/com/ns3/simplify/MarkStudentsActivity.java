@@ -13,6 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.ListView;
 
 
@@ -69,15 +72,44 @@ public class MarkStudentsActivity extends AppCompatActivity
         realm = Realm.getInstance(realmConfig);
 
         markStudentListView = (ListView)findViewById(R.id.student_listview);
+        markStudentListView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
 
-        macID = new ArrayList<String>();
+        macID = new ArrayList<>();
+        presentStudentList = new RealmList<>();
 
         batchID = getIntent().getStringExtra("Batch ID");
         macID = getIntent().getStringArrayListExtra("MAC ID's");
         Log.d("Mark",""+macID.size()+" "+batchID);
         studentList = realm.where(Register.class).equalTo("BatchID",batchID).findFirst().getStudents().sort("Roll_number");
-        markStudentListAdapter = new MarkStudentListAdapter(this,studentList,macID);
+
+        for (Student s : studentList) {
+            if(macID.contains(s.getMac_ID1()))
+            {
+                if(!presentStudentList.contains(s))
+                    presentStudentList.add(s);
+                macID.remove(s.getMac_ID1());
+            }
+            else if(macID.contains(s.getMac_ID2()))
+            {
+                if(!presentStudentList.contains(s))
+                    presentStudentList.add(s);
+                macID.remove(s.getMac_ID2());
+            }
+        }
+        markStudentListAdapter = new MarkStudentListAdapter(this, studentList, presentStudentList);
         markStudentListView.setAdapter(markStudentListAdapter);
+
+        markStudentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                System.out.println(i);
+                if(presentStudentList.contains(studentList.get(i)))
+                    presentStudentList.remove(studentList.get(i));
+                else
+                    presentStudentList.add(studentList.get(i));
+                markStudentListAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     private void initToolbar() {
@@ -107,7 +139,6 @@ public class MarkStudentsActivity extends AppCompatActivity
         switch (item.getItemId())
         {
             case R.id.marked_menu:
-                presentStudentList = markStudentListAdapter.getPresentStudents();
                 markInDatabase();
                 finish();
                 break;
