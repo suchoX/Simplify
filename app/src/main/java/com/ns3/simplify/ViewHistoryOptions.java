@@ -51,10 +51,13 @@ public class ViewHistoryOptions extends AppCompatActivity {
         participantBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                /*
                 new RealmBrowser.Builder(ViewHistoryOptions.this)
                         .add(realm, ContestParticipant.class)
                         .show();
+                */
+                Intent intent = new Intent(ViewHistoryOptions.this, ContestParticipatedList.class);
+                startActivity(intent);
             }
         });
 

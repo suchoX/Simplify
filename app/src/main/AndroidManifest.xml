@@ -74,8 +74,12 @@
             android:name=".service.TimerBroadcastService"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".ContestHistoryList" />
-        <activity android:name=".ParticipantHistoryList" />
+        <activity android:name=".ContestHistoryList"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ParticipantHistoryList"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ContestParticipatedList"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

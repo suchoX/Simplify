@@ -27,7 +27,6 @@ public class ParticipantHistoryList extends AppCompatActivity {
     Realm realm;
     RealmConfiguration realmConfig;
     RealmResults<ContestHost> results_temp;
-    RealmResults<Marks> result_temp;
     RealmList<Participant> results;
     ContestHost contestHost;
     Marks marks;
