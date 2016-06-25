@@ -30,6 +30,7 @@ public class ParticipantHistoryList extends AppCompatActivity {
     RealmResults<Marks> result_temp;
     RealmList<Participant> results;
     ContestHost contestHost;
+    Marks marks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class ParticipantHistoryList extends AppCompatActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.main_red));
         }
-        participantHistoryList = (ListView)findViewById(R.id.contestHistoryListView);
+        participantHistoryList = (ListView)findViewById(R.id.participantHistoryListView);
 
         realmConfig = new RealmConfiguration.Builder(this).build();
         realm = Realm.getInstance(realmConfig);
@@ -60,7 +61,11 @@ public class ParticipantHistoryList extends AppCompatActivity {
                 TextView text2 = (TextView) view.findViewById(android.R.id.text2);
 
                 text1.setText(results.get(position).getName() + " " + results.get(position).getEmail());
-                text2.setText("Score : " + results.get(position).getMarksList());
+                marks = results.get(position).getMarksList().where().equalTo("cid",contestHost.getCid()).findFirst();
+                if(marks != null)
+                    text2.setText("Score : " + marks.getMarks());
+                else
+                    text2.setText("Score : Null");
                 return view;
             }
         };
