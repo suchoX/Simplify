@@ -4,6 +4,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -20,6 +21,8 @@ import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
     public class ContestParticipatedList extends AppCompatActivity {
+
+        Toolbar mToolbar;
 
         ListView contestParticipatedListView;
         Realm realm;
@@ -38,6 +41,8 @@ import io.realm.RealmResults;
                 window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                 window.setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.main_red));
             }
+
+            initToolbar();
             contestParticipatedListView = (ListView)findViewById(R.id.participantHistoryListView);
 
             realmConfig = new RealmConfiguration.Builder(this).build();
@@ -58,6 +63,25 @@ import io.realm.RealmResults;
                 }
             };
             contestParticipatedListView.setAdapter(adapter);
+        }
+
+        private void initToolbar() {
+            mToolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Contest Participated");
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
+        }
+
+        @Override
+        public void onBackPressed() {
+            finish();
         }
 
 }

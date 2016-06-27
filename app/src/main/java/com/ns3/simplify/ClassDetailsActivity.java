@@ -66,7 +66,6 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
     LayoutInflater factory;
     View beforeScanView;
 
-
     ArrayList<String> macID;
 
     @Override

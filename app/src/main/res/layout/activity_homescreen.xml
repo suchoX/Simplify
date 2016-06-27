@@ -13,6 +13,7 @@
         android:layout_weight="0.5"
         android:layout_gravity="center_horizontal">
 
+
         <ImageView
             android:layout_width="175dp"
             android:layout_height="175dp"

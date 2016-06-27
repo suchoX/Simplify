@@ -5,6 +5,7 @@ import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -21,6 +22,8 @@ import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 public class ContestHistoryList extends AppCompatActivity {
+
+    Toolbar mToolbar;
 
     ListView contestHistoryList;
     Realm realm;
@@ -39,6 +42,7 @@ public class ContestHistoryList extends AppCompatActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.main_red));
         }
+        initToolbar();
         contestHistoryList = (ListView)findViewById(R.id.contestHistoryListView);
 
         realmConfig = new RealmConfiguration.Builder(this).build();
@@ -67,5 +71,24 @@ public class ContestHistoryList extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void initToolbar() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Contest Hosted");
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }
