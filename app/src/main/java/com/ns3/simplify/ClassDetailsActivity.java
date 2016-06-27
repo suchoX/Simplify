@@ -245,8 +245,6 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
                     nameView.setError("Cant be Empty");
                 else if(phone.equals(""))
                     phoneView.setError("Cant be Empty");
-                else if(mac1.equals(""))
-                    mac1View.setError("Cant be Empty");
                 else
                 {
                     addStudenttoDatabase(roll,name,phone,mac1,mac2);

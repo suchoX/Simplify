@@ -3,11 +3,13 @@ package com.ns3.simplify;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -146,23 +148,42 @@ public class Add_class extends AppCompatActivity
                 else if (groupB && group_edit.getText().toString().trim().equalsIgnoreCase(""))
                     group_edit.setError("This field can not be blank");
                 else {
-                    year = Integer.parseInt(semester_edit.getText().toString().trim());
-                    Add_class.this.generateBatchID();
-                    checkBatch = realm.where(Register.class).equalTo("BatchID",batchid).findAll();  //Checking if The same BatchID already exists
-                    if(checkBatch.size() == 0) {
-                        Intent intent = new Intent(Add_class.this, FilePickerActivity.class);
-                        intent.setAction(Intent.ACTION_GET_CONTENT);
-                        intent.putExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, false);
-                        intent.putExtra(FilePickerActivity.EXTRA_ALLOW_CREATE_DIR, false);
-                        intent.putExtra(FilePickerActivity.EXTRA_MODE, FilePickerActivity.MODE_FILE);
 
-                        //intent.putExtra(FilePickerActivity.EXTRA_START_PATH, Environment.getExternalStorageDirectory().getPath());
-                        startActivityForResult(intent, FILE_SELECT_CODE);
-                    }
-                    else
-                        Toast.makeText(Add_class.this,"Same Batch Name and Subject already exists",Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder alert = new AlertDialog.Builder(Add_class.this);
+                    alert.setTitle("Excel Sheet Import");
+                    alert.setMessage(" Points to be noted-\n\n" +
+                            "- The Excel file MUST be a XLS file not a XLSX file.\n\n" +
+                            "- The Excel sheet has 5 columns (Left to Right)-\n \t* Roll Number\n \t* Name\n \t* Phone Number\n \t* MacID1(Optional)\n \t* MacID2(Optional).\n\n" +
+                            "- The Excel Sheet preferably should be created in Microsoft Excel, and not opened in the Android device.\n\n");
+                    alert.setPositiveButton("Select Excel File", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            year = Integer.parseInt(semester_edit.getText().toString().trim());
+                            Add_class.this.generateBatchID();
+                            checkBatch = realm.where(Register.class).equalTo("BatchID",batchid).findAll();  //Checking if The same BatchID already exists
+                            if(checkBatch.size() == 0) {
+                                Intent intent = new Intent(Add_class.this, FilePickerActivity.class);
+                                intent.setAction(Intent.ACTION_GET_CONTENT);
+                                intent.putExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, false);
+                                intent.putExtra(FilePickerActivity.EXTRA_ALLOW_CREATE_DIR, false);
+                                intent.putExtra(FilePickerActivity.EXTRA_MODE, FilePickerActivity.MODE_FILE);
+
+                                //intent.putExtra(FilePickerActivity.EXTRA_START_PATH, Environment.getExternalStorageDirectory().getPath());
+                                startActivityForResult(intent, FILE_SELECT_CODE);
+                            }
+                            else
+                                Toast.makeText(Add_class.this,"Same Batch Name and Subject already exists",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    alert.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    alert.show();
+
                 }
-
             }
         });
     }

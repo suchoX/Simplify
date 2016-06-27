@@ -21,7 +21,7 @@ public class Homescreen extends AppCompatActivity {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.material_brown));
+            window.setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.main_back));
         }
     }
 
