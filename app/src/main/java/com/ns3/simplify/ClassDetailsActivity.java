@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +32,7 @@ import com.ns3.simplify.fragments.GraphFragment;
 import com.ns3.simplify.fragments.StudentAttendanceFragment;
 import com.ns3.simplify.fragments.StudentListFragment;
 import com.ns3.simplify.others.Excel_sheet_access;
+import com.ns3.simplify.realm.DateRegister;
 import com.ns3.simplify.realm.Register;
 import com.ns3.simplify.realm.Student;
 
@@ -41,6 +43,7 @@ import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmList;
 
 public class ClassDetailsActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
@@ -407,8 +410,8 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id)
                             {
-                                realm.beginTransaction();
                                 Register register = realm.where(Register.class).equalTo("BatchID",batchID).findFirst();
+                                realm.beginTransaction();
                                 register.deleteFromRealm();
                                 realm.commitTransaction();
                                 Intent intent = new Intent(ClassDetailsActivity.this, Homescreen.class);

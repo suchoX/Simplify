@@ -66,7 +66,15 @@ public class MarkStudentListAdapter extends BaseAdapter
         nameView = (TextView)convertView.findViewById(R.id.mark_student_list_name);
         presentCheck = (CheckBox)convertView.findViewById(R.id.mark_student_list_check);
 
-        nameView.setText(studentList.get(position).getStudent_name());
+        String temp = studentList.get(position).getRoll_number();
+        try {
+            temp = temp.substring(temp.length()-3, temp.length());
+        }
+        catch (Exception e)
+        {
+            temp="";
+        }
+        nameView.setText(temp+"  "+studentList.get(position).getStudent_name());
         if(presentStudents.contains(studentList.get(position)))
             presentCheck.setChecked(true);
         else

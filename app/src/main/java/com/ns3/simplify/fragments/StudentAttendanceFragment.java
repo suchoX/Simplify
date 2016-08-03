@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ns3.simplify.R;
 import com.ns3.simplify.adapters.StudentAttendanceListAdapter;
@@ -16,6 +17,7 @@ import com.ns3.simplify.realm.Register;
 import com.ns3.simplify.realm.Student;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -65,7 +67,7 @@ public class StudentAttendanceFragment extends Fragment
 
         calculateAttendance();
 
-        studentAttendanceListAdapter = new StudentAttendanceListAdapter(context,registerRecords,presentDatesID,totalNumRecords,totalDaysPresent);
+        studentAttendanceListAdapter = new StudentAttendanceListAdapter(context,registerRecords,presentDatesID,totalNumRecords,totalDaysPresent,StudentAttendanceFragment.this);
         recordListView.setAdapter(studentAttendanceListAdapter);
         totalDaysPresent = 0;
         return view;
@@ -85,6 +87,64 @@ public class StudentAttendanceFragment extends Fragment
         percentageView.setText(""+attendancePercentage + " %");
         totalNumRecords=totalDaysPresent=0;
     }
+
+    public void markStudent(int dateRegisterId)
+    {
+        DateRegister record;
+        Student student;
+        record = realm.where(DateRegister.class).equalTo("dateID",dateRegisterId).findFirst();
+        student = realm.where(Student.class).equalTo("Roll_number",rollNum).findFirst();
+        realm.beginTransaction();
+        if(!record.getStudentPresent().contains(student))
+            record.getStudentPresent().add(student);
+        realm.commitTransaction();
+
+        registerRecords = realm.where(Register.class).equalTo("BatchID",batchID).findFirst().getRecord();
+
+        for(int i=0 ; i<registerRecords.size() ; i++)
+            totalNumRecords+=registerRecords.get(i).getValue();
+
+        int i;
+        for (i = 0; i < registerRecords.size(); i++)
+        {
+            studentsPresentList = registerRecords.get(i).getStudentPresent();
+            if (studentsPresentList.contains(selectedStudent)) {
+                totalDaysPresent+=registerRecords.get(i).getValue();
+            }
+        }
+        attendancePercentage = ((float)totalDaysPresent*100)/(float)totalNumRecords;
+        percentageView.setText(""+attendancePercentage + " %");
+        totalNumRecords=totalDaysPresent=0;
+    }
+
+    public void unmarkStudent(int dateRegisterId)
+    {
+        DateRegister record;
+        Student student;
+        realm.beginTransaction();
+        record = realm.where(DateRegister.class).equalTo("dateID",dateRegisterId).findFirst();
+        student = realm.where(Student.class).equalTo("Roll_number",rollNum).findFirst();
+        if( record.getStudentPresent().contains(student))
+            record.getStudentPresent().remove(student);
+        realm.commitTransaction();
+
+        registerRecords = realm.where(Register.class).equalTo("BatchID",batchID).findFirst().getRecord();
+        for(int i=0 ; i<registerRecords.size() ; i++)
+            totalNumRecords+=registerRecords.get(i).getValue();
+
+        int i;
+        for (i = 0; i < registerRecords.size(); i++)
+        {
+            studentsPresentList = registerRecords.get(i).getStudentPresent();
+            if (studentsPresentList.contains(selectedStudent)) {
+                totalDaysPresent+=registerRecords.get(i).getValue();
+            }
+        }
+        attendancePercentage = ((float)totalDaysPresent*100)/(float)totalNumRecords;
+        percentageView.setText(""+attendancePercentage + " %");
+        totalNumRecords=totalDaysPresent=0;
+    }
+
 
     public void getBatchID(String batchID)
     {
