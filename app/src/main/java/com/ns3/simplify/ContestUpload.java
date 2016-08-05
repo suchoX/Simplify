@@ -203,7 +203,7 @@ public class ContestUpload extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Set Timer");
+        getSupportActionBar().setTitle("Set Timer and Question Upload");
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
