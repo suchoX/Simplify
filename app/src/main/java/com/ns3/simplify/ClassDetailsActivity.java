@@ -21,6 +21,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -156,16 +158,55 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
         graphFragment.getBatchID(batchID);
     }
 
+
+    boolean selectDateCheck = false;
+    boolean dateSelected = false;
+    TextView dateText;
+    Date selectedDate;
+
     public void startBluetoothScanActivity()
     {
 
         final EditText numberScansView,valueView;
-        Button scanNow,directMark;
+        final Button scanNow,directMark,selectDate;
+        final CheckBox dateCheck;
         tempBuilder = new AlertDialog.Builder(this);
         beforeScanDialog = tempBuilder.create();
         factory = getLayoutInflater();
         beforeScanView = factory.inflate(R.layout.dialog_before_scan,null);
         beforeScanDialog.setView(beforeScanView);
+
+        dateText = (TextView)beforeScanView.findViewById(R.id.date_text);
+        selectDate = (Button)beforeScanView.findViewById(R.id.select_date);
+        selectDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar now = Calendar.getInstance();
+                DatePickerDialog dpd = DatePickerDialog.newInstance(
+                        ClassDetailsActivity.this,
+                        now.get(Calendar.YEAR),
+                        now.get(Calendar.MONTH),
+                        now.get(Calendar.DAY_OF_MONTH)
+                );
+                dpd.show(getFragmentManager(), "Datepickerdialog");
+            }
+        });
+        dateCheck = (CheckBox)beforeScanView.findViewById(R.id.date_check);
+        dateCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                selectDateCheck = isChecked;
+                if(isChecked) {
+                    selectDate.setVisibility(View.VISIBLE);
+                    dateText.setVisibility(View.VISIBLE);
+                }
+                else {
+                    selectDate.setVisibility(View.GONE);
+                    dateText.setVisibility(View.GONE);
+                }
+
+            }
+        });
 
         numberScansView = (EditText)beforeScanView.findViewById(R.id.number_scans_edit);
         valueView = (EditText)beforeScanView.findViewById(R.id.value_edit);
@@ -174,7 +215,9 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
             @Override
             public void onClick(View v) {
                 int numberScans,value;
-                if(numberScansView.getText().toString().trim().equalsIgnoreCase(""))
+                if(selectDateCheck && !dateSelected)
+                    Toast.makeText(ClassDetailsActivity.this,"Please Choose a Date or Uncheck Select Date",Toast.LENGTH_LONG).show();
+                else if(numberScansView.getText().toString().trim().equalsIgnoreCase(""))
                     numberScansView.setError("This cannot be empty");
                 else if(valueView.getText().toString().trim().equalsIgnoreCase(""))
                     valueView.setError("This cannot be empty");
@@ -185,6 +228,8 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
                     intent.putExtra("Batch ID", batchID);
                     intent.putExtra("Value",value);
                     intent.putExtra("Number Scans",numberScans);
+                    intent.putExtra("Manual Date",selectDateCheck);
+                    intent.putExtra("Selected Date",selectedDate);
                     startActivity(intent);
                     beforeScanDialog.dismiss();
                 }
@@ -197,7 +242,9 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
             public void onClick(View v) {
                 macID = new ArrayList<String>();
                 int value;
-                if(valueView.getText().toString().trim().equalsIgnoreCase(""))
+                if(selectDateCheck && !dateSelected)
+                    Toast.makeText(ClassDetailsActivity.this,"Please Choose a Date or Uncheck Select Date",Toast.LENGTH_LONG).show();
+                else if(valueView.getText().toString().trim().equalsIgnoreCase(""))
                     valueView.setError("This cannot be empty");
                 else {
                     value = Integer.parseInt(valueView.getText().toString().trim());
@@ -205,6 +252,8 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
                     in.putExtra("Batch ID", batchID);
                     in.putExtra("Value",value);
                     in.putStringArrayListExtra("MAC ID's", macID);
+                    in.putExtra("Manual Date",selectDateCheck);
+                    in.putExtra("Selected Date",selectedDate);
                     startActivity(in);
                     beforeScanDialog.dismiss();
                 }
@@ -375,7 +424,15 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
         Date toDate = new Date(yearEnd,monthOfYearEnd,dayOfMonthEnd);
         //Toast.makeText(this,""+fromDate.getDate()+"/"+(fromDate.getMonth()+1)+"/"+fromDate.getYear()+" "+toDate.getDate()+"/"+(toDate.getMonth()+1)+"/"+toDate.getYear(),Toast.LENGTH_LONG).show();
 
-        Excel_sheet_access.saveExcelFile(ClassDetailsActivity.this,"Attendance_data_from_"+dayOfMonth+"-"+(monthOfYear+1)+"-"+year+"_to_"+dayOfMonthEnd+"-"+(monthOfYearEnd+1)+"-"+yearEnd+".xls",batchID,fromDate,toDate);
+        if(!selectDateCheck)
+            Excel_sheet_access.saveExcelFile(ClassDetailsActivity.this,"Attendance_data_from_"+dayOfMonth+"-"+(monthOfYear+1)+"-"+year+"_to_"+dayOfMonthEnd+"-"+(monthOfYearEnd+1)+"-"+yearEnd+".xls",batchID,fromDate,toDate);
+        else
+        {
+            dateText.setVisibility(View.VISIBLE);
+            dateText.setText(""+dayOfMonth+"/"+(monthOfYear+1)+"/"+year);
+            selectedDate = new Date(year-1900,monthOfYear,dayOfMonth);
+            dateSelected = true;
+        }
     }
 
     private String getCurrentFragmentName()

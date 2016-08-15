@@ -17,6 +17,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 import com.ns3.simplify.adapters.MarkStudentListAdapter;
@@ -53,6 +54,10 @@ public class MarkStudentsActivity extends AppCompatActivity
 
     ListView markStudentListView;
 
+
+    boolean selectDateCheck = false;
+    Date selectedDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +72,11 @@ public class MarkStudentsActivity extends AppCompatActivity
         }
         initToolbar();
         value = getIntent().getIntExtra("Value",1);
+
+        selectDateCheck = getIntent().getBooleanExtra("Manual Date",false);
+        selectedDate = (Date)getIntent().getSerializableExtra("Selected Date");
+
+        //Toast.makeText(this,""+selectDateCheck+" "+selectedDate.getDate()+" "+(selectedDate.getMonth()+1)+" "+(selectedDate.getYear()),Toast.LENGTH_LONG).show();
 
         realmConfig = new RealmConfiguration.Builder(this).build();
         realm = Realm.getInstance(realmConfig);
@@ -152,7 +162,10 @@ public class MarkStudentsActivity extends AppCompatActivity
         record = new DateRegister();
         realm.beginTransaction();
         record.setDateID(realm.where(DateRegister.class).findAll().size() + 1);
-        record.setDateToday(new Date());
+        if(selectDateCheck)
+            record.setDateToday(selectedDate);
+        else
+            record.setDateToday(new Date());
         record.setValue(value);
         record.setStudentPresent(presentStudentList);
         realm.copyToRealmOrUpdate(record);

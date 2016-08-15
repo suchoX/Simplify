@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.skyfishjy.library.RippleBackground;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class BluetoothScanActivity extends AppCompatActivity {
 
@@ -38,6 +39,8 @@ public class BluetoothScanActivity extends AppCompatActivity {
     RippleBackground rippleBackground;
 
     String batchID;
+    boolean selectDateCheck = false;
+    Date selectedDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +57,8 @@ public class BluetoothScanActivity extends AppCompatActivity {
         batchID = getIntent().getStringExtra("Batch ID");
         numCountScans = getIntent().getIntExtra("Number Scans",3);
         value = getIntent().getIntExtra("Value",1);
+        selectDateCheck = getIntent().getBooleanExtra("Manual Date",false);
+        selectedDate = (Date)getIntent().getSerializableExtra("Selected Date");
         //Toast.makeText(this, numCountScans + " " + value, Toast.LENGTH_LONG).show();
 
         rippleBackground = (RippleBackground)findViewById(R.id.content);
@@ -120,6 +125,8 @@ public class BluetoothScanActivity extends AppCompatActivity {
                         in.putExtra("Batch ID", batchID);
                         in.putExtra("Value",value);
                         in.putStringArrayListExtra("MAC ID's", macID);
+                        intent.putExtra("Manual Date",selectDateCheck);
+                        intent.putExtra("Selected Date",selectedDate);
                         startActivity(in);
                         finish();
                     }
