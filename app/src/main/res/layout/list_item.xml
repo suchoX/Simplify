@@ -26,7 +26,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:text="Networking - CS502"
-                android:textSize="22sp"/>
+                android:textSize="22sp"
+                android:gravity="center"/>
             <TextView
                 android:id="@+id/class_info"
                 android:layout_below="@+id/sub_info"
