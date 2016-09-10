@@ -61,6 +61,7 @@ public class StudentAttendanceFragment extends Fragment
 
         presentDatesID = new ArrayList<Integer>();
         registerRecords = realm.where(Register.class).equalTo("BatchID",batchID).findFirst().getRecord();
+        registerRecords.sort("dateToday");
         for(int i=0 ; i<registerRecords.size() ; i++)
             totalNumRecords+=registerRecords.get(i).getValue();
         selectedStudent = realm.where(Student.class).equalTo("Roll_number",rollNum).findFirst();
