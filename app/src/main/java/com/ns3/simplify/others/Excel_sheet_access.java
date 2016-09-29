@@ -1,10 +1,12 @@
 package com.ns3.simplify.others;
 
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
@@ -247,7 +249,7 @@ public class Excel_sheet_access
         return;
     }
 
-    public static boolean saveExcelFile(Context context, String fileName, String batchID)
+    public static boolean saveExcelFile(final Context context, final String fileName, String batchID)
     {
         Realm realm;
         RealmConfiguration realmConfig = new RealmConfiguration.Builder(context).build();
@@ -300,11 +302,28 @@ public class Excel_sheet_access
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id)
                             {
-                                Intent intent = new Intent();
-                                intent.setAction(android.content.Intent.ACTION_VIEW);
-                                intent.setDataAndType(Uri.fromFile(f),"application/vnd.ms-excel");
-                                cx.startActivity(intent);
+                                try {
+                                    Intent intent = new Intent();
+                                    intent.setAction(android.content.Intent.ACTION_VIEW);
+                                    intent.setDataAndType(Uri.fromFile(f), "application/vnd.ms-excel");
+                                    cx.startActivity(intent);
+                                } catch (ActivityNotFoundException e)
+                                {
+                                    Toast.makeText(context,"No App installed to open Excel Sheets",Toast.LENGTH_LONG).show();
+                                }
 
+                            }
+                        })
+                        .setNeutralButton("Email", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                File filelocation = new File(context.getExternalFilesDir(null), fileName);
+                                Uri path = Uri.fromFile(filelocation);
+                                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                                emailIntent .setType("vnd.android.cursor.dir/email");
+                                emailIntent .putExtra(Intent.EXTRA_STREAM, path);
+                                emailIntent .putExtra(Intent.EXTRA_SUBJECT, "Simplify Exported Student Data");
+                                context.startActivity(Intent.createChooser(emailIntent , "Send email..."));
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -337,7 +356,7 @@ public class Excel_sheet_access
     }
 
 
-    public static boolean saveExcelFile(Context context, String fileName, String batchID,Date fromDate, Date toDate)
+    public static boolean saveExcelFile(final Context context, final String fileName, String batchID,Date fromDate, Date toDate)
     {
         Realm realm;
         RealmConfiguration realmConfig = new RealmConfiguration.Builder(context).build();
@@ -399,11 +418,28 @@ public class Excel_sheet_access
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id)
                             {
-                                Intent intent = new Intent();
-                                intent.setAction(android.content.Intent.ACTION_VIEW);
-                                intent.setDataAndType(Uri.fromFile(f),"application/vnd.ms-excel");
-                                cx.startActivity(intent);
+                                try {
+                                    Intent intent = new Intent();
+                                    intent.setAction(android.content.Intent.ACTION_VIEW);
+                                    intent.setDataAndType(Uri.fromFile(f), "application/vnd.ms-excel");
+                                    cx.startActivity(intent);
+                                }catch (ActivityNotFoundException e)
+                                {
+                                    Toast.makeText(context,"No App installed to open Excel Sheets",Toast.LENGTH_LONG).show();
+                                }
 
+                            }
+                        })
+                        .setNeutralButton("Email", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                File filelocation = new File(context.getExternalFilesDir(null), fileName);
+                                Uri path = Uri.fromFile(filelocation);
+                                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                                emailIntent .setType("vnd.android.cursor.dir/email");
+                                emailIntent .putExtra(Intent.EXTRA_STREAM, path);
+                                emailIntent .putExtra(Intent.EXTRA_SUBJECT,"Simplify Exported Student Data");
+                                context.startActivity(Intent.createChooser(emailIntent , "Send email..."));
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {

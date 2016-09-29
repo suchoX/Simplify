@@ -410,7 +410,7 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
                         String formattedDate = df.format(c.getTime());
                         // TODO: 28-May-16
                         //Register register = realm.where(Register.class).equalTo("BatchID",batchID).findFirst();
-                        Excel_sheet_access.saveExcelFile(ClassDetailsActivity.this,"Full_attendance_data_till_"+formattedDate+".xls",batchID);
+                        Excel_sheet_access.saveExcelFile(ClassDetailsActivity.this,"Full_attendance_data_till_"+formattedDate+"-"+subCode+".xls",batchID);
                     }
                 });
         AlertDialog alert = builder.create();
@@ -425,7 +425,7 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
         //Toast.makeText(this,""+fromDate.getDate()+"/"+(fromDate.getMonth()+1)+"/"+fromDate.getYear()+" "+toDate.getDate()+"/"+(toDate.getMonth()+1)+"/"+toDate.getYear(),Toast.LENGTH_LONG).show();
 
         if(!selectDateCheck)
-            Excel_sheet_access.saveExcelFile(ClassDetailsActivity.this,"Attendance_data_from_"+dayOfMonth+"-"+(monthOfYear+1)+"-"+year+"_to_"+dayOfMonthEnd+"-"+(monthOfYearEnd+1)+"-"+yearEnd+".xls",batchID,fromDate,toDate);
+            Excel_sheet_access.saveExcelFile(ClassDetailsActivity.this,"Attendance_data_from_"+dayOfMonth+"-"+(monthOfYear+1)+"-"+year+"_to_"+dayOfMonthEnd+"-"+(monthOfYearEnd+1)+"-"+yearEnd+"_"+subCode+".xls",batchID,fromDate,toDate);
         else
         {
             dateText.setVisibility(View.VISIBLE);
