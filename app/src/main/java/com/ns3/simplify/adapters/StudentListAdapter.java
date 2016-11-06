@@ -2,6 +2,8 @@ package com.ns3.simplify.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,8 @@ import android.widget.TextView;
 import com.ns3.simplify.ClassDetailsActivity;
 import com.ns3.simplify.R;
 import com.ns3.simplify.realm.Student;
+
+import io.realm.RealmList;
 import io.realm.RealmResults;
 
 /**
@@ -73,6 +77,40 @@ public class StudentListAdapter extends BaseAdapter
             @Override
             public void onClick(View v) {
                 ((ClassDetailsActivity)context).showStudentAttendanceFragment(studentList.get(position).getRoll_number());
+            }
+        });
+
+        convertView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("Delete Student from Class?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id)
+                            {
+                                RealmList<Student> finalStudents = new RealmList<Student>();
+                                for(int i=0 ; i<studentList.size() ; i++) {
+                                    if(i!=position)
+                                        finalStudents.add(studentList.get(i));
+                                }
+                                ((ClassDetailsActivity)context).updateStudentList(finalStudents);
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id)
+                            {
+
+
+                            }
+                        }).create();
+                AlertDialog alert = builder.create();
+                alert.show();
+
+
+                return false;
             }
         });
 

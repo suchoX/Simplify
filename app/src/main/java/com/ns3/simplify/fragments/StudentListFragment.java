@@ -56,6 +56,15 @@ public class StudentListFragment extends Fragment
         positions = new ArrayList<Integer>();
         rollNums = new ArrayList<String>();
 
+        initilizeList();
+
+        return view;
+    }
+
+    public void initilizeList()
+    {
+        positions.clear();
+        rollNums.clear();
         tempStudentList1 = realm.where(Register.class).equalTo("BatchID",batchID).findFirst().getStudents();
         for(int i=0 ; i<tempStudentList1.size() ; i++)
         {
@@ -82,8 +91,6 @@ public class StudentListFragment extends Fragment
 
         studentListAdapter = new StudentListAdapter(context,studentList);
         studentListView.setAdapter(studentListAdapter);
-
-        return view;
     }
 
     public void getBatchID(String batchID)

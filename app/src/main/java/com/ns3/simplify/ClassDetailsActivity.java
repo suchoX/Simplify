@@ -384,6 +384,16 @@ public class ClassDetailsActivity extends AppCompatActivity implements DatePicke
         Toast.makeText(this,name+" added to this Register",Toast.LENGTH_LONG).show();
     }
 
+    public void updateStudentList(RealmList<Student> studentList)
+    {
+        Register register;
+        register = realm.where(Register.class).equalTo("BatchID",batchID).findFirst();
+        realm.beginTransaction();
+        register.setStudents(studentList);
+        realm.commitTransaction();
+        studentListFragment.initilizeList();
+    }
+
     public void exportExcelSheet()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
