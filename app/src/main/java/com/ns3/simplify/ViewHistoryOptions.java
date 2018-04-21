@@ -12,11 +12,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import com.ns3.simplify.realm.ContestHost;
-import com.ns3.simplify.realm.ContestParticipant;
-import com.ns3.simplify.realm.Marks;
-import com.ns3.simplify.realm.Participant;
-import com.scand.realmbrowser.RealmBrowser;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;

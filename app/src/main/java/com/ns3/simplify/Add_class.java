@@ -27,7 +27,6 @@ import com.ns3.simplify.others.Excel_sheet_access;
 import com.ns3.simplify.realm.DateRegister;
 import com.ns3.simplify.realm.Register;
 import com.ns3.simplify.realm.Student;
-import com.scand.realmbrowser.RealmBrowser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,13 +116,13 @@ public class Add_class extends AppCompatActivity
         bu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<Class<? extends RealmObject>> classes = new ArrayList<>();
+                /*List<Class<? extends RealmObject>> classes = new ArrayList<>();
                 classes.add(Register.class);
                 classes.add(Student.class);
                 classes.add(DateRegister.class);
                 new RealmBrowser.Builder(Add_class.this)
                         .add(realm, classes)
-                        .show();
+                        .show();*/
             }
         });
 
