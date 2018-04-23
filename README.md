@@ -45,3 +45,8 @@ The Wi-Fi quiz section will have the following features-
 3. The questions will be sent and displayed to the applicants in an MCQ format. 
 
 4. Selection of questions will be in a random fashion from a question pool containing a set of preloaded questions. 
+
+###Instructions
+* The Excel sheets used for importing **Must be in .XLS(Word 2003 format) ONLY, NOT .XLSX.** The format of the import excel sheet should be-
+<img src="https://github.com/suchoX/Simplify/blob/master/Images/Capture.JPG">
+The last column signifies the answer among 4 options (starting index from 1).
