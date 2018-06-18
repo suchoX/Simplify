@@ -2,7 +2,7 @@
 
 Download the apk from [HERE](https://github.com/suchoX/Simplify/blob/master/Simplify.apk "Simplify APK")
 
-##Automatic Bluetooth Attendance
+## Automatic Bluetooth Attendance
 
 Marking attendance in schools/colleges are still done on physical registers which is time consuming and takes a lot of time to manually copy data from the register to a excel sheet. This process also makes getting personalized data like individual attendance percentage impossible.
 
@@ -14,11 +14,11 @@ Simplify aims to make this process simpler and with minimal physical work. Follo
 * Graphically compare attendance percentage of each student
 * Use of [Realm](https://realm.io/ "Realm") Database and [Scand Database Browser](http://scand.com/products/realmbrowser/ "Scand") to edit the RAW database 
 
-####ScreenShots
+#### ScreenShots
 <img src="https://github.com/suchoX/Simplify/blob/master/Images/Register_list.png" width="275" height="427"> <img src="https://github.com/suchoX/Simplify/blob/master/Images/Class_Details.png" width="275" height="427"> <img src="https://github.com/suchoX/Simplify/blob/master/Images/Student_details.png" width="275" height="427"> 
 <img src="https://github.com/suchoX/Simplify/blob/master/Images/Student_attendance.png" width="275" height="427"> <img src="https://github.com/suchoX/Simplify/blob/master/Images/Attendance_graph.png" width="275" height="427"> <img src="https://github.com/suchoX/Simplify/blob/master/Images/Date_range.png" width="275" height="427">
 
-###Instructions
+### Instructions
 * The Excel sheets used for importing **Must be in .XLS(Word 2003 format) ONLY, NOT .XLSX.** The format of the import excel sheet should be-
 <img src="https://github.com/suchoX/Simplify/blob/master/Images/Import_Excel_Sheet.PNG">
 
@@ -34,7 +34,7 @@ Simplify aims to make this process simpler and with minimal physical work. Follo
 
 
 
-##Wi-Fi Quiz
+## Wi-Fi Quiz
 
 The Wi-Fi quiz section will have the following features- 
 
@@ -46,7 +46,7 @@ The Wi-Fi quiz section will have the following features-
 
 4. Selection of questions will be in a random fashion from a question pool containing a set of preloaded questions. 
 
-###Instructions
+### Instructions
 * The Excel sheets used for importing **Must be in .XLS(Word 2003 format) ONLY, NOT .XLSX.** The format of the import excel sheet should be-
 <img src="https://github.com/suchoX/Simplify/blob/master/Images/Capture.JPG">
 The last column signifies the answer among 4 options (starting index from 1).
